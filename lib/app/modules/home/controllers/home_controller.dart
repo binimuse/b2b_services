@@ -1,11 +1,15 @@
+import 'package:flutter/material.dart';
 import 'package:geolocator/geolocator.dart';
 import 'package:get/get.dart';
+import 'package:qr_code_scanner/qr_code_scanner.dart';
 
 class HomeController extends GetxController {
   //TODO: Implement HomeController
 
   final count = 0.obs;
-   var status = false.obs;
+  var status = false.obs;
+  final GlobalKey<ScaffoldState> keyforall = GlobalKey<ScaffoldState>();
+
   @override
   void onInit() {
     askforpermission();
@@ -35,12 +39,5 @@ class HomeController extends GetxController {
     }
   }
 
-  @override
-  void onReady() {
-    super.onReady();
-  }
-
-  @override
-  void onClose() {}
   void increment() => count.value++;
 }

@@ -1,5 +1,7 @@
 import 'dart:async';
 
+import 'package:b2b_services/app/modules/home/views/widgets/nav_drawer.dart';
+import 'package:b2b_services/app/modules/home/views/widgets/scan_qr_code.dart';
 import 'package:dotted_line/dotted_line.dart';
 import 'package:flutter/material.dart';
 import 'package:geolocator/geolocator.dart';
@@ -20,10 +22,8 @@ class HomeView extends GetView<HomeController> {
 
   Widget build(BuildContext context) {
     return Scaffold(
-      floatingActionButton: FloatingActionButton(
-          backgroundColor: Color.fromARGB(255, 57, 152, 230),
-          onPressed: (() {}),
-          child: Icon(Icons.phone, color: Colors.white)),
+       key: controller.keyforall,
+       drawer: NavDrawer(),
       body: SafeArea(
         child: Stack(
           children: [
@@ -45,9 +45,32 @@ class HomeView extends GetView<HomeController> {
             ),
             customappbar(),
             popupdialogue(context),
-            Align(
-              alignment: Alignment.bottomCenter,
-              child: finishandstartbutton("Start Delivery",context))
+            Positioned(
+              bottom: 10.h,
+              right: 5.w,
+              child: Obx(() {
+                return FlutterSwitch(
+                  activeColor: Colors.green,
+                  inactiveColor: Colors.red,
+                  width: 30.w,
+                  height: 6.h,
+                  valueFontSize: 25.0,
+                  toggleSize: 10.w,
+                  value: controller.status.value,
+                  borderRadius: 5.0,
+                  padding: 8.0,
+                  showOnOff: true,
+                  onToggle: (val) {
+                    controller.status.value = val;
+                  },
+                );
+              }),
+            ),
+            Positioned(
+               bottom: 1.h,  
+               left: 6.w, 
+               right: 6.w,        
+                child: finishandstartbutton("Start Delivery", context)),
           ],
         ),
       ),
@@ -58,55 +81,38 @@ class HomeView extends GetView<HomeController> {
     return Container(
       height: 8.h,
       width: Get.width,
-      color: Colors.white.withOpacity(0.7),
+      color: Colors.white.withOpacity(0.6),
       padding: EdgeInsets.symmetric(vertical: 1.h, horizontal: 4.w),
       child: Row(
         crossAxisAlignment: CrossAxisAlignment.start,
         mainAxisAlignment: MainAxisAlignment.spaceBetween,
         children: [
-          IconButton(
-              onPressed: () {},
-              icon: Icon(
-                Icons.menu,
-                color: Colors.greenAccent,
-                size: 9.w,
-              )),
+          Container(
+            color: Colors.white,
+            child: IconButton(
+                onPressed: () {
+                     controller.keyforall.currentState!.openDrawer();
+                },
+                icon: Icon(
+                  Icons.menu,
+                  color: Colors.greenAccent,
+                  size: 9.w,
+                )),
+          ),
           SizedBox(
             width: 2.w,
           ),
-          Row(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              IconButton(
-                  onPressed: () {},
-                  icon: Icon(
-                    Icons.qr_code_scanner_rounded,
-                    color: Colors.greenAccent,
-                    size: 9.w,
-                  )),
-              SizedBox(
-                width: 2.w,
-              ),
-              Obx(() {
-                return Container(
-                  alignment: Alignment.topCenter,
-                  child: FlutterSwitch(
-                    activeColor: Colors.greenAccent,
-                    width: 30.w,
-                    height: 6.h,
-                    valueFontSize: 25.0,
-                    toggleSize: 10.w,
-                    value: controller.status.value,
-                    borderRadius: 5.0,
-                    padding: 8.0,
-                    showOnOff: true,
-                    onToggle: (val) {
-                      controller.status.value = val;
-                    },
-                  ),
-                );
-              }),
-            ],
+          Container(
+            color: Colors.white,
+            child: IconButton(
+                onPressed: () {
+                  Get.to(() => ScanQRCodepage());
+                },
+                icon: Icon(
+                  Icons.qr_code_scanner_rounded,
+                  color: Colors.greenAccent,
+                  size: 9.w,
+                )),
           )
         ],
       ),
@@ -116,7 +122,7 @@ class HomeView extends GetView<HomeController> {
   Container popupdialogue(BuildContext context) {
     return Container(
       width: Get.width,
-      height: 30.h,
+      height: 28.h,
       margin: EdgeInsets.symmetric(horizontal: 5.w, vertical: 10.h),
       decoration: BoxDecoration(
         borderRadius: BorderRadius.all(Radius.circular(6)),
@@ -262,7 +268,8 @@ class HomeView extends GetView<HomeController> {
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
                 SizedBox(
-                    width: 40.w,
+                    height: 6.h,
+                    width: 42.w,
                     child: Container(
                       decoration: BoxDecoration(
                         color: Colors.redAccent,
@@ -273,7 +280,7 @@ class HomeView extends GetView<HomeController> {
                         style: ElevatedButton.styleFrom(
                           backgroundColor: Colors.transparent,
                           shadowColor: Colors.transparent,
-                          padding: EdgeInsets.symmetric(vertical: 2.3.h),
+                          padding: EdgeInsets.symmetric(vertical: 1.h),
                         ),
                         child: Text('Decline',
                             style: Theme.of(context)
@@ -285,7 +292,8 @@ class HomeView extends GetView<HomeController> {
                       ),
                     )),
                 SizedBox(
-                    width: 40.w,
+                  height: 6.h,
+                    width: 42.w,
                     child: Container(
                       decoration: BoxDecoration(
                         color: Colors.green,
@@ -296,7 +304,7 @@ class HomeView extends GetView<HomeController> {
                         style: ElevatedButton.styleFrom(
                           backgroundColor: Colors.transparent,
                           shadowColor: Colors.transparent,
-                          padding: EdgeInsets.symmetric(vertical: 2.3.h),
+                          padding: EdgeInsets.symmetric(vertical: 1.h),
                         ),
                         child: Text('Accept',
                             style: Theme.of(context)
@@ -315,7 +323,7 @@ class HomeView extends GetView<HomeController> {
     );
   }
 
-  Container finishandstartbutton(String title,BuildContext context) {
+  Container finishandstartbutton(String title, BuildContext context) {
     return Container(
       width: 80.w,
       decoration: BoxDecoration(
@@ -325,8 +333,9 @@ class HomeView extends GetView<HomeController> {
       child: ElevatedButton(
         onPressed: () {},
         style: ElevatedButton.styleFrom(
-          backgroundColor: Colors.transparent,
-          shadowColor: Colors.transparent,
+          backgroundColor: Color.fromARGB(255, 62, 164, 247),
+          shadowColor: Colors.grey,
+          elevation: 15,
           padding: EdgeInsets.symmetric(vertical: 2.3.h),
         ),
         child: Text(title,

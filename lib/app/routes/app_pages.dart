@@ -16,7 +16,7 @@ part 'app_routes.dart';
 class AppPages {
   AppPages._();
 
-  static const INITIAL = Routes.SCAN_QR_CODE;
+  static const INITIAL = Routes.HOME;
 
   static final routes = [
     GetPage(

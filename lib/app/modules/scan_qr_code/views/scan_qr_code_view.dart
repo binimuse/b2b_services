@@ -129,6 +129,7 @@ class ScanQrCodeView extends GetView<ScanQrCodeController> {
   }
   Container finishandstartbutton(BuildContext context) {
     return Container(
+      height: 15.w,
       width: 60.w,
       decoration: BoxDecoration(
         border: Border.all(color: Color.fromARGB(255, 62, 164, 247),),
@@ -138,8 +139,9 @@ class ScanQrCodeView extends GetView<ScanQrCodeController> {
       child: ElevatedButton(
         onPressed: () {},
         style: ElevatedButton.styleFrom(
+
           backgroundColor: Colors.transparent,
-          shadowColor: Colors.transparent,
+          shadowColor: Colors.grey,
           padding: EdgeInsets.symmetric(vertical: 2.3.h),
         ),
         child: Text("Done",
