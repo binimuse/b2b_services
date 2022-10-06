@@ -1,4 +1,6 @@
 
+// ignore_for_file: constant_identifier_names
+
 import 'package:b2b_services/app/constant/size_config.dart';
 import 'package:flutter/material.dart';
 
