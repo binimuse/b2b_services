@@ -89,7 +89,7 @@ class SignInController extends GetxController {
 
         await prefs.setString('access_token', result.data!["login"]["token"]);
         Navigator.of(Get.context!).pop();
-        Get.offNamed(Routes.HOME);
+        Get.offNamed(Routes.MAIN_SCREEN_DISTRIBUTER);
       } else {
         Navigator.of(Get.context!).pop();
         print(result.exception);

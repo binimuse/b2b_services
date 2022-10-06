@@ -16,7 +16,7 @@ class SplashController extends GetxController {
     acc = prefs.getString('access_token');
 
     if (acc != null) {
-      Get.toNamed(Routes.HOME);
+      Get.toNamed(Routes.MAIN_SCREEN_DISTRIBUTER);
     } else {
       Get.toNamed(Routes.SIGN_IN);
     }
