@@ -3,9 +3,8 @@ this is global style
 This file is used to styling a whole application
  */
 
-
-import 'package:b2b_services/app/modules/config/theme/custom_colors.dart';
-import 'package:b2b_services/app/modules/constant/constants.dart';
+import 'package:b2b_services/app/config/theme/custom_colors.dart';
+import 'package:b2b_services/app/constant/constants.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 

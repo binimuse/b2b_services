@@ -1,11 +1,9 @@
-import 'package:b2b_services/app/modules/config/theme/custom_colors.dart';
-import 'package:b2b_services/app/modules/config/theme/custom_sizes.dart';
+import 'package:b2b_services/app/config/theme/custom_colors.dart';
+import 'package:b2b_services/app/config/theme/custom_sizes.dart';
+import 'package:b2b_services/app/constant/size_config.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
-
 import 'package:get/get.dart';
-
-import '../../constant/size_config.dart';
 import '../controllers/splash_controller.dart';
 
 class SplashView extends StatefulWidget {

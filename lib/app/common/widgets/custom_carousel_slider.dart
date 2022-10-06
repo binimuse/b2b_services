@@ -1,11 +1,10 @@
 import 'dart:async';
-
-import 'package:b2b_services/app/modules/config/theme/custom_sizes.dart';
-import 'package:b2b_services/app/modules/config/utils/screen_utils.dart';
+import 'package:b2b_services/app/config/theme/custom_colors.dart';
+import 'package:b2b_services/app/config/theme/custom_sizes.dart';
+import 'package:b2b_services/app/config/utils/screen_utils.dart';
 import 'package:flutter/material.dart';
 import 'package:smooth_page_indicator/smooth_page_indicator.dart';
 
-import '../../modules/config/theme/custom_colors.dart';
 
 class CarouselSlider extends StatefulWidget {
   const CarouselSlider({

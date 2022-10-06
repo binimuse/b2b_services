@@ -1,6 +1,6 @@
 import 'package:b2b_services/app/Services/graphql_conf.dart';
-import 'package:b2b_services/app/modules/config/theme/custom_colors.dart';
-import 'package:b2b_services/app/modules/constant/reusable_widget.dart';
+import 'package:b2b_services/app/config/theme/custom_colors.dart';
+import 'package:b2b_services/app/constant/reusable_widget.dart';
 import 'package:b2b_services/app/modules/sign_in/data/mutation/signin_mutation.dart';
 import 'package:b2b_services/app/routes/app_pages.dart';
 import 'package:flutter/material.dart';
@@ -8,7 +8,7 @@ import 'package:get/get.dart';
 import 'package:graphql_flutter/graphql_flutter.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
-import '../../constant/constants.dart';
+import '../../../constant/constants.dart';
 
 class SignInController extends GetxController {
   //TODO: Implement SigninController

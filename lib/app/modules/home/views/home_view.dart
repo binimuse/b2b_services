@@ -2,6 +2,7 @@ import 'dart:async';
 
 import 'package:b2b_services/app/modules/home/views/widgets/nav_drawer.dart';
 import 'package:b2b_services/app/modules/home/views/widgets/scan_qr_code.dart';
+import 'package:b2b_services/app/routes/app_pages.dart';
 import 'package:dotted_line/dotted_line.dart';
 import 'package:flutter/material.dart';
 import 'package:geolocator/geolocator.dart';
@@ -22,8 +23,8 @@ class HomeView extends GetView<HomeController> {
 
   Widget build(BuildContext context) {
     return Scaffold(
-       key: controller.keyforall,
-       drawer: NavDrawer(),
+      key: controller.keyforall,
+      drawer: NavDrawer(),
       body: SafeArea(
         child: Stack(
           children: [
@@ -67,10 +68,11 @@ class HomeView extends GetView<HomeController> {
               }),
             ),
             Positioned(
-               bottom: 1.h,  
-               left: 6.w, 
-               right: 6.w,        
-                child: finishandstartbutton("Start Delivery", context)),
+              bottom: 2.h,
+              left: 6.w,
+              right: 6.w,
+              child: finishandstartbutton("Start Delivery", context),
+            ),
           ],
         ),
       ),
@@ -91,7 +93,7 @@ class HomeView extends GetView<HomeController> {
             color: Colors.white,
             child: IconButton(
                 onPressed: () {
-                     controller.keyforall.currentState!.openDrawer();
+                  controller.keyforall.currentState!.openDrawer();
                 },
                 icon: Icon(
                   Icons.menu,
@@ -292,7 +294,7 @@ class HomeView extends GetView<HomeController> {
                       ),
                     )),
                 SizedBox(
-                  height: 6.h,
+                    height: 6.h,
                     width: 42.w,
                     child: Container(
                       decoration: BoxDecoration(
@@ -331,18 +333,22 @@ class HomeView extends GetView<HomeController> {
         borderRadius: BorderRadius.circular(8.0),
       ),
       child: ElevatedButton(
-        onPressed: () {},
+        onPressed: () {
+          Get.toNamed(Routes.MAIN_SCREEN_DISTRIBUTER);
+        },
         style: ElevatedButton.styleFrom(
           backgroundColor: Color.fromARGB(255, 62, 164, 247),
           shadowColor: Colors.grey,
           elevation: 15,
           padding: EdgeInsets.symmetric(vertical: 2.3.h),
         ),
-        child: Text(title,
-            style: Theme.of(context)
-                .textTheme
-                .bodyMedium!
-                .copyWith(color: Colors.white, fontWeight: FontWeight.w600)),
+        child: Text(
+          title,
+          style: Theme.of(context).textTheme.bodyMedium!.copyWith(
+                color: Colors.white,
+                fontWeight: FontWeight.w600,
+              ),
+        ),
       ),
     );
   }

@@ -1,7 +1,6 @@
 import 'dart:async';
 
-
-import 'package:b2b_services/app/modules/constant/constants.dart';
+import 'package:b2b_services/app/constant/constants.dart';
 import 'package:flutter/material.dart';
 
 import '../config/theme/custom_colors.dart';

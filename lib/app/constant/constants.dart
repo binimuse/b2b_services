@@ -1,6 +1,5 @@
-// ignore_for_file: constant_identifier_names, duplicate_ignore
 
-import 'package:b2b_services/app/modules/constant/size_config.dart';
+import 'package:b2b_services/app/constant/size_config.dart';
 import 'package:flutter/material.dart';
 
 // ignore: constant_identifier_names

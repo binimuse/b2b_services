@@ -18,6 +18,10 @@ import '../modules/sign_up/bindings/sign_up_binding.dart';
 import '../modules/sign_up/views/sign_up_view.dart';
 import '../modules/splash/bindings/splash_binding.dart';
 import '../modules/splash/views/splash_view.dart';
+import '../modules_distributer/home_distributer/bindings/home_distributer_binding.dart';
+import '../modules_distributer/home_distributer/views/home_distributer_view.dart';
+import '../modules_distributer/main_screen_distributer/bindings/main_screen_distributer_binding.dart';
+import '../modules_distributer/main_screen_distributer/views/main_screen_distributer_view.dart';
 
 part 'app_routes.dart';
 
@@ -71,6 +75,16 @@ class AppPages {
       name: _Paths.FORGOT_PASSWORD,
       page: () => ForgotPasswordView(),
       binding: ForgotPasswordBinding(),
+    ),
+    GetPage(
+      name: _Paths.HOME_DISTRIBUTER,
+      page: () => const HomeDistributerView(),
+      binding: HomeDistributerBinding(),
+    ),
+    GetPage(
+      name: _Paths.MAIN_SCREEN_DISTRIBUTER,
+      page: () => const MainScreenDistributerView(),
+      binding: MainScreenDistributerBinding(),
     ),
   ];
 }

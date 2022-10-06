@@ -1,10 +1,9 @@
 import 'package:b2b_services/app/common/widgets/custom_button_feedback.dart';
-import 'package:b2b_services/app/modules/config/theme/custom_sizes.dart';
+import 'package:b2b_services/app/config/theme/custom_colors.dart';
+import 'package:b2b_services/app/config/theme/custom_sizes.dart';
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:sizer/sizer.dart';
-
-import '../../modules/config/theme/custom_colors.dart';
 import 'custom_normal_button.dart';
 import 'custom_normal_button_border.dart';
 

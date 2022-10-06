@@ -1,9 +1,9 @@
 
-import 'package:b2b_services/app/modules/config/theme/custom_colors.dart';
+import 'package:b2b_services/app/config/theme/custom_colors.dart';
+import 'package:b2b_services/app/constant/size_config.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 
-import '../../modules/constant/size_config.dart';
 
 
 
@@ -37,6 +37,6 @@ class FormError extends StatelessWidget {
                           color: CustomColors.red, fontWeight: FontWeight.w500),
                     ),
                   ],
-                )));
+                ),),);
   }
 }

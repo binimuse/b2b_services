@@ -1,10 +1,8 @@
 // ignore_for_file: depend_on_referenced_packages
 
-
-import 'package:b2b_services/app/modules/config/theme/custom_colors.dart';
+import 'package:b2b_services/app/config/theme/custom_colors.dart';
+import 'package:b2b_services/app/config/theme/custom_sizes.dart';
 import 'package:flutter/material.dart';
-
-import '../../modules/config/theme/custom_sizes.dart';
 
 class CustomEmptyWidget extends StatelessWidget {
   const CustomEmptyWidget({

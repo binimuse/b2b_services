@@ -1,12 +1,7 @@
-// ignore_for_file: depend_on_referenced_packages
-
-
+import 'package:b2b_services/app/config/theme/custom_colors.dart';
+import 'package:b2b_services/app/config/theme/custom_sizes.dart';
 import 'package:flutter/material.dart';
-
 import 'package:sizer/sizer.dart';
-
-import '../../modules/config/theme/custom_colors.dart';
-import '../../modules/config/theme/custom_sizes.dart';
 import 'custom_normal_button.dart';
 
 class WarningDialog extends StatelessWidget {

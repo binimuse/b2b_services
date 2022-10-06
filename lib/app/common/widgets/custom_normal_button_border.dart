@@ -1,7 +1,6 @@
 
+import 'package:b2b_services/app/config/theme/custom_sizes.dart';
 import 'package:flutter/material.dart';
-
-import '../../modules/config/theme/custom_sizes.dart';
 
 class CustomNormalButtonBorder extends StatelessWidget {
   const CustomNormalButtonBorder({
