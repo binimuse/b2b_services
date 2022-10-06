@@ -10,7 +10,7 @@ void main() {
     Sizer(builder: (context, orientation, deviceType) {
       return GetMaterialApp(
         debugShowCheckedModeBanner: false,
-        title: "Application",
+        title: "B2B Service",
         initialRoute: AppPages.INITIAL,
         getPages: AppPages.routes,
       );
