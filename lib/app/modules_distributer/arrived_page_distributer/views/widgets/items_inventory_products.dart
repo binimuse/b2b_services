@@ -3,8 +3,8 @@ import 'package:b2b_services/app/config/theme/custom_sizes.dart';
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 
-class ItemIncomingProducts extends StatelessWidget {
-  const ItemIncomingProducts({Key? key}) : super(key: key);
+class ItemIventoryProducts extends StatelessWidget {
+  const ItemIventoryProducts({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {

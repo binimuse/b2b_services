@@ -5,14 +5,14 @@ import 'package:b2b_services/app/modules_distributer/home_distributer/views/widg
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 
-class ItemIncomingItems extends StatefulWidget {
-  const ItemIncomingItems({Key? key}) : super(key: key);
+class ItemInventoryItems extends StatefulWidget {
+  const ItemInventoryItems({Key? key}) : super(key: key);
 
   @override
-  State<ItemIncomingItems> createState() => _ItemIncomingItemsState();
+  State<ItemInventoryItems> createState() => _ItemInventoryItemsState();
 }
 
-class _ItemIncomingItemsState extends State<ItemIncomingItems> {
+class _ItemInventoryItemsState extends State<ItemInventoryItems> {
   ///
   bool isExpanded = false;
 
@@ -49,14 +49,12 @@ class _ItemIncomingItemsState extends State<ItemIncomingItems> {
 
               ///BUILD EXPAND COLLAPSE ICONS
               buildExpandCollapseButton(),
-
-
             ],
           ),
 
 
           ///BUILD INCOMING PRODUCTS LIST
-          isExpanded ? buildIncomingProductsList():SizedBox(),
+          isExpanded ? buildIncomingProductsList() : SizedBox(),
         ],
       ),
     );
@@ -64,17 +62,19 @@ class _ItemIncomingItemsState extends State<ItemIncomingItems> {
 
   buildImageContainer() {
     return Container(
+      width: CustomSizes.icon_size_16,
+      height: CustomSizes.icon_size_16,
       decoration: BoxDecoration(
         borderRadius: BorderRadius.circular(CustomSizes.radius_6),
-        border: Border.all(color: CustomColors.blue.withOpacity(0.3), width: 2),
+        border: Border.all(color: CustomColors.blue, width: 1),
       ),
-      child: ClipRRect(
-        borderRadius: BorderRadius.circular(CustomSizes.radius_6),
-        child: Image.network(
-          "https://image.shutterstock.com/image-photo/headshot-portrait-smiling-african-american-260nw-1667439898.jpg",
-          width: CustomSizes.icon_size_14,
-          height: CustomSizes.icon_size_14,
-          fit: BoxFit.cover,
+      child: Center(
+        child: Text(
+          "S",
+          style: Theme.of(context).textTheme.headlineMedium?.copyWith(
+                color: CustomColors.blue,
+                fontWeight: FontWeight.w600,
+              ),
         ),
       ),
     );
@@ -154,11 +154,13 @@ class _ItemIncomingItemsState extends State<ItemIncomingItems> {
         ListView.separated(
           physics: NeverScrollableScrollPhysics(),
           shrinkWrap: true,
-          itemBuilder: (index,context) {
+          itemBuilder: (index, context) {
             return ItemIncomingProducts();
           },
-          separatorBuilder: (index,context) {
-            return SizedBox(height: CustomSizes.mp_v_2,);
+          separatorBuilder: (index, context) {
+            return SizedBox(
+              height: CustomSizes.mp_v_2,
+            );
           },
           itemCount: 3,
         ),
