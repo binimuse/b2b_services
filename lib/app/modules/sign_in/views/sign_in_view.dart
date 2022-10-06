@@ -37,6 +37,9 @@ class SignInView extends GetView<SignInController> {
               ///ACT HEADER
               buildActHeader(context),
 
+              ///Service  HEADER
+              buildActHeader2(context),
+
               ///BUILD DECORATIVE IMAGE
               buildImage(),
 
@@ -72,6 +75,17 @@ class SignInView extends GetView<SignInController> {
       style: Theme.of(context)
           .textTheme
           .headlineLarge
+          ?.copyWith(color: CustomColors.blue, fontWeight: FontWeight.w600),
+    );
+  }
+
+  Text buildActHeader2(BuildContext context) {
+    return Text(
+      "SERVICE",
+      textAlign: TextAlign.center,
+      style: Theme.of(context)
+          .textTheme
+          .headlineSmall
           ?.copyWith(color: CustomColors.blue, fontWeight: FontWeight.w600),
     );
   }
