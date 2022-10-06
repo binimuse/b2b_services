@@ -43,7 +43,7 @@ class BottomBar extends StatelessWidget {
           buildBottomBarTab(
             context,
             isSelected: currentIndex == 1,
-            text: 'Arrived',
+            text: 'Confirmed',
             selectedIcon: FontAwesomeIcons.solidFolderArrowDown,
             unselectedIcon: FontAwesomeIcons.folderArrowDown,
           ),
