@@ -5,7 +5,11 @@ import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:salomon_bottom_bar/salomon_bottom_bar.dart';
 
 class BottomBar extends StatelessWidget {
-  const BottomBar({Key? key}) : super(key: key);
+  const BottomBar({Key? key, required this.currentIndex, required this.onTap})
+      : super(key: key);
+
+  final int currentIndex;
+  final Function(int index) onTap;
 
   @override
   Widget build(BuildContext context) {
@@ -23,59 +27,66 @@ class BottomBar extends StatelessWidget {
         ],
       ),
       child: SalomonBottomBar(
-        currentIndex: 0,
-        onTap: (i) {},
+        currentIndex: currentIndex,
+        onTap: onTap,
         items: [
           ///INCOMING
           buildBottomBarTab(
             context,
-            isSelected: true,
+            isSelected: currentIndex == 0,
             text: 'Incoming',
-            icon: FontAwesomeIcons.hourglassStart,
+            selectedIcon: FontAwesomeIcons.solidHourglassStart,
+            unselectedIcon: FontAwesomeIcons.hourglassStart,
           ),
 
           ///INCOMING
           buildBottomBarTab(
             context,
-            isSelected: false,
-            text: 'Incoming',
-            icon: FontAwesomeIcons.hourglassStart,
+            isSelected: currentIndex == 1,
+            text: 'Arrived',
+            selectedIcon: FontAwesomeIcons.solidFolderArrowDown,
+            unselectedIcon: FontAwesomeIcons.folderArrowDown,
           ),
 
           ///INCOMING
           buildBottomBarTab(
             context,
-            isSelected: false,
-            text: 'Incoming',
-            icon: FontAwesomeIcons.hourglassStart,
+            isSelected: currentIndex == 2,
+            text: 'Shipped',
+            selectedIcon: FontAwesomeIcons.solidTruckFast,
+            unselectedIcon: FontAwesomeIcons.truckFast,
           ),
 
           ///INCOMING
           buildBottomBarTab(
             context,
-            isSelected: false,
-            text: 'Incoming',
-            icon: FontAwesomeIcons.hourglassStart,
+            isSelected: currentIndex == 3,
+            text: 'Delivred',
+            selectedIcon: FontAwesomeIcons.solidBoxCheck,
+            unselectedIcon: FontAwesomeIcons.boxCheck,
           ),
         ],
       ),
     );
   }
 
-  buildBottomBarTab(context,
-      {required bool isSelected,
-      required String text,
-      required IconData icon}) {
+  buildBottomBarTab(
+    context, {
+    required bool isSelected,
+    required String text,
+    required IconData selectedIcon,
+    required IconData unselectedIcon,
+  }) {
     return SalomonBottomBarItem(
       icon: Icon(
-        icon,
+        isSelected?selectedIcon : unselectedIcon,
         size: CustomSizes.icon_size_6,
         color: isSelected ? CustomColors.blue : CustomColors.grey,
       ),
       title: Text(
         text,
         style: Theme.of(context).textTheme.bodyMedium?.copyWith(
-          fontWeight: FontWeight.w500,
+              fontWeight: FontWeight.w500,
               color: isSelected ? CustomColors.blue : CustomColors.grey,
             ),
       ),

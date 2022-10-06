@@ -1,23 +1,11 @@
 import 'package:get/get.dart';
 
 class MainScreenDistributerController extends GetxController {
-  //TODO: Implement MainScreenDistributerController
 
-  final count = 0.obs;
-  @override
-  void onInit() {
-    super.onInit();
+  final currentBottomIndex = 0.obs;
+
+  void setCurrentBottomIndex(int index) {
+    currentBottomIndex(index);
   }
 
-  @override
-  void onReady() {
-    super.onReady();
-  }
-
-  @override
-  void onClose() {
-    super.onClose();
-  }
-
-  void increment() => count.value++;
 }

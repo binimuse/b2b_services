@@ -13,7 +13,13 @@ class MainScreenDistributerView
   Widget build(BuildContext context) {
     return Scaffold(
 
-      bottomNavigationBar: const BottomBar(),
+      bottomNavigationBar:  Obx(
+         () {
+          return BottomBar(currentIndex: controller.currentBottomIndex.value, onTap: (int index) {
+            controller.setCurrentBottomIndex(index);
+            },);
+        }
+      ),
       body: IndexedStack(
         children: const [
           HomeDistributerView(),
