@@ -1,3 +1,5 @@
+// ignore_for_file: must_be_immutable
+
 import 'package:b2b_services/app/common/widgets/custom_button_feedback.dart';
 import 'package:b2b_services/app/config/theme/custom_colors.dart';
 import 'package:b2b_services/app/config/theme/custom_sizes.dart';
@@ -13,6 +15,7 @@ import '../controllers/home_distributer_controller.dart';
 
 class HomeDistributerView extends GetView<HomeDistributerController> {
   HomeDistributerView({Key? key}) : super(key: key);
+  @override
   HomeDistributerController controller = Get.put(HomeDistributerController());
   @override
   Widget build(BuildContext context) {
