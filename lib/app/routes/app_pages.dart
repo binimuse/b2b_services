@@ -78,7 +78,7 @@ class AppPages {
     ),
     GetPage(
       name: _Paths.HOME_DISTRIBUTER,
-      page: () => const HomeDistributerView(),
+      page: () =>  HomeDistributerView(),
       binding: HomeDistributerBinding(),
     ),
     GetPage(

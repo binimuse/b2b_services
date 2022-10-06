@@ -1,18 +1,24 @@
 import 'package:b2b_services/app/common/widgets/custom_button_feedback.dart';
 import 'package:b2b_services/app/config/theme/custom_colors.dart';
 import 'package:b2b_services/app/config/theme/custom_sizes.dart';
+import 'package:b2b_services/app/modules_distributer/home_distributer/data/mutation/shipment_model.dart';
 import 'package:b2b_services/app/modules_distributer/home_distributer/views/widgets/items_incoming_products.dart';
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 
-class ItemIncomingItems extends StatefulWidget {
-  const ItemIncomingItems({Key? key}) : super(key: key);
+class ItemIncomingShipment extends StatefulWidget {
+  ItemIncomingShipment({
+    Key? key,
+    required this.shipModel,
+  }) : super(key: key);
+
+  final ShipModel shipModel;
 
   @override
-  State<ItemIncomingItems> createState() => _ItemIncomingItemsState();
+  State<ItemIncomingShipment> createState() => _ItemIncomingItemsState();
 }
 
-class _ItemIncomingItemsState extends State<ItemIncomingItems> {
+class _ItemIncomingItemsState extends State<ItemIncomingShipment> {
   ///
   bool isExpanded = false;
 
@@ -49,15 +55,14 @@ class _ItemIncomingItemsState extends State<ItemIncomingItems> {
 
               ///BUILD EXPAND COLLAPSE ICONS
               buildExpandCollapseButton(),
-
-
             ],
           ),
-          SizedBox(height: CustomSizes.mp_v_2,),
-
+          SizedBox(
+            height: CustomSizes.mp_v_2,
+          ),
 
           ///BUILD INCOMING PRODUCTS LIST
-          isExpanded ? buildIncomingProductsList():SizedBox(),
+          isExpanded ? buildIncomingProductsList() : SizedBox(),
         ],
       ),
     );
@@ -150,11 +155,13 @@ class _ItemIncomingItemsState extends State<ItemIncomingItems> {
     return ListView.separated(
       physics: NeverScrollableScrollPhysics(),
       shrinkWrap: true,
-      itemBuilder: (index,context) {
+      itemBuilder: (index, context) {
         return ItemIncomingProducts();
       },
-      separatorBuilder: (index,context) {
-        return SizedBox(height: CustomSizes.mp_v_2,);
+      separatorBuilder: (index, context) {
+        return SizedBox(
+          height: CustomSizes.mp_v_2,
+        );
       },
       itemCount: 3,
     );

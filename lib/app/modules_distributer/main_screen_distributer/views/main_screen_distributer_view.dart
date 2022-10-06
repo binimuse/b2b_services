@@ -12,16 +12,16 @@ class MainScreenDistributerView
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-
-      bottomNavigationBar:  Obx(
-         () {
-          return BottomBar(currentIndex: controller.currentBottomIndex.value, onTap: (int index) {
+      bottomNavigationBar: Obx(() {
+        return BottomBar(
+          currentIndex: controller.currentBottomIndex.value,
+          onTap: (int index) {
             controller.setCurrentBottomIndex(index);
-            },);
-        }
-      ),
+          },
+        );
+      }),
       body: IndexedStack(
-        children: const [
+        children: [
           HomeDistributerView(),
           HomeDistributerView(),
           HomeDistributerView(),

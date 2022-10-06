@@ -3,7 +3,7 @@ import 'package:b2b_services/app/config/theme/custom_colors.dart';
 import 'package:b2b_services/app/config/theme/custom_sizes.dart';
 import 'package:b2b_services/app/config/utils/pages_util.dart';
 import 'package:b2b_services/app/helper/keyboard.dart';
-import 'package:b2b_services/app/modules_distributer/home_distributer/views/widgets/item_incoming_items.dart';
+import 'package:b2b_services/app/modules_distributer/home_distributer/views/widgets/item_incoming_shipment.dart';
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 
@@ -12,7 +12,8 @@ import 'package:get/get.dart';
 import '../controllers/home_distributer_controller.dart';
 
 class HomeDistributerView extends GetView<HomeDistributerController> {
-  const HomeDistributerView({Key? key}) : super(key: key);
+  HomeDistributerView({Key? key}) : super(key: key);
+  HomeDistributerController controller = Get.put(HomeDistributerController());
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -35,21 +36,31 @@ class HomeDistributerView extends GetView<HomeDistributerController> {
             height: CustomSizes.mp_v_2,
           ),
 
-          Expanded(
-            child: Padding(
-              padding:  EdgeInsets.symmetric(horizontal: CustomSizes.mp_w_4),
-              child: ListView.separated(
-
-                itemBuilder: (context, index) {
-                  return  const ItemIncomingItems();
-                },
-                separatorBuilder: (context, index) {
-                  return SizedBox(height: CustomSizes.mp_w_2,);
-                },
-                itemCount: 12,
-              ),
-            ),
-          ),
+          Obx(() => controller.loadingShipmentDeatil.value != false
+              ? Expanded(
+                  child: Padding(
+                  padding: EdgeInsets.symmetric(horizontal: CustomSizes.mp_w_4),
+                  child: ListView.separated(
+                    itemBuilder: (context, index) {
+                      if (controller.shipModel[index].status == "SHIPPED" ||
+                          controller.shipModel[index].status == "PENDING" &&
+                              controller.shipModel[index].from == "Warehouse") {
+                        return ItemIncomingShipment(
+                          shipModel: controller.shipModel[index],
+                        );
+                      } else {
+                        return SizedBox();
+                      }
+                    },
+                    separatorBuilder: (context, index) {
+                      return SizedBox(
+                        height: CustomSizes.mp_w_2,
+                      );
+                    },
+                    itemCount: controller.shipModel.length,
+                  ),
+                ))
+              : const Center(child: CircularProgressIndicator())),
         ],
       ),
     );
