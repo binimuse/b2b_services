@@ -1,11 +1,25 @@
+import 'package:b2b_services/app/common/widgets/custom_button_feedback.dart';
 import 'package:b2b_services/app/config/theme/custom_colors.dart';
 import 'package:b2b_services/app/config/theme/custom_sizes.dart';
 import 'package:b2b_services/app/config/utils/color_util.dart';
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
+import 'package:get_cli/common/utils/json_serialize/json_ast/json_ast.dart';
 
-class ItemOrder extends StatelessWidget {
-  const ItemOrder({Key? key}) : super(key: key);
+class ItemOrder extends StatefulWidget {
+  const ItemOrder({Key? key, required this.onTap}) : super(key: key);
+
+
+  final VoidCallback onTap;
+
+  @override
+  State<ItemOrder> createState() => _ItemOrderState();
+}
+
+class _ItemOrderState extends State<ItemOrder> {
+
+  ///
+  bool isSelected = false;
 
   @override
   Widget build(BuildContext context) {
@@ -16,7 +30,7 @@ class ItemOrder extends StatelessWidget {
       shadowColor: CustomColors.black.withOpacity(0.2),
       child: Padding(
         padding: EdgeInsets.symmetric(
-          horizontal: CustomSizes.mp_w_2,
+          horizontal: CustomSizes.mp_w_4,
           vertical: CustomSizes.mp_w_2,
         ),
         child: Row(
@@ -90,6 +104,7 @@ class ItemOrder extends StatelessWidget {
                     style: Theme.of(context).textTheme.bodySmall?.copyWith(
                           color: ColorUtil.darken(CustomColors.blue, 0.1),
                           fontSize: CustomSizes.font_8,
+                      fontWeight: FontWeight.w600,
                         ),
                   ),
                 ),
@@ -114,7 +129,7 @@ class ItemOrder extends StatelessWidget {
                 "5 kilo",
                 maxLines: 1,
                 overflow: TextOverflow.ellipsis,
-                style: Theme.of(context).textTheme.bodyMedium?.copyWith(
+                style: Theme.of(context).textTheme.bodySmall?.copyWith(
                       color: CustomColors.black,
                       fontWeight: FontWeight.w400,
                     ),
@@ -122,12 +137,9 @@ class ItemOrder extends StatelessWidget {
             ],
           ),
           SizedBox(
-            height: CustomSizes.mp_v_2,
+            height: CustomSizes.mp_v_1,
           ),
 
-          SizedBox(
-            height: CustomSizes.mp_v_1 / 2,
-          ),
           Row(
             children: [
               Text(
@@ -135,25 +147,52 @@ class ItemOrder extends StatelessWidget {
                 maxLines: 1,
                 overflow: TextOverflow.ellipsis,
                 style: Theme.of(context).textTheme.bodyMedium?.copyWith(
-                  color: ColorUtil.darken(CustomColors.blue,0.2),
-                  fontWeight: FontWeight.w500,
-                ),
+                      color: ColorUtil.darken(CustomColors.blue, 0.2),
+                      fontWeight: FontWeight.w500,
+                    ),
               ),
               const Expanded(child: SizedBox()),
-              Text(
-                "34%",
-                maxLines: 1,
-                overflow: TextOverflow.ellipsis,
-                style: Theme.of(context).textTheme.bodySmall?.copyWith(
-                      color: CustomColors.blue,
-                      fontSize: CustomSizes.font_8,
-                      fontWeight: FontWeight.w800,
-                    ),
+              CustomButtonFeedBack(
+                onTap: (){
+                 setState(() {
+                   isSelected = !isSelected;
+                 });
+                },
+                child: Container(
+                  width: CustomSizes.icon_size_8,
+                  height: CustomSizes.icon_size_8,
+                  child: Stack(
+                    children: [
+                      Icon(
+                        FontAwesomeIcons.solidTruck,
+                        size: isSelected
+                            ? CustomSizes.icon_size_8
+                            : CustomSizes.icon_size_6,
+                        color: isSelected ? CustomColors.green : CustomColors.blue,
+                      ),
+                      isSelected?  Positioned(
+                      left: 0,
+                        right: 4,
+                        bottom: 7,
+                        top: 0,
+                        child: Icon(
+                          FontAwesomeIcons.check,
+                          size: CustomSizes.icon_size_4,
+                          color: CustomColors.white ,
+                        ),
+                      ):SizedBox(),
+                    ],
+                  ),
+                ),
+
+              ),
+              SizedBox(
+                width: CustomSizes.mp_w_1,
               ),
             ],
           ),
           SizedBox(
-            height: CustomSizes.mp_v_1 ,
+            height: CustomSizes.mp_v_1,
           ),
         ],
       ),

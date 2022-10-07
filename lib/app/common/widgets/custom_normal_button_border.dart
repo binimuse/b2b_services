@@ -49,7 +49,7 @@ class CustomNormalButtonBorder extends StatelessWidget {
             children: [
               leftIcon != null
                   ? Padding(
-                      padding: EdgeInsets.only(right: CustomSizes.mp_w_4 * 0.8),
+                      padding: EdgeInsets.only(right: CustomSizes.mp_w_4 ),
                       child: Align(
                         alignment: Alignment.centerLeft,
                         child: leftIcon!,
