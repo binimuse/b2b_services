@@ -1,6 +1,5 @@
 import 'package:b2b_services/app/config/theme/custom_sizes.dart';
 import 'package:b2b_services/app/modules_distributer/arrived_page_distributer/views/widgets/item_inventory_items.dart';
-import 'package:b2b_services/app/modules_distributer/arrived_page_distributer/views/widgets/items_inventory_products.dart';
 import 'package:flutter/material.dart';
 
 class InventoryPage extends StatelessWidget {
