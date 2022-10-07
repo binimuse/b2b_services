@@ -18,7 +18,7 @@ class SplashController extends GetxController {
     if (acc != null) {
       Get.toNamed(Routes.MAIN_SCREEN_DISTRIBUTER);
     } else {
-      Get.toNamed(Routes.SIGN_IN);
+      Get.toNamed(Routes.HOME);
     }
   }
 
