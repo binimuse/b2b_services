@@ -1,21 +1,15 @@
-import 'package:b2b_services/app/common/widgets/custom_button_feedback.dart';
+import 'package:flutter/material.dart';
 import 'package:b2b_services/app/config/theme/custom_colors.dart';
 import 'package:b2b_services/app/config/theme/custom_sizes.dart';
-import 'package:b2b_services/app/modules_distributer/home_distributer/views/widgets/items_incoming_products.dart';
-import 'package:flutter/material.dart';
-import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 
-class ItemIncomingItems extends StatefulWidget {
-  const ItemIncomingItems({Key? key}) : super(key: key);
+class ItemFoundedDriver extends StatefulWidget {
+  const ItemFoundedDriver({Key? key}) : super(key: key);
 
   @override
-  State<ItemIncomingItems> createState() => _ItemIncomingItemsState();
+  State<ItemFoundedDriver> createState() => _ItemFoundedDriverState();
 }
 
-class _ItemIncomingItemsState extends State<ItemIncomingItems> {
-  ///
-  bool isExpanded = false;
-
+class _ItemFoundedDriverState extends State<ItemFoundedDriver> {
   @override
   Widget build(BuildContext context) {
     return Container(
@@ -23,15 +17,15 @@ class _ItemIncomingItemsState extends State<ItemIncomingItems> {
         borderRadius: BorderRadius.circular(
           CustomSizes.radius_6,
         ),
-        color: CustomColors.white,
         boxShadow: [
           BoxShadow(
             offset: Offset(0, 0),
-            color: Colors.black.withOpacity(0.1),
+            color: Colors.blue.withOpacity(0.1),
             spreadRadius: 2,
             blurRadius: 8,
           ),
         ],
+        color: CustomColors.white,
       ),
       padding: EdgeInsets.symmetric(
         horizontal: CustomSizes.mp_w_4,
@@ -54,17 +48,8 @@ class _ItemIncomingItemsState extends State<ItemIncomingItems> {
               SizedBox(
                 width: CustomSizes.mp_w_4,
               ),
-
-              ///BUILD EXPAND COLLAPSE ICONS
-              buildExpandCollapseButton(),
-
-
             ],
           ),
-
-
-          ///BUILD INCOMING PRODUCTS LIST
-          isExpanded ? buildIncomingProductsList():SizedBox(),
         ],
       ),
     );
@@ -124,53 +109,6 @@ class _ItemIncomingItemsState extends State<ItemIncomingItems> {
           ),
         ],
       ),
-    );
-  }
-
-  buildExpandCollapseButton() {
-    return CustomButtonFeedBack(
-      onTap: () {
-        setState(() {
-          isExpanded = !isExpanded;
-        });
-      },
-      child: Container(
-        decoration: BoxDecoration(
-          borderRadius: BorderRadius.circular(CustomSizes.radius_4),
-          color: CustomColors.blue.withOpacity(0.1),
-        ),
-        child: Padding(
-          padding: EdgeInsets.all(CustomSizes.mp_w_2),
-          child: Icon(
-            isExpanded
-                ? FontAwesomeIcons.chevronUp
-                : FontAwesomeIcons.chevronDown,
-            size: CustomSizes.icon_size_4,
-            color: CustomColors.blue,
-          ),
-        ),
-      ),
-    );
-  }
-
-  buildIncomingProductsList() {
-    return Column(
-      children: [
-        SizedBox(
-          height: CustomSizes.mp_v_2,
-        ),
-        ListView.separated(
-          physics: NeverScrollableScrollPhysics(),
-          shrinkWrap: true,
-          itemBuilder: (index,context) {
-            return ItemIncomingProducts();
-          },
-          separatorBuilder: (index,context) {
-            return SizedBox(height: CustomSizes.mp_v_2,);
-          },
-          itemCount: 3,
-        ),
-      ],
     );
   }
 }

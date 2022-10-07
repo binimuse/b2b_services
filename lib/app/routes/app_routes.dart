@@ -17,7 +17,9 @@ abstract class Routes {
   static const ARRIVED_PAGE_DISTRIBUTER = _Paths.ARRIVED_PAGE_DISTRIBUTER;
   static const SHIPPED_PAGE_DISTRIBUTER = _Paths.SHIPPED_PAGE_DISTRIBUTER;
   static const DELIVRED_PAGE_DISTRIBUTER = _Paths.DELIVRED_PAGE_DISTRIBUTER;
-  static const SEARCHING_DRIVERS_DISTRIBUTER = _Paths.SEARCHING_DRIVERS_DISTRIBUTER;
+  static const SEARCHING_DRIVERS_DISTRIBUTER =
+      _Paths.SEARCHING_DRIVERS_DISTRIBUTER;
+  static const DRIVERS_FOUND_DISTRIBUTER =_Paths.DRIVERS_FOUND_DISTRIBUTER;
 }
 
 abstract class _Paths {
@@ -37,4 +39,5 @@ abstract class _Paths {
   static const SHIPPED_PAGE_DISTRIBUTER = '/shipped-page-distributer';
   static const DELIVRED_PAGE_DISTRIBUTER = '/delivred-page-distributer';
   static const SEARCHING_DRIVERS_DISTRIBUTER = '/searching-drivers-distributer';
+  static const DRIVERS_FOUND_DISTRIBUTER = '/drivers-found-distributer';
 }

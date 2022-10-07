@@ -38,7 +38,7 @@ class _HomeDistributerViewState extends State<HomeDistributerView> {
         },
         separatorBuilder: (context, index) {
           return SizedBox(
-            height: CustomSizes.mp_w_2,
+            height: CustomSizes.mp_w_4,
           );
         },
         itemCount: 12,

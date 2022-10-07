@@ -22,6 +22,8 @@ import '../modules_distributer/arrived_page_distributer/bindings/arrived_page_di
 import '../modules_distributer/arrived_page_distributer/views/arrived_page_distributer_view.dart';
 import '../modules_distributer/delivred_page_distributer/bindings/delivred_page_distributer_binding.dart';
 import '../modules_distributer/delivred_page_distributer/views/delivred_page_distributer_view.dart';
+import '../modules_distributer/drivers_found_distributer/bindings/drivers_found_distributer_binding.dart';
+import '../modules_distributer/drivers_found_distributer/views/drivers_found_distributer_view.dart';
 import '../modules_distributer/home_distributer/bindings/home_distributer_binding.dart';
 import '../modules_distributer/home_distributer/views/home_distributer_view.dart';
 import '../modules_distributer/main_screen_distributer/bindings/main_screen_distributer_binding.dart';
@@ -113,6 +115,11 @@ class AppPages {
       name: _Paths.SEARCHING_DRIVERS_DISTRIBUTER,
       page: () => const SearchingDriversDistributerView(),
       binding: SearchingDriversDistributerBinding(),
+    ),
+    GetPage(
+      name: _Paths.DRIVERS_FOUND_DISTRIBUTER,
+      page: () => const DriversFoundDistributerView(),
+      binding: DriversFoundDistributerBinding(),
     ),
   ];
 }
