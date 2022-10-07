@@ -26,6 +26,8 @@ import '../modules_distributer/home_distributer/bindings/home_distributer_bindin
 import '../modules_distributer/home_distributer/views/home_distributer_view.dart';
 import '../modules_distributer/main_screen_distributer/bindings/main_screen_distributer_binding.dart';
 import '../modules_distributer/main_screen_distributer/views/main_screen_distributer_view.dart';
+import '../modules_distributer/searching_drivers_distributer/bindings/searching_drivers_distributer_binding.dart';
+import '../modules_distributer/searching_drivers_distributer/views/searching_drivers_distributer_view.dart';
 import '../modules_distributer/shipped_page_distributer/bindings/shipped_page_distributer_binding.dart';
 import '../modules_distributer/shipped_page_distributer/views/shipped_page_distributer_view.dart';
 
@@ -84,7 +86,7 @@ class AppPages {
     ),
     GetPage(
       name: _Paths.HOME_DISTRIBUTER,
-      page: () =>  HomeDistributerView(),
+      page: () => HomeDistributerView(),
       binding: HomeDistributerBinding(),
     ),
     GetPage(
@@ -106,6 +108,11 @@ class AppPages {
       name: _Paths.DELIVRED_PAGE_DISTRIBUTER,
       page: () => const DelivredPageDistributerView(),
       binding: DelivredPageDistributerBinding(),
+    ),
+    GetPage(
+      name: _Paths.SEARCHING_DRIVERS_DISTRIBUTER,
+      page: () => const SearchingDriversDistributerView(),
+      binding: SearchingDriversDistributerBinding(),
     ),
   ];
 }

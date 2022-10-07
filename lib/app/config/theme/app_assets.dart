@@ -6,4 +6,8 @@ class AppAssets {
       "assets/images/location_search_pana.png";
   static const String logisticsPana = "assets/images/logistics_pana.png";
   static const String anniversary = "assets/images/anniversary.png";
+
+
+  ///LOTTIE ANIMATIONS
+  static const String pulseLottie = "assets/lottie/pulse.json";
 }
