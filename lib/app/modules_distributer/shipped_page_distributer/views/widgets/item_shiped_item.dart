@@ -21,24 +21,27 @@ class _ItemShipedItemState extends State<ItemShipedItem> {
 
   @override
   Widget build(BuildContext context) {
-    return Material(
-      color: CustomColors.white,
-      borderRadius: BorderRadius.circular(CustomSizes.radius_6),
-      elevation: 4,
-      shadowColor: CustomColors.black.withOpacity(0.2),
-      child: Padding(
-        padding: EdgeInsets.symmetric(
-          horizontal: CustomSizes.mp_w_4,
-          vertical: CustomSizes.mp_w_2,
-        ),
-        child: Column(
-          children: [
-            ///BUILD MAIN ITEM VIEW
-            buildItemView(context),
+    return CustomButtonFeedBack(
+      onTap: widget.onTap,
+      child: Material(
+        color: CustomColors.white,
+        borderRadius: BorderRadius.circular(CustomSizes.radius_6),
+        elevation: 4,
+        shadowColor: CustomColors.black.withOpacity(0.2),
+        child: Padding(
+          padding: EdgeInsets.symmetric(
+            horizontal: CustomSizes.mp_w_4,
+            vertical: CustomSizes.mp_w_2,
+          ),
+          child: Column(
+            children: [
+              ///BUILD MAIN ITEM VIEW
+              buildItemView(context),
 
-            ///BUILD COLLAPSABLE EXPANDABLE VIEW
-            isSelected ? buildExpandableView() : SizedBox(),
-          ],
+              ///BUILD COLLAPSABLE EXPANDABLE VIEW
+              isSelected ? buildExpandableView() : SizedBox(),
+            ],
+          ),
         ),
       ),
     );

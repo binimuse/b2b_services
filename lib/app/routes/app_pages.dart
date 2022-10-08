@@ -20,6 +20,8 @@ import '../modules/splash/bindings/splash_binding.dart';
 import '../modules/splash/views/splash_view.dart';
 import '../modules_distributer/arrived_page_distributer/bindings/arrived_page_distributer_binding.dart';
 import '../modules_distributer/arrived_page_distributer/views/arrived_page_distributer_view.dart';
+import '../modules_distributer/assigned_orders_distributer/bindings/assigned_orders_distributer_binding.dart';
+import '../modules_distributer/assigned_orders_distributer/views/assigned_orders_distributer_view.dart';
 import '../modules_distributer/delivred_page_distributer/bindings/delivred_page_distributer_binding.dart';
 import '../modules_distributer/delivred_page_distributer/views/delivred_page_distributer_view.dart';
 import '../modules_distributer/drivers_found_distributer/bindings/drivers_found_distributer_binding.dart';
@@ -120,6 +122,11 @@ class AppPages {
       name: _Paths.DRIVERS_FOUND_DISTRIBUTER,
       page: () => const DriversFoundDistributerView(),
       binding: DriversFoundDistributerBinding(),
+    ),
+    GetPage(
+      name: _Paths.ASSIGNED_ORDERS_DISTRIBUTER,
+      page: () => const AssignedOrdersDistributerView(),
+      binding: AssignedOrdersDistributerBinding(),
     ),
   ];
 }
