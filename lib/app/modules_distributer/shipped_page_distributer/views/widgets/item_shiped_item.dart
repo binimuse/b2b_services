@@ -2,8 +2,10 @@ import 'package:b2b_services/app/common/widgets/custom_button_feedback.dart';
 import 'package:b2b_services/app/config/theme/custom_colors.dart';
 import 'package:b2b_services/app/config/theme/custom_sizes.dart';
 import 'package:b2b_services/app/config/utils/color_util.dart';
+import 'package:b2b_services/app/modules_distributer/shipped_page_distributer/views/widgets/dialog_order_detail.dart';
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
+import 'package:get/get.dart';
 import 'package:get_cli/common/utils/json_serialize/json_ast/json_ast.dart';
 
 class ItemShipedItem extends StatefulWidget {
@@ -21,27 +23,29 @@ class _ItemShipedItemState extends State<ItemShipedItem> {
 
   @override
   Widget build(BuildContext context) {
-    return CustomButtonFeedBack(
-      onTap: widget.onTap,
-      child: Material(
-        color: CustomColors.white,
-        borderRadius: BorderRadius.circular(CustomSizes.radius_6),
-        elevation: 4,
-        shadowColor: CustomColors.black.withOpacity(0.2),
-        child: Padding(
-          padding: EdgeInsets.symmetric(
-            horizontal: CustomSizes.mp_w_4,
-            vertical: CustomSizes.mp_w_2,
-          ),
-          child: Column(
-            children: [
-              ///BUILD MAIN ITEM VIEW
-              buildItemView(context),
+    return Material(
+      color: CustomColors.white,
+      borderRadius: BorderRadius.circular(CustomSizes.radius_6),
+      elevation: 4,
+      shadowColor: CustomColors.black.withOpacity(0.2),
+      child: Padding(
+        padding: EdgeInsets.symmetric(
+          horizontal: CustomSizes.mp_w_4,
+          vertical: CustomSizes.mp_w_2,
+        ),
+        child: Column(
+          children: [
+            ///BUILD MAIN ITEM VIEW
+            CustomButtonFeedBack(
+              onTap: () {
+                widget.onTap();
+              },
+              child: buildItemView(context),
+            ),
 
-              ///BUILD COLLAPSABLE EXPANDABLE VIEW
-              isSelected ? buildExpandableView() : SizedBox(),
-            ],
-          ),
+            ///BUILD COLLAPSABLE EXPANDABLE VIEW
+            isSelected ? buildExpandableView() : SizedBox(),
+          ],
         ),
       ),
     );
@@ -82,7 +86,6 @@ class _ItemShipedItemState extends State<ItemShipedItem> {
           height: CustomSizes.mp_v_1,
         ),
         Table(
-
           border: TableBorder.all(
             color: CustomColors.lightGrey,
             width: 1.0,
@@ -96,7 +99,6 @@ class _ItemShipedItemState extends State<ItemShipedItem> {
           defaultVerticalAlignment: TableCellVerticalAlignment.middle,
           children: buildTableDataRows(),
         ),
-
         SizedBox(
           height: CustomSizes.mp_v_1,
         ),
@@ -106,22 +108,21 @@ class _ItemShipedItemState extends State<ItemShipedItem> {
 
   TableCell buildTableHeaderCell(String title) {
     return TableCell(
-                verticalAlignment: TableCellVerticalAlignment.top,
-                child: Container(
-                  padding: EdgeInsets.symmetric(
-                    horizontal: CustomSizes.mp_w_2,
-                    vertical: CustomSizes.mp_v_1,
-                  ),
-                  child: Center(
-                    child: Text(
-                      title,
-                      style: Theme.of(context).textTheme.bodySmall?.copyWith(
-                          fontWeight: FontWeight.w500,
-                          color: CustomColors.black),
-                    ),
-                  ),
-                ),
-              );
+      verticalAlignment: TableCellVerticalAlignment.top,
+      child: Container(
+        padding: EdgeInsets.symmetric(
+          horizontal: CustomSizes.mp_w_2,
+          vertical: CustomSizes.mp_v_1,
+        ),
+        child: Center(
+          child: Text(
+            title,
+            style: Theme.of(context).textTheme.bodySmall?.copyWith(
+                fontWeight: FontWeight.w500, color: CustomColors.black),
+          ),
+        ),
+      ),
+    );
   }
 
   Container buildImageContainer() {
@@ -259,7 +260,7 @@ class _ItemShipedItemState extends State<ItemShipedItem> {
     );
   }
 
-  TableCell buildTableNormalIconCell(IconData icon,Color color) {
+  TableCell buildTableNormalIconCell(IconData icon, Color color) {
     return TableCell(
       verticalAlignment: TableCellVerticalAlignment.top,
       child: Container(
@@ -268,7 +269,11 @@ class _ItemShipedItemState extends State<ItemShipedItem> {
           vertical: CustomSizes.mp_v_1,
         ),
         child: Center(
-          child: Icon(icon,size: CustomSizes.icon_size_4,color: color,),
+          child: Icon(
+            icon,
+            size: CustomSizes.icon_size_4,
+            color: color,
+          ),
         ),
       ),
     );
@@ -286,8 +291,7 @@ class _ItemShipedItemState extends State<ItemShipedItem> {
           child: Text(
             title,
             style: Theme.of(context).textTheme.bodySmall?.copyWith(
-                fontWeight: FontWeight.w400,
-                color: CustomColors.lightBlack),
+                fontWeight: FontWeight.w400, color: CustomColors.lightBlack),
           ),
         ),
       ),
@@ -295,24 +299,47 @@ class _ItemShipedItemState extends State<ItemShipedItem> {
   }
 
   List<TableRow> buildTableDataRows() {
-    List<TableRow> rows= List.generate(5, (index) =>  TableRow(
-      children: <Widget>[
-        buildTableNormalCell("#123WER"),
-        buildTableNormalCell("4kilo"),
-        buildTableNormalIconCell(FontAwesomeIcons.lightCheckDouble,CustomColors.blue,),
-      ],
-    ),);
+    List<TableRow> rows = List.generate(
+      5,
+      (index) => TableRow(
+        children: <Widget>[
+          TableRowInkWell(
+              child: buildTableNormalCell(
+            "#123WER",
+          ),),
+          buildTableNormalCell("4kilo"),
+          buildTableNormalIconCell(
+            FontAwesomeIcons.lightCheckDouble,
+            CustomColors.blue,
+          ),
+          CustomButtonFeedBack(
+            onTap: () {
+              ///SHOW DETAIL DIALOG
+              Get.dialog(
+                DialogOrderDetail(),
+              );
+            },
+            child: buildTableNormalIconCell(
+              FontAwesomeIcons.chevronRight,
+              CustomColors.blue,
+            ),
+          ),
+        ],
+      ),
+    );
 
-    rows.insert(0, TableRow(
-      children: <Widget>[
-        buildTableHeaderCell("Order ID"),
-        buildTableHeaderCell("Locations"),
-        buildTableHeaderCell("Loaded"),
-      ],
-    ),);
+    rows.insert(
+      0,
+      TableRow(
+        children: <Widget>[
+          buildTableHeaderCell("Order ID"),
+          buildTableHeaderCell("Locations"),
+          buildTableHeaderCell("Loaded"),
+          buildTableHeaderCell(""),
+        ],
+      ),
+    );
 
     return rows;
   }
-
-
 }
