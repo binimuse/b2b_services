@@ -24,98 +24,121 @@ class MainScreenDistributerView
   const MainScreenDistributerView({Key? key}) : super(key: key);
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: AppBar(
-        elevation: 0,
-        backgroundColor:CustomColors.white,
-        systemOverlayStyle: PagesUtil.getAppBarLightStyle(),
-        title: Text(
-          'Incoming Items',
-          style: Theme.of(context).textTheme.bodyLarge,
-        ),
-        centerTitle: false,
-        actions: [
-          Container(
-            margin: EdgeInsets.symmetric(vertical: CustomSizes.mp_v_1),
-            width: CustomSizes.icon_size_12,
-            height: CustomSizes.icon_size_12,
-            child: Material(
-              elevation: 4,
-              color: CustomColors.blue,
-              borderRadius: BorderRadius.circular(CustomSizes.radius_6),
-              child: CustomButtonFeedBack(
-                onTap: () {},
-                child: Center(
-                  child: Icon(
-                    FontAwesomeIcons.solidTruckFast,
-                    color: CustomColors.white,
-                    size: CustomSizes.icon_size_4,
+    return Obx(() => controller.currentBottomIndex.value != null
+        ? Scaffold(
+            appBar: AppBar(
+              elevation: 0,
+              backgroundColor: CustomColors.white,
+              systemOverlayStyle: PagesUtil.getAppBarLightStyle(),
+              title: Text(
+                controller.currentBottomIndex.value == 0
+                    ? 'Incoming Items'
+                    : controller.currentBottomIndex.value == 1
+                        ? 'Confirmed Items'
+                        : controller.currentBottomIndex.value == 2
+                            ? 'Shiped Items'
+                            : 'Deliverd Items',
+                style: Theme.of(context).textTheme.bodyLarge,
+              ),
+              centerTitle: false,
+              actions: [
+                Container(
+                  margin: EdgeInsets.symmetric(vertical: CustomSizes.mp_v_1),
+                  width: CustomSizes.icon_size_12,
+                  height: CustomSizes.icon_size_12,
+                  child: Material(
+                    elevation: 4,
+                    color: CustomColors.blue,
+                    borderRadius: BorderRadius.circular(CustomSizes.radius_6),
+                    child: CustomButtonFeedBack(
+                      onTap: () {},
+                      child: Center(
+                        child: Icon(
+                          FontAwesomeIcons.solidTruckFast,
+                          color: CustomColors.white,
+                          size: CustomSizes.icon_size_4,
+                        ),
+                      ),
+                    ),
                   ),
                 ),
-              ),
-            ),
-          ),
-          SizedBox(
-            width: CustomSizes.mp_w_4,
-          ),
-          Container(
-            margin: EdgeInsets.symmetric(vertical: CustomSizes.mp_v_1),
-            width: CustomSizes.icon_size_12,
-            height: CustomSizes.icon_size_12,
-
-            child: Material(
-              elevation: 4,
-              borderRadius: BorderRadius.circular(CustomSizes.radius_6),
-              child: CustomButtonFeedBack(
-                onTap: () {
-                  Get.back();
-                  KeyboardUtil.hideKeyboard(context);
-                },
-                child: Icon(
-                  FontAwesomeIcons.solidBell,
-                  color: CustomColors.blue,
-                  size: CustomSizes.icon_size_6,
+                SizedBox(
+                  width: CustomSizes.mp_w_4,
                 ),
-              ),
+                Container(
+                  margin: EdgeInsets.symmetric(vertical: CustomSizes.mp_v_1),
+                  width: CustomSizes.icon_size_12,
+                  height: CustomSizes.icon_size_12,
+                  child: Material(
+                    elevation: 4,
+                    borderRadius: BorderRadius.circular(CustomSizes.radius_6),
+                    child: CustomButtonFeedBack(
+                      onTap: () {},
+                      child: Icon(
+                        FontAwesomeIcons.solidBell,
+                        color: CustomColors.blue,
+                        size: CustomSizes.icon_size_6,
+                      ),
+                    ),
+                  ),
+                ),
+                SizedBox(
+                  width: CustomSizes.mp_w_4,
+                ),
+                Container(
+                  margin: EdgeInsets.symmetric(vertical: CustomSizes.mp_v_1),
+                  width: CustomSizes.icon_size_12,
+                  height: CustomSizes.icon_size_12,
+                  child: Material(
+                    elevation: 4,
+                    borderRadius: BorderRadius.circular(CustomSizes.radius_6),
+                    child: CustomButtonFeedBack(
+                      onTap: () {},
+                      child: Icon(
+                        FontAwesomeIcons.solidGear,
+                        color: CustomColors.blue,
+                        size: CustomSizes.icon_size_6,
+                      ),
+                    ),
+                  ),
+                ),
+                SizedBox(
+                  width: CustomSizes.mp_w_4,
+                ),
+              ],
             ),
-          ),
-          SizedBox(
-            width: CustomSizes.mp_w_4,
-          ),
-        ],
-      ),
-      bottomNavigationBar: Obx(() {
-        return BottomBar(
-          currentIndex: controller.currentBottomIndex.value,
-          onTap: (int index) {
+            bottomNavigationBar: Obx(() {
+              return BottomBar(
+                currentIndex: controller.currentBottomIndex.value,
+                onTap: (int index) {
+                  controller.setCurrentBottomIndex(index);
+                },
+              );
+            }),
+            body: Obx(() {
+              return Column(
+                children: [
+                  SizedBox(
+                    height: CustomSizes.mp_v_1,
+                  ),
 
-            controller.setCurrentBottomIndex(index);
-          },
-        );
-      }),
-      body: Obx(() {
-        return Column(
-          children: [
-            SizedBox(
-              height: CustomSizes.mp_v_1,
-            ),
-
-            ///INDEXED STACK TO CHANGE PAGES
-            Expanded(
-              child: IndexedStack(
-                index: controller.currentBottomIndex.value,
-                children: const [
-                  HomeDistributerView(),
-                  ArrivedPageDistributerView(),
-                  ShippedPageDistributerView(),
-                  DelivredPageDistributerView(),
+                  ///INDEXED STACK TO CHANGE PAGES
+                  Expanded(
+                    child: IndexedStack(
+                      index: controller.currentBottomIndex.value,
+                      children: [
+                        HomeDistributerView(),
+                        ArrivedPageDistributerView(),
+                        ShippedPageDistributerView(),
+                        DelivredPageDistributerView(),
+                      ],
+                    ),
+                  ),
                 ],
-              ),
-            ),
-          ],
-        );
-      }),
-    );
+              );
+            }),
+          )
+        : SizedBox());
   }
 
   Padding buildAppBar(BuildContext context) {

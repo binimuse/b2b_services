@@ -1,12 +1,21 @@
 import 'package:b2b_services/app/common/widgets/custom_button_feedback.dart';
 import 'package:b2b_services/app/config/theme/custom_colors.dart';
 import 'package:b2b_services/app/config/theme/custom_sizes.dart';
+import 'package:b2b_services/app/modules_distributer/home_distributer/data/model/shipment_model.dart';
 import 'package:b2b_services/app/modules_distributer/home_distributer/views/widgets/items_incoming_products.dart';
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 
 class ItemIncomingItems extends StatefulWidget {
-  const ItemIncomingItems({Key? key}) : super(key: key);
+  ItemIncomingItems({
+    this.shipModel,
+    this.index,
+  });
+
+  ///ADDITIONAL  PARAMS
+
+  final ShipModel? shipModel;
+  final int? index;
 
   @override
   State<ItemIncomingItems> createState() => _ItemIncomingItemsState();
@@ -57,14 +66,11 @@ class _ItemIncomingItemsState extends State<ItemIncomingItems> {
 
               ///BUILD EXPAND COLLAPSE ICONS
               buildExpandCollapseButton(),
-
-
             ],
           ),
 
-
           ///BUILD INCOMING PRODUCTS LIST
-          isExpanded ? buildIncomingProductsList():SizedBox(),
+          isExpanded ? buildIncomingProductsList() : SizedBox(),
         ],
       ),
     );
@@ -79,7 +85,7 @@ class _ItemIncomingItemsState extends State<ItemIncomingItems> {
       child: ClipRRect(
         borderRadius: BorderRadius.circular(CustomSizes.radius_6),
         child: Image.network(
-          "https://image.shutterstock.com/image-photo/headshot-portrait-smiling-african-american-260nw-1667439898.jpg",
+          "https://thumbs.dreamstime.com/z/new-product-item-store-25048588.jpg",
           width: CustomSizes.icon_size_14,
           height: CustomSizes.icon_size_14,
           fit: BoxFit.cover,
@@ -94,7 +100,7 @@ class _ItemIncomingItemsState extends State<ItemIncomingItems> {
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
           Text(
-            "Henock Amre",
+            "New Item",
             style: Theme.of(context).textTheme.bodyMedium?.copyWith(
                 fontWeight: FontWeight.w500,
                 color: CustomColors.lightBlack.withOpacity(0.7)),
@@ -102,7 +108,7 @@ class _ItemIncomingItemsState extends State<ItemIncomingItems> {
           Row(
             children: [
               Text(
-                "#b1234",
+                widget.shipModel!.status,
                 style: Theme.of(context).textTheme.bodyMedium?.copyWith(
                       fontWeight: FontWeight.w500,
                       color: CustomColors.lightBlack.withOpacity(0.7),
@@ -113,7 +119,7 @@ class _ItemIncomingItemsState extends State<ItemIncomingItems> {
               ),
               Expanded(
                 child: Text(
-                  "Suzuki desire, grey Color",
+                  widget.shipModel!.arrival_time,
                   overflow: TextOverflow.ellipsis,
                   maxLines: 1,
                   style: Theme.of(context).textTheme.bodySmall?.copyWith(
@@ -162,13 +168,16 @@ class _ItemIncomingItemsState extends State<ItemIncomingItems> {
         ListView.separated(
           physics: NeverScrollableScrollPhysics(),
           shrinkWrap: true,
-          itemBuilder: (index,context) {
-            return ItemIncomingProducts();
+          itemBuilder: (context, index) {
+            return ItemIncomingProducts(
+                itemsModel: widget.shipModel!.itemModel[index]);
           },
-          separatorBuilder: (index,context) {
-            return SizedBox(height: CustomSizes.mp_v_2,);
+          separatorBuilder: (index, context) {
+            return SizedBox(
+              height: CustomSizes.mp_v_2,
+            );
           },
-          itemCount: 3,
+          itemCount: widget.shipModel!.itemModel.length,
         ),
       ],
     );

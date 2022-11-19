@@ -4,12 +4,14 @@ import 'package:b2b_services/app/config/theme/custom_sizes.dart';
 import 'package:b2b_services/app/config/utils/pages_util.dart';
 import 'package:b2b_services/app/modules_distributer/arrived_page_distributer/views/widgets/dialog_bottom_sheet_vehicle_type.dart';
 import 'package:b2b_services/app/modules_distributer/arrived_page_distributer/views/widgets/item_order.dart';
+import 'package:b2b_services/app/modules_distributer/home_distributer/controllers/home_distributer_controller.dart';
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
+import 'package:get/get.dart';
 
 class OrdersPage extends StatelessWidget {
-  const OrdersPage({Key? key}) : super(key: key);
-
+  OrdersPage({Key? key}) : super(key: key);
+  HomeDistributerController controller = Get.find<HomeDistributerController>();
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -24,21 +26,28 @@ class OrdersPage extends StatelessWidget {
         child: ListView.separated(
           padding: EdgeInsets.symmetric(horizontal: CustomSizes.mp_w_4),
           itemBuilder: (context, index) {
-            return Padding(
-              padding: index == 0
-                  ? EdgeInsets.only(top: CustomSizes.mp_v_2)
-                  : EdgeInsets.zero,
-              child: ItemOrder(
-                onTap: () {},
-              ),
-            );
+            if (controller.shipModel[index].status == "DELIVERED" &&
+                controller.shipModel[index].from == "Warehouse") {
+              return Padding(
+                padding: index == 0
+                    ? EdgeInsets.only(top: CustomSizes.mp_v_2)
+                    : EdgeInsets.zero,
+                child: ItemOrder(
+                  shipModel: controller.shipModel[index],
+                  index: index,
+                  onTap: () {},
+                ),
+              );
+            } else {
+              return SizedBox();
+            }
           },
           separatorBuilder: (context, index) {
             return SizedBox(
               height: CustomSizes.mp_w_2,
             );
           },
-          itemCount: 12,
+          itemCount: controller.shipModel.length,
         ),
       ),
     );

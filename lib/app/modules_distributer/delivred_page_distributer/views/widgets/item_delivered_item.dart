@@ -2,14 +2,22 @@ import 'package:b2b_services/app/common/widgets/custom_button_feedback.dart';
 import 'package:b2b_services/app/config/theme/custom_colors.dart';
 import 'package:b2b_services/app/config/theme/custom_sizes.dart';
 import 'package:b2b_services/app/config/utils/color_util.dart';
+import 'package:b2b_services/app/modules_distributer/home_distributer/data/model/shipment_model.dart';
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:get_cli/common/utils/json_serialize/json_ast/json_ast.dart';
 
 class ItemDelivredItem extends StatefulWidget {
-  const ItemDelivredItem({Key? key, required this.onTap}) : super(key: key);
+  const ItemDelivredItem({
+    Key? key,
+    required this.onTap,
+    this.shipModel,
+    this.index,
+  }) : super(key: key);
 
   final VoidCallback onTap;
+  final ShipModel? shipModel;
+  final int? index;
 
   @override
   State<ItemDelivredItem> createState() => _ItemDelivredItemState();
@@ -37,7 +45,7 @@ class _ItemDelivredItemState extends State<ItemDelivredItem> {
             buildItemView(context),
 
             ///BUILD COLLAPSABLE EXPANDABLE VIEW
-            isSelected?buildExpandableView():SizedBox(),
+            isSelected ? buildExpandableView() : SizedBox(),
           ],
         ),
       ),
@@ -46,50 +54,51 @@ class _ItemDelivredItemState extends State<ItemDelivredItem> {
 
   Row buildItemView(BuildContext context) {
     return Row(
-            crossAxisAlignment: CrossAxisAlignment.center,
-            children: [
-              ///BUILD ICON CONTAINER
-              buildIcon(),
+      crossAxisAlignment: CrossAxisAlignment.center,
+      children: [
+        ///BUILD ICON CONTAINER
+        buildIcon(),
 
-              SizedBox(
-                width: CustomSizes.mp_w_4,
-              ),
+        SizedBox(
+          width: CustomSizes.mp_w_4,
+        ),
 
-              ///BUILD ITEM INFO
-              buildItemInfo(context),
-            ],
-          );
+        ///BUILD ITEM INFO
+        buildItemInfo(context),
+      ],
+    );
   }
 
   Column buildExpandableView() {
     return Column(
-            crossAxisAlignment: CrossAxisAlignment.end,
-            children: [
-              ListView.separated(
-                physics: const NeverScrollableScrollPhysics(),
-                shrinkWrap: true,
-                itemCount: 3,
-                padding: EdgeInsets.only(left: CustomSizes.mp_w_6,top: CustomSizes.mp_v_2),
-                itemBuilder: (context, index) {
-                  return buildDetailsRow(context);
-                },
-                separatorBuilder: (context, index) {
-                  return Padding(
-                    padding: EdgeInsets.symmetric(
-                      vertical: CustomSizes.mp_v_1,
-                    ),
-                    child: const Divider(
-                      height: 1,
-                      color: CustomColors.grey,
-                    ),
-                  );
-                },
+      crossAxisAlignment: CrossAxisAlignment.end,
+      children: [
+        ListView.separated(
+          physics: const NeverScrollableScrollPhysics(),
+          shrinkWrap: true,
+          itemCount: 3,
+          padding: EdgeInsets.only(
+              left: CustomSizes.mp_w_6, top: CustomSizes.mp_v_2),
+          itemBuilder: (context, index) {
+            return buildDetailsRow(context);
+          },
+          separatorBuilder: (context, index) {
+            return Padding(
+              padding: EdgeInsets.symmetric(
+                vertical: CustomSizes.mp_v_1,
               ),
-              SizedBox(
-                height: CustomSizes.mp_v_1,
+              child: const Divider(
+                height: 1,
+                color: CustomColors.grey,
               ),
-            ],
-          );
+            );
+          },
+        ),
+        SizedBox(
+          height: CustomSizes.mp_v_1,
+        ),
+      ],
+    );
   }
 
   Material buildIcon() {
@@ -119,7 +128,7 @@ class _ItemDelivredItemState extends State<ItemDelivredItem> {
             children: [
               Expanded(
                 child: Text(
-                  "Order #8769",
+                  "Order #${widget.shipModel!.shipmentID}",
                   maxLines: 1,
                   overflow: TextOverflow.ellipsis,
                   style: Theme.of(context).textTheme.bodyMedium?.copyWith(
@@ -139,7 +148,7 @@ class _ItemDelivredItemState extends State<ItemDelivredItem> {
                     vertical: CustomSizes.mp_v_1 / 2,
                   ),
                   child: Text(
-                    "2-items",
+                    widget.shipModel!.itemModel.length.toString(),
                     maxLines: 1,
                     overflow: TextOverflow.ellipsis,
                     style: Theme.of(context).textTheme.bodySmall?.copyWith(
@@ -167,7 +176,19 @@ class _ItemDelivredItemState extends State<ItemDelivredItem> {
                 width: CustomSizes.mp_w_1,
               ),
               Text(
-                "5 kilo",
+                "from " + "5 kilo",
+                maxLines: 1,
+                overflow: TextOverflow.ellipsis,
+                style: Theme.of(context).textTheme.bodySmall?.copyWith(
+                      color: CustomColors.black,
+                      fontWeight: FontWeight.w400,
+                    ),
+              ),
+              SizedBox(
+                width: CustomSizes.mp_v_1,
+              ),
+              Text(
+                "to " + "5 kilo",
                 maxLines: 1,
                 overflow: TextOverflow.ellipsis,
                 style: Theme.of(context).textTheme.bodySmall?.copyWith(
@@ -185,11 +206,11 @@ class _ItemDelivredItemState extends State<ItemDelivredItem> {
               CustomButtonFeedBack(
                 onTap: () {
                   setState(() {
-                    isSelected=!isSelected;
+                    isSelected = !isSelected;
                   });
                 },
                 child: Padding(
-                  padding:  EdgeInsets.all(CustomSizes.mp_w_1),
+                  padding: EdgeInsets.all(CustomSizes.mp_w_1),
                   child: Text(
                     "Items Details",
                     maxLines: 1,
@@ -197,31 +218,12 @@ class _ItemDelivredItemState extends State<ItemDelivredItem> {
                     style: Theme.of(context).textTheme.bodyMedium?.copyWith(
                           color: ColorUtil.darken(CustomColors.blue, 0.2),
                           fontWeight: FontWeight.w500,
-                      fontSize: CustomSizes.font_10,
+                          fontSize: CustomSizes.font_10,
                         ),
                   ),
                 ),
               ),
               const Expanded(child: SizedBox()),
-              Row(
-                children: [
-                  Icon(
-                    FontAwesomeIcons.solidLocationPin,
-                    size: CustomSizes.icon_size_4,
-                    color: CustomColors.blue,
-                  ),
-                  SizedBox(width: CustomSizes.mp_w_1,),
-                  Text(
-                    "6kilo",
-                    maxLines: 1,
-                    overflow: TextOverflow.ellipsis,
-                    style: Theme.of(context).textTheme.bodyMedium?.copyWith(
-                      color: ColorUtil.darken(CustomColors.blue, 0.2),
-                      fontWeight: FontWeight.w500,
-                    ),
-                  ),
-                ],
-              ),
               SizedBox(
                 width: CustomSizes.mp_w_1,
               ),
@@ -245,10 +247,10 @@ class _ItemDelivredItemState extends State<ItemDelivredItem> {
             maxLines: 1,
             overflow: TextOverflow.ellipsis,
             style: Theme.of(context).textTheme.bodyMedium?.copyWith(
-              color: CustomColors.grey,
-              fontWeight: FontWeight.w400,
-              fontSize: CustomSizes.font_8,
-            ),
+                  color: CustomColors.grey,
+                  fontWeight: FontWeight.w400,
+                  fontSize: CustomSizes.font_8,
+                ),
           ),
         ),
         const Expanded(
@@ -257,10 +259,10 @@ class _ItemDelivredItemState extends State<ItemDelivredItem> {
         Text(
           "5l",
           style: Theme.of(context).textTheme.bodySmall?.copyWith(
-            fontWeight: FontWeight.w500,
-            color: CustomColors.grey,
-            fontSize: CustomSizes.font_10,
-          ),
+                fontWeight: FontWeight.w500,
+                color: CustomColors.grey,
+                fontSize: CustomSizes.font_10,
+              ),
         ),
       ],
     );

@@ -4,6 +4,7 @@ import 'package:shared_preferences/shared_preferences.dart';
 
 class SplashController extends GetxController {
   var acc;
+  var role;
   final count = 0.obs;
   @override
   void onInit() {
@@ -14,11 +15,15 @@ class SplashController extends GetxController {
     final prefs = await SharedPreferences.getInstance();
 
     acc = prefs.getString('access_token');
+    role = prefs.getString('role');
 
-    if (acc != null) {
+    if (acc != null && role == "distributor") {
       Get.toNamed(Routes.MAIN_SCREEN_DISTRIBUTER);
-    } else {
+    } else if (acc != null && role == "") {
       Get.toNamed(Routes.HOME);
+    } else {
+      Get.toNamed(Routes.SIGN_IN);
+      //  Get.toNamed(Routes.HOME);
     }
   }
 

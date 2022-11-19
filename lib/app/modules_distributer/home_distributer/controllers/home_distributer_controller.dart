@@ -1,5 +1,6 @@
 import 'dart:async';
 
+import 'package:b2b_services/app/modules_distributer/home_distributer/data/model/items_model.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:graphql_flutter/graphql_flutter.dart';
@@ -8,7 +9,7 @@ import '../../../Services/graphql_conf.dart';
 import '../../../constant/reusable_widget.dart';
 import '../data/model/order_model.dart';
 import '../data/mutation/order_deatil_mutuation.dart';
-import '../data/mutation/shipment_model.dart';
+import '../data/model/shipment_model.dart';
 
 class HomeDistributerController extends GetxController {
   final count = 0.obs;
@@ -18,10 +19,14 @@ class HomeDistributerController extends GetxController {
 
   Timer? timerDummy;
   late TabController tabController;
-  List<ShipModel> shipModel = [];
+
+  RxList<ShipModel> shipModel = List<ShipModel>.of([]).obs;
+
+  RxList<ItemsModel> itemModel = List<ItemsModel>.of([]).obs;
+  RxList<VariantsModel> variantsModel = List<VariantsModel>.of([]).obs;
+
   List<OrderHistoryModel> orderData = [];
   GraphQLConfiguration graphQLConfiguration = GraphQLConfiguration();
-
 
   @override
   void onInit() {
@@ -40,9 +45,48 @@ class HomeDistributerController extends GetxController {
     );
 
     if (!result.hasException) {
+      shipModel.clear();
+
       for (var i = 0;
           i < result.data!["auth"]["distributor"]["shipmentsTo"].length;
           i++) {
+        for (var k = 0;
+            k <
+                result.data!["auth"]["distributor"]["shipmentsTo"][i]["items"]
+                    .length;
+            k++) {
+          for (var v = 0;
+              v <
+                  result
+                      .data!["auth"]["distributor"]["shipmentsTo"][i]["items"]
+                          [k]["shipment_itemable"]["product_sku"]["variants"]
+                      .length;
+              v++) {
+            variantsModel.clear();
+            variantsModel.add(VariantsModel(
+              attributeName: result.data!["auth"]["distributor"]["shipmentsTo"]
+                      [i]["items"][k]["shipment_itemable"]["product_sku"]
+                  ["variants"][v]["attribute"]["name"],
+              attributeValue: result.data!["auth"]["distributor"]["shipmentsTo"]
+                      [i]["items"][k]["shipment_itemable"]["product_sku"]
+                  ["variants"][v]["attributeValue"]["value"],
+            ));
+          }
+
+          itemModel.add(ItemsModel(
+              id: result.data!["auth"]["distributor"]["shipmentsTo"][i]["items"]
+                  [k]["id"],
+              images: result.data!["auth"]["distributor"]["shipmentsTo"][i]
+                      ["items"][k]["shipment_itemable"]["product_sku"]
+                  ["product"]["images"][0]["original_url"],
+              name: result.data!["auth"]["distributor"]["shipmentsTo"][i]["items"]
+                  [k]["shipment_itemable"]["product_sku"]["product"]["name"],
+              price:
+                  result.data!["auth"]["distributor"]["shipmentsTo"][i]["items"][k]["shipment_itemable"]["product_sku"]["price"].toString(),
+              quantity: result.data!["auth"]["distributor"]["shipmentsTo"][i]["items"][k]["shipment_itemable"]["quantity"].toString(),
+              sku: result.data!["auth"]["distributor"]["shipmentsTo"][i]["items"][k]["shipment_itemable"]["product_sku"]["sku"],
+              variantsModel: variantsModel));
+        }
         shipModel.add(ShipModel(
           shipmentID: result.data!["auth"]["distributor"]["shipmentsTo"][i]
               ["id"],
@@ -54,23 +98,15 @@ class HomeDistributerController extends GetxController {
               ["status"],
           from: result.data!["auth"]["distributor"]["shipmentsTo"][i]["from"]
               ["__typename"],
+          itemModel: itemModel,
         ));
-      }
 
-      loadingShipmentDeatil(true);
+        loadingShipmentDeatil(true);
+      }
     } else {
+      print(result.exception);
       loadingShipmentDeatil(false);
     }
-  }
-
-  @override
-  void onReady() {
-    super.onReady();
-  }
-
-  @override
-  void onClose() {
-    super.onClose();
   }
 
   void increment() => count.value++;

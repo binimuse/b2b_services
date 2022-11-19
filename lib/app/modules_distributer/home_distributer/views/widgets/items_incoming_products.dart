@@ -1,10 +1,18 @@
 import 'package:b2b_services/app/config/theme/custom_colors.dart';
 import 'package:b2b_services/app/config/theme/custom_sizes.dart';
+import 'package:b2b_services/app/modules_distributer/home_distributer/data/model/items_model.dart';
+import 'package:b2b_services/app/modules_distributer/home_distributer/data/model/shipment_model.dart';
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 
 class ItemIncomingProducts extends StatelessWidget {
-  const ItemIncomingProducts({Key? key}) : super(key: key);
+  ItemIncomingProducts({
+    this.itemsModel,
+  });
+
+  ///ADDITIONAL  PARAMS
+
+  final ItemsModel? itemsModel;
 
   @override
   Widget build(BuildContext context) {
@@ -33,7 +41,7 @@ class ItemIncomingProducts extends StatelessWidget {
                   ClipRRect(
                     borderRadius: BorderRadius.circular(CustomSizes.radius_6),
                     child: Image.network(
-                      "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcShc2SV-UuHW3Ig4N36spMVj0h6KLa2GkSpLfKjG4FKqA&s",
+                      itemsModel!.images,
                       width: CustomSizes.mp_w_14,
                       height: CustomSizes.mp_w_14,
                       fit: BoxFit.cover,
@@ -47,7 +55,7 @@ class ItemIncomingProducts extends StatelessWidget {
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
                         Text(
-                          "Safya Oil",
+                          itemsModel!.name,
                           style:
                               Theme.of(context).textTheme.bodyMedium?.copyWith(
                                     fontWeight: FontWeight.w400,
@@ -67,7 +75,7 @@ class ItemIncomingProducts extends StatelessWidget {
                     ),
                   ),
                   Text(
-                    "1 Pcs",
+                    itemsModel!.price.toString() + " ETB",
                     style: Theme.of(context).textTheme.bodySmall?.copyWith(
                           fontWeight: FontWeight.bold,
                           color: CustomColors.blue,
@@ -88,35 +96,28 @@ class ItemIncomingProducts extends StatelessWidget {
                     ),
               ),
 
-              SizedBox(
-                height: CustomSizes.mp_v_2,
-              ),
-
               Column(
                 crossAxisAlignment: CrossAxisAlignment.end,
                 children: [
-                  ListView.separated(
-                    physics: const NeverScrollableScrollPhysics(),
-                    shrinkWrap: true,
-                    itemCount: 3,
-                    padding: EdgeInsets.zero,
-                    itemBuilder: (context, index) {
-                      return buildDetailsRow(context);
-                    },
-                    separatorBuilder: (context, index) {
-                      return Padding(
-                        padding: EdgeInsets.symmetric(
-                          vertical: CustomSizes.mp_v_1,
-                        ),
-                        child: const Divider(
-                          height: 1,
-                          color: CustomColors.grey,
-                        ),
-                      );
-                    },
+                  SizedBox(
+                    height: CustomSizes.mp_v_2,
+                  ),
+                  Container(
+                    padding: const EdgeInsets.all(16),
+                    child: Column(
+                      children: List.generate(
+                        itemsModel!.variantsModel.length,
+                        (index) {
+                          return buildDetailsRow(
+                            context,
+                            itemsModel!.variantsModel[index],
+                          );
+                        },
+                      ),
+                    ),
                   ),
                   SizedBox(
-                    height: CustomSizes.mp_v_1,
+                    height: CustomSizes.mp_v_2,
                   ),
                 ],
               ),
@@ -147,13 +148,13 @@ class ItemIncomingProducts extends StatelessWidget {
     );
   }
 
-  buildDetailsRow(BuildContext context) {
+  buildDetailsRow(BuildContext context, VariantsModel variModel) {
     return Row(
-      crossAxisAlignment: CrossAxisAlignment.center,
+      crossAxisAlignment: CrossAxisAlignment.end,
       children: [
         Expanded(
           child: Text(
-            "variModel.attributename",
+            variModel.attributeName,
             maxLines: 1,
             overflow: TextOverflow.ellipsis,
             style: Theme.of(context).textTheme.bodyMedium?.copyWith(
@@ -167,7 +168,7 @@ class ItemIncomingProducts extends StatelessWidget {
           child: SizedBox(),
         ),
         Text(
-          "5l",
+          variModel.attributeValue,
           style: Theme.of(context).textTheme.bodySmall?.copyWith(
                 fontWeight: FontWeight.w500,
                 color: CustomColors.grey,

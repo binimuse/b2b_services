@@ -2,6 +2,7 @@ import 'package:b2b_services/app/common/widgets/custom_button_feedback.dart';
 import 'package:b2b_services/app/config/theme/custom_colors.dart';
 import 'package:b2b_services/app/config/theme/custom_sizes.dart';
 import 'package:b2b_services/app/config/utils/color_util.dart';
+import 'package:b2b_services/app/modules_distributer/home_distributer/data/model/shipment_model.dart';
 import 'package:b2b_services/app/modules_distributer/shipped_page_distributer/views/widgets/dialog_order_detail.dart';
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
@@ -9,9 +10,19 @@ import 'package:get/get.dart';
 import 'package:get_cli/common/utils/json_serialize/json_ast/json_ast.dart';
 
 class ItemShipedItem extends StatefulWidget {
-  const ItemShipedItem({Key? key, required this.onTap}) : super(key: key);
+  const ItemShipedItem({
+    Key? key,
+    required this.onTap,
+    this.shipModel,
+    this.index,
+  }) : super(key: key);
 
   final VoidCallback onTap;
+
+  ///ADDITIONAL  PARAMS
+
+  final ShipModel? shipModel;
+  final int? index;
 
   @override
   State<ItemShipedItem> createState() => _ItemShipedItemState();
@@ -132,9 +143,9 @@ class _ItemShipedItemState extends State<ItemShipedItem> {
         border: Border.all(color: CustomColors.blue.withOpacity(0.9), width: 2),
       ),
       child: ClipRRect(
-        borderRadius: BorderRadius.circular(CustomSizes.radius_6),
+        borderRadius: BorderRadius.circular(CustomSizes.radius_8),
         child: Image.network(
-          "https://image.shutterstock.com/image-photo/headshot-portrait-smiling-african-american-260nw-1667439898.jpg",
+          "https://thumbs.dreamstime.com/z/shipped-red-rubber-stamp-vector-isolated-shipped-rubber-stamp-vector-151087084.jpg",
           width: CustomSizes.icon_size_14,
           height: CustomSizes.icon_size_14,
           fit: BoxFit.cover,
@@ -150,7 +161,7 @@ class _ItemShipedItemState extends State<ItemShipedItem> {
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
           Text(
-            "Henock Amre",
+            "Order #${widget.shipModel!.shipmentID}",
             style: Theme.of(context).textTheme.bodyMedium?.copyWith(
                 fontWeight: FontWeight.w500,
                 color: CustomColors.lightBlack.withOpacity(0.7)),
@@ -158,7 +169,7 @@ class _ItemShipedItemState extends State<ItemShipedItem> {
           Row(
             children: [
               Text(
-                "#b1234",
+                widget.shipModel!.itemModel.length.toString() + " items",
                 style: Theme.of(context).textTheme.bodyMedium?.copyWith(
                       fontWeight: FontWeight.w500,
                       color: CustomColors.lightBlack.withOpacity(0.7),
@@ -166,15 +177,6 @@ class _ItemShipedItemState extends State<ItemShipedItem> {
               ),
               SizedBox(
                 width: CustomSizes.mp_w_2,
-              ),
-              Expanded(
-                child: Text(
-                  "Suzuki desire, grey Color",
-                  overflow: TextOverflow.ellipsis,
-                  maxLines: 1,
-                  style: Theme.of(context).textTheme.bodySmall?.copyWith(
-                      fontWeight: FontWeight.w500, color: CustomColors.grey),
-                ),
               ),
             ],
           ),
@@ -304,9 +306,10 @@ class _ItemShipedItemState extends State<ItemShipedItem> {
       (index) => TableRow(
         children: <Widget>[
           TableRowInkWell(
-              child: buildTableNormalCell(
-            "#123WER",
-          ),),
+            child: buildTableNormalCell(
+              "#123WER",
+            ),
+          ),
           buildTableNormalCell("4kilo"),
           buildTableNormalIconCell(
             FontAwesomeIcons.lightCheckDouble,

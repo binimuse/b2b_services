@@ -1,12 +1,21 @@
 import 'package:b2b_services/app/common/widgets/custom_button_feedback.dart';
 import 'package:b2b_services/app/config/theme/custom_colors.dart';
 import 'package:b2b_services/app/config/theme/custom_sizes.dart';
+import 'package:b2b_services/app/modules_distributer/home_distributer/data/model/shipment_model.dart';
 import 'package:b2b_services/app/modules_distributer/home_distributer/views/widgets/items_incoming_products.dart';
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 
 class ItemInventoryItems extends StatefulWidget {
-  const ItemInventoryItems({Key? key}) : super(key: key);
+  ItemInventoryItems({
+    this.shipModel,
+    this.index,
+  });
+
+  ///ADDITIONAL  PARAMS
+
+  final ShipModel? shipModel;
+  final int? index;
 
   @override
   State<ItemInventoryItems> createState() => _ItemInventoryItemsState();
@@ -52,7 +61,6 @@ class _ItemInventoryItemsState extends State<ItemInventoryItems> {
             ],
           ),
 
-
           ///BUILD INCOMING PRODUCTS LIST
           isExpanded ? buildIncomingProductsList() : SizedBox(),
         ],
@@ -62,19 +70,17 @@ class _ItemInventoryItemsState extends State<ItemInventoryItems> {
 
   buildImageContainer() {
     return Container(
-      width: CustomSizes.icon_size_16,
-      height: CustomSizes.icon_size_16,
       decoration: BoxDecoration(
         borderRadius: BorderRadius.circular(CustomSizes.radius_6),
-        border: Border.all(color: CustomColors.blue, width: 1),
+        border: Border.all(color: CustomColors.blue.withOpacity(0.3), width: 2),
       ),
-      child: Center(
-        child: Text(
-          "S",
-          style: Theme.of(context).textTheme.headlineMedium?.copyWith(
-                color: CustomColors.blue,
-                fontWeight: FontWeight.w600,
-              ),
+      child: ClipRRect(
+        borderRadius: BorderRadius.circular(CustomSizes.radius_6),
+        child: Image.network(
+          "https://thumbs.dreamstime.com/z/my-orders-list-abstract-concept-vector-illustration-shopping-list-id-customer-name-add-items-to-cart-ecommerce-website-menu-online-229774438.jpgg",
+          width: CustomSizes.icon_size_14,
+          height: CustomSizes.icon_size_14,
+          fit: BoxFit.cover,
         ),
       ),
     );
@@ -86,7 +92,7 @@ class _ItemInventoryItemsState extends State<ItemInventoryItems> {
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
           Text(
-            "Henock Amre",
+            "Item",
             style: Theme.of(context).textTheme.bodyMedium?.copyWith(
                 fontWeight: FontWeight.w500,
                 color: CustomColors.lightBlack.withOpacity(0.7)),
@@ -94,7 +100,7 @@ class _ItemInventoryItemsState extends State<ItemInventoryItems> {
           Row(
             children: [
               Text(
-                "#b1234",
+                widget.shipModel!.status,
                 style: Theme.of(context).textTheme.bodyMedium?.copyWith(
                       fontWeight: FontWeight.w500,
                       color: CustomColors.lightBlack.withOpacity(0.7),
@@ -105,7 +111,7 @@ class _ItemInventoryItemsState extends State<ItemInventoryItems> {
               ),
               Expanded(
                 child: Text(
-                  "Suzuki desire, grey Color",
+                  widget.shipModel!.arrival_time,
                   overflow: TextOverflow.ellipsis,
                   maxLines: 1,
                   style: Theme.of(context).textTheme.bodySmall?.copyWith(
@@ -154,15 +160,16 @@ class _ItemInventoryItemsState extends State<ItemInventoryItems> {
         ListView.separated(
           physics: NeverScrollableScrollPhysics(),
           shrinkWrap: true,
-          itemBuilder: (index, context) {
-            return ItemIncomingProducts();
+          itemBuilder: (c, index) {
+            return ItemIncomingProducts(
+                itemsModel: widget.shipModel!.itemModel[index]);
           },
           separatorBuilder: (index, context) {
             return SizedBox(
               height: CustomSizes.mp_v_2,
             );
           },
-          itemCount: 3,
+          itemCount: widget.shipModel!.itemModel.length,
         ),
       ],
     );

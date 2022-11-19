@@ -9,9 +9,9 @@ import 'package:graphql_flutter/graphql_flutter.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 import '../../../constant/constants.dart';
+import '../data/mutation/getuser_mutation.dart';
 
 class SignInController extends GetxController {
-  //TODO: Implement SigninController
   final GlobalKey<FormState> loginFormKey = GlobalKey<FormState>();
 
   late TextEditingController emailController, passwordController;
@@ -21,6 +21,7 @@ class SignInController extends GetxController {
   String? email;
   String? password;
   var error = "".obs;
+  var role = "".obs;
   var signingIn = false.obs;
   var loading = false.obs;
   var remember = false.obs;
@@ -88,8 +89,8 @@ class SignInController extends GetxController {
         // print(result.data!["AccessToken"]);
 
         await prefs.setString('access_token', result.data!["login"]["token"]);
-        Navigator.of(Get.context!).pop();
-        Get.offNamed(Routes.MAIN_SCREEN_DISTRIBUTER);
+
+        getUser();
       } else {
         Navigator.of(Get.context!).pop();
         print(result.exception);
@@ -127,4 +128,32 @@ class SignInController extends GetxController {
   @override
   void onClose() {}
   void increment() => count.value++;
+
+  void getUser() async {
+    final prefs = await SharedPreferences.getInstance();
+    GetUserQueryMutation getUserQueryMutation = GetUserQueryMutation();
+    GraphQLClient _client = graphQLConfiguration.clientToQuery();
+
+    QueryResult result = await _client.query(
+      QueryOptions(
+        document: gql(getUserQueryMutation.getUser()),
+      ),
+    );
+
+    if (!result.hasException) {
+      role.value = result.data!["auth"]["role"];
+      await prefs.setString('role', result.data!["auth"]["role"]);
+
+      if (role.value == "distributor") {
+        print("role ${role.value}");
+        Navigator.of(Get.context!).pop();
+        Get.offNamed(Routes.MAIN_SCREEN_DISTRIBUTER);
+      } else {
+        Navigator.of(Get.context!).pop();
+        Get.offNamed(Routes.HOME);
+      }
+    } else {
+      print(result.exception);
+    }
+  }
 }

@@ -2,22 +2,29 @@ import 'package:b2b_services/app/common/widgets/custom_button_feedback.dart';
 import 'package:b2b_services/app/config/theme/custom_colors.dart';
 import 'package:b2b_services/app/config/theme/custom_sizes.dart';
 import 'package:b2b_services/app/config/utils/color_util.dart';
+import 'package:b2b_services/app/modules_distributer/home_distributer/data/model/shipment_model.dart';
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:get_cli/common/utils/json_serialize/json_ast/json_ast.dart';
 
 class ItemOrder extends StatefulWidget {
-  const ItemOrder({Key? key, required this.onTap}) : super(key: key);
-
+  const ItemOrder({
+    Key? key,
+    required this.onTap,
+    this.shipModel,
+    this.index,
+  }) : super(key: key);
 
   final VoidCallback onTap;
+
+  final ShipModel? shipModel;
+  final int? index;
 
   @override
   State<ItemOrder> createState() => _ItemOrderState();
 }
 
 class _ItemOrderState extends State<ItemOrder> {
-
   ///
   bool isSelected = false;
 
@@ -78,7 +85,7 @@ class _ItemOrderState extends State<ItemOrder> {
             children: [
               Expanded(
                 child: Text(
-                  "Order #8769",
+                  "Order #${widget.shipModel!.shipmentID}",
                   maxLines: 1,
                   overflow: TextOverflow.ellipsis,
                   style: Theme.of(context).textTheme.bodyMedium?.copyWith(
@@ -98,13 +105,13 @@ class _ItemOrderState extends State<ItemOrder> {
                     vertical: CustomSizes.mp_v_1 / 2,
                   ),
                   child: Text(
-                    "2-items",
+                    widget.shipModel!.itemModel.length.toString() + " items",
                     maxLines: 1,
                     overflow: TextOverflow.ellipsis,
                     style: Theme.of(context).textTheme.bodySmall?.copyWith(
                           color: ColorUtil.darken(CustomColors.blue, 0.1),
                           fontSize: CustomSizes.font_8,
-                      fontWeight: FontWeight.w600,
+                          fontWeight: FontWeight.w600,
                         ),
                   ),
                 ),
@@ -139,24 +146,14 @@ class _ItemOrderState extends State<ItemOrder> {
           SizedBox(
             height: CustomSizes.mp_v_1,
           ),
-
           Row(
             children: [
-              Text(
-                "Items Details",
-                maxLines: 1,
-                overflow: TextOverflow.ellipsis,
-                style: Theme.of(context).textTheme.bodyMedium?.copyWith(
-                      color: ColorUtil.darken(CustomColors.blue, 0.2),
-                      fontWeight: FontWeight.w500,
-                    ),
-              ),
               const Expanded(child: SizedBox()),
               CustomButtonFeedBack(
-                onTap: (){
-                 setState(() {
-                   isSelected = !isSelected;
-                 });
+                onTap: () {
+                  setState(() {
+                    isSelected = !isSelected;
+                  });
                 },
                 child: Container(
                   width: CustomSizes.icon_size_8,
@@ -168,23 +165,25 @@ class _ItemOrderState extends State<ItemOrder> {
                         size: isSelected
                             ? CustomSizes.icon_size_8
                             : CustomSizes.icon_size_6,
-                        color: isSelected ? CustomColors.green : CustomColors.blue,
+                        color:
+                            isSelected ? CustomColors.green : CustomColors.blue,
                       ),
-                      isSelected?  Positioned(
-                      left: 0,
-                        right: 4,
-                        bottom: 7,
-                        top: 0,
-                        child: Icon(
-                          FontAwesomeIcons.check,
-                          size: CustomSizes.icon_size_4,
-                          color: CustomColors.white ,
-                        ),
-                      ):SizedBox(),
+                      isSelected
+                          ? Positioned(
+                              left: 0,
+                              right: 4,
+                              bottom: 7,
+                              top: 0,
+                              child: Icon(
+                                FontAwesomeIcons.check,
+                                size: CustomSizes.icon_size_4,
+                                color: CustomColors.white,
+                              ),
+                            )
+                          : SizedBox(),
                     ],
                   ),
                 ),
-
               ),
               SizedBox(
                 width: CustomSizes.mp_w_1,

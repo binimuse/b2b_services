@@ -105,12 +105,12 @@ class AppPages {
     ),
     GetPage(
       name: _Paths.SHIPPED_PAGE_DISTRIBUTER,
-      page: () => const ShippedPageDistributerView(),
+      page: () => ShippedPageDistributerView(),
       binding: ShippedPageDistributerBinding(),
     ),
     GetPage(
       name: _Paths.DELIVRED_PAGE_DISTRIBUTER,
-      page: () => const DelivredPageDistributerView(),
+      page: () => DelivredPageDistributerView(),
       binding: DelivredPageDistributerBinding(),
     ),
     GetPage(
