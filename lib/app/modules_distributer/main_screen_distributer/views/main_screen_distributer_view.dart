@@ -12,6 +12,7 @@ import 'package:b2b_services/app/modules_distributer/home_distributer/views/home
 import 'package:b2b_services/app/modules_distributer/main_screen_distributer/views/widgets/bottom_bar.dart';
 import 'package:b2b_services/app/modules_distributer/shipped_page_distributer/controllers/shipped_page_distributer_controller.dart';
 import 'package:b2b_services/app/modules_distributer/shipped_page_distributer/views/shipped_page_distributer_view.dart';
+import 'package:b2b_services/app/routes/app_pages.dart';
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 
@@ -93,7 +94,9 @@ class MainScreenDistributerView
                     elevation: 4,
                     borderRadius: BorderRadius.circular(CustomSizes.radius_6),
                     child: CustomButtonFeedBack(
-                      onTap: () {},
+                      onTap: () {
+                        Get.toNamed(Routes.MY_PROFILE);
+                      },
                       child: Icon(
                         FontAwesomeIcons.solidGear,
                         color: CustomColors.blue,

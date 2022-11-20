@@ -65,7 +65,7 @@ class AppPages {
     ),
     GetPage(
       name: _Paths.MY_PROFILE,
-      page: () => const MyProfileView(),
+      page: () =>  MyProfileView(),
       binding: MyProfileBinding(),
     ),
     GetPage(
