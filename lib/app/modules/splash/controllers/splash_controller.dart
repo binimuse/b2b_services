@@ -19,7 +19,7 @@ class SplashController extends GetxController {
 
     if (acc != null && role == "distributor") {
       Get.toNamed(Routes.MAIN_SCREEN_DISTRIBUTER);
-    } else if (acc != null && role == "") {
+    } else if (acc != null && role == "driver") {
       Get.toNamed(Routes.HOME);
     } else {
       Get.toNamed(Routes.SIGN_IN);

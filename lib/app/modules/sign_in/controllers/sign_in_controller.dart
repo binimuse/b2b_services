@@ -145,7 +145,7 @@ class SignInController extends GetxController {
       await prefs.setString('role', result.data!["auth"]["role"]);
 
       if (role.value == "distributor") {
-        print("role ${role.value}");
+   
         Navigator.of(Get.context!).pop();
         Get.offNamed(Routes.MAIN_SCREEN_DISTRIBUTER);
       } else {

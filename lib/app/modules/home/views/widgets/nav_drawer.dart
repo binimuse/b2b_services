@@ -1,5 +1,12 @@
+import 'package:b2b_services/app/modules/my_profile/views/widgets/editprofile.dart';
+import 'package:b2b_services/app/modules/my_profile/views/widgets/setting.dart';
+import 'package:b2b_services/app/routes/app_pages.dart';
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 import 'package:sizer/sizer.dart';
+
+import '../../../../constant/constants.dart';
 
 class NavDrawer extends StatelessWidget {
   @override
@@ -55,7 +62,10 @@ class NavDrawer extends StatelessWidget {
               context: context,
               icon: Icons.account_box,
               title: "My Profile",
-              onTap: () {}),
+              onTap: () {
+                Navigator.push(context,
+                    MaterialPageRoute(builder: (context) => EditProfilePage()));
+              }),
           buildRow(
               textcolors: Colors.grey,
               colors: Colors.blue,
@@ -69,7 +79,12 @@ class NavDrawer extends StatelessWidget {
               context: context,
               icon: Icons.settings,
               title: "Settings",
-              onTap: () {}),
+              onTap: () {
+                Navigator.push(
+                    context,
+                    MaterialPageRoute(
+                        builder: (context) => SettingsFourPage()));
+              }),
           buildRow(
               textcolors: Colors.grey,
               colors: Colors.blue,
@@ -86,7 +101,23 @@ class NavDrawer extends StatelessWidget {
               context: context,
               icon: Icons.logout,
               title: "Logout",
-              onTap: () {}),
+              onTap: () {
+                Get.dialog(AlertDialog(
+                  shape: RoundedRectangleBorder(
+                    borderRadius: BorderRadius.circular(10),
+                  ),
+                  title: const Text(
+                    'Warning, Logging Out',
+                    style: TextStyle(fontSize: 18, color: Colors.red),
+                  ),
+                  content: const Text('Are you sure you want to log out ?',
+                      style: TextStyle(fontSize: 13, color: Colors.black)),
+                  actions: [
+                    cancelButton,
+                    continueButton,
+                  ],
+                ));
+              }),
           Padding(
             padding: EdgeInsets.symmetric(horizontal: 7.w),
             child: Column(
@@ -155,4 +186,25 @@ class NavDrawer extends StatelessWidget {
       ),
     );
   }
+
+  Widget cancelButton = TextButton(
+      onPressed: () {
+        // Navigator.pop();
+        Get.back();
+      },
+      child: const Text('No', style: TextStyle(color: SOFT_BLUE)));
+
+  Widget continueButton = TextButton(
+      onPressed: () async {
+        final prefs = await SharedPreferences.getInstance();
+
+        final acc = await prefs.remove('access_token');
+        final role = await prefs.remove('role');
+
+        if (acc && role) {
+          Get.offAllNamed(Routes.SIGN_IN);
+        }
+        // Navigator.pop(context);
+      },
+      child: const Text('Yes', style: TextStyle(color: SOFT_BLUE)));
 }

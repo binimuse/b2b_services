@@ -16,6 +16,7 @@ import '../../../../constant/constants.dart';
 
 class EditProfilePage extends GetView<MyProfileController> {
   EditProfilePage({Key? key}) : super(key: key);
+  MyProfileController controller = Get.put(MyProfileController());
 
   @override
   Widget build(BuildContext context) {

@@ -334,7 +334,7 @@ class HomeView extends GetView<HomeController> {
       ),
       child: ElevatedButton(
         onPressed: () {
-          Get.toNamed(Routes.MAIN_SCREEN_DISTRIBUTER);
+          //    Get.toNamed(Routes.MAIN_SCREEN_DISTRIBUTER);
         },
         style: ElevatedButton.styleFrom(
           backgroundColor: Color.fromARGB(255, 62, 164, 247),
