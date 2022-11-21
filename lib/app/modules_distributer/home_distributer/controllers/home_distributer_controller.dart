@@ -1,6 +1,7 @@
 import 'dart:async';
 
 import 'package:b2b_services/app/modules_distributer/home_distributer/data/model/items_model.dart';
+import 'package:b2b_services/app/modules_distributer/home_distributer/data/model/vehicle_type_model.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:graphql_flutter/graphql_flutter.dart';
@@ -10,10 +11,12 @@ import '../../../constant/reusable_widget.dart';
 import '../data/model/order_model.dart';
 import '../data/mutation/order_deatil_mutuation.dart';
 import '../data/model/shipment_model.dart';
+import '../data/mutation/vehcile_mutuation.dart';
 
 class HomeDistributerController extends GetxController {
   final count = 0.obs;
   var loadingShipmentDeatil = false.obs;
+  var loadindvehicleType = false.obs;
   final reusableWidget = ReusableWidget();
   var loading = true.obs;
 
@@ -21,6 +24,7 @@ class HomeDistributerController extends GetxController {
   late TabController tabController;
 
   RxList<ShipModel> shipModel = List<ShipModel>.of([]).obs;
+  RxList<VehicleTypesModel> vehicleModel = List<VehicleTypesModel>.of([]).obs;
 
   RxList<ItemsModel> itemModel = List<ItemsModel>.of([]).obs;
   RxList<VariantsModel> variantsModel = List<VariantsModel>.of([]).obs;
@@ -31,6 +35,7 @@ class HomeDistributerController extends GetxController {
   @override
   void onInit() {
     getData();
+    getvehicleTypes();
     super.onInit();
   }
 
@@ -106,6 +111,35 @@ class HomeDistributerController extends GetxController {
     } else {
       print(result.exception);
       loadingShipmentDeatil(false);
+    }
+  }
+
+  void getvehicleTypes() async {
+    VehicleTypesMutation vehicleTypesMutation = VehicleTypesMutation();
+    GraphQLClient _client = graphQLConfiguration.clientToQuery();
+
+    QueryResult result = await _client.query(
+      QueryOptions(
+        document: gql(vehicleTypesMutation.getMyCvehicleTypes(10, 1)),
+      ),
+    );
+
+    if (!result.hasException) {
+  
+      vehicleModel.clear();
+
+      for (var i = 0; i < result.data!["vehicleTypes"]["data"].length; i++) {
+        vehicleModel.add(VehicleTypesModel(
+          id: result.data!["vehicleTypes"]["data"][i]["id"],
+          title: result.data!["vehicleTypes"]["data"][i]["title"],
+        ));
+
+        loadindvehicleType(true);
+      }
+    } else {
+      print("ghgh ${variantsModel.length}");
+      print(result.exception);
+      loadindvehicleType(false);
     }
   }
 

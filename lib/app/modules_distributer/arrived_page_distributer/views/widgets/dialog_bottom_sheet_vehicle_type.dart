@@ -4,6 +4,7 @@ import 'package:b2b_services/app/config/theme/custom_colors.dart';
 import 'package:b2b_services/app/config/theme/custom_sizes.dart';
 import 'package:b2b_services/app/config/utils/color_util.dart';
 import 'package:b2b_services/app/modules_distributer/arrived_page_distributer/views/widgets/item_vehicle_yype.dart';
+import 'package:b2b_services/app/modules_distributer/home_distributer/controllers/home_distributer_controller.dart';
 import 'package:b2b_services/app/routes/app_pages.dart';
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
@@ -12,7 +13,13 @@ import 'package:get/get_core/src/get_main.dart';
 import 'package:sizer/sizer.dart';
 
 class DialogBottomSheetVehicleType extends StatelessWidget {
-  const DialogBottomSheetVehicleType({Key? key}) : super(key: key);
+  DialogBottomSheetVehicleType({
+    this.contoller,
+  });
+
+  ///ADDITIONAL  PARAMS
+
+  final HomeDistributerController? contoller;
 
   @override
   Widget build(BuildContext context) {
@@ -49,55 +56,74 @@ class DialogBottomSheetVehicleType extends StatelessWidget {
           Expanded(
             child: Stack(
               children: [
-                ListView(
+                ListView.separated(
+                  physics: NeverScrollableScrollPhysics(),
                   shrinkWrap: true,
-                  padding: EdgeInsets.symmetric(horizontal: CustomSizes.mp_w_2),
-                  children: [
-                    SizedBox(
-                      height: CustomSizes.mp_v_1,
-                    ),
-                    ItemVehicleType(
-                      icon: FontAwesomeIcons.solidMotorcycle,
-                      typeName: 'Motor Bicycle',
-                      typeDesc: 'Less than 3kg',
-                    ),
-                    SizedBox(
-                      height: CustomSizes.mp_v_2,
-                    ),
-                    ItemVehicleType(
-                      icon: FontAwesomeIcons.solidVanShuttle,
-                      typeName: 'Bajaj',
-                      typeDesc: '3kg-100kg',
-                    ),
-                    SizedBox(
-                      height: CustomSizes.mp_v_2,
-                    ),
-                    ItemVehicleType(
-                      icon: FontAwesomeIcons.solidCarSide,
-                      typeName: 'Mini Van',
-                      typeDesc: '200kg-300kg',
-                    ),
-                    SizedBox(
-                      height: CustomSizes.mp_v_2,
-                    ),
-                    ItemVehicleType(
-                      icon: FontAwesomeIcons.solidTruckPickup,
-                      typeName: 'Pickup Truck',
-                      typeDesc: 'Greater than 300kg',
-                    ),
-                    SizedBox(
-                      height: CustomSizes.mp_v_2,
-                    ),
-                    ItemVehicleType(
-                      icon: FontAwesomeIcons.solidTruckContainer,
-                      typeName: 'Cargo',
-                      typeDesc: 'Greater than 300kg',
-                    ),
-                    SizedBox(
-                      height: CustomSizes.mp_v_12,
-                    ),
-                  ],
+                  itemCount: contoller!.vehicleModel.length,
+                  itemBuilder: (context, index) {
+                    return Obx(() => contoller!.loadindvehicleType.isTrue
+                        ? ItemVehicleType(
+                            typeDesc: contoller!.vehicleModel[index].title,
+                            icon: FontAwesomeIcons.solidMotorcycle,
+                            typeName: contoller!.vehicleModel[index].title,
+                          )
+                        : SizedBox());
+                  },
+                  separatorBuilder: (context, index) {
+                    return const Divider(
+                      color: CustomColors.blue,
+                    );
+                  },
                 ),
+                // ListView(
+                //   shrinkWrap: true,
+                //   padding: EdgeInsets.symmetric(horizontal: CustomSizes.mp_w_2),
+                //   children: [
+                //     SizedBox(
+                //       height: CustomSizes.mp_v_1,
+                //     ),
+                //     ItemVehicleType(
+                //       icon: FontAwesomeIcons.solidMotorcycle,
+                //       typeName: 'Motor Bicycle',
+                //       typeDesc: 'Less than 3kg',
+                //     ),
+                //     SizedBox(
+                //       height: CustomSizes.mp_v_2,
+                //     ),
+                //     ItemVehicleType(
+                //       icon: FontAwesomeIcons.solidVanShuttle,
+                //       typeName: 'Bajaj',
+                //       typeDesc: '3kg-100kg',
+                //     ),
+                //     SizedBox(
+                //       height: CustomSizes.mp_v_2,
+                //     ),
+                //     ItemVehicleType(
+                //       icon: FontAwesomeIcons.solidCarSide,
+                //       typeName: 'Mini Van',
+                //       typeDesc: '200kg-300kg',
+                //     ),
+                //     SizedBox(
+                //       height: CustomSizes.mp_v_2,
+                //     ),
+                //     ItemVehicleType(
+                //       icon: FontAwesomeIcons.solidTruckPickup,
+                //       typeName: 'Pickup Truck',
+                //       typeDesc: 'Greater than 300kg',
+                //     ),
+                //     SizedBox(
+                //       height: CustomSizes.mp_v_2,
+                //     ),
+                //     ItemVehicleType(
+                //       icon: FontAwesomeIcons.solidTruckContainer,
+                //       typeName: 'Cargo',
+                //       typeDesc: 'Greater than 300kg',
+                //     ),
+                //     SizedBox(
+                //       height: CustomSizes.mp_v_12,
+                //     ),
+                //   ],
+                // ),
                 Align(
                   alignment: Alignment.bottomCenter,
                   child: Container(
@@ -128,7 +154,6 @@ class DialogBottomSheetVehicleType extends StatelessWidget {
                     ),
                   ),
                 ),
-
               ],
             ),
           ),
