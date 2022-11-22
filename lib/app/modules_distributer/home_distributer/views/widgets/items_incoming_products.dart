@@ -106,11 +106,11 @@ class ItemIncomingProducts extends StatelessWidget {
                     padding: const EdgeInsets.all(16),
                     child: Column(
                       children: List.generate(
-                        itemsModel!.variantsModel.length,
+                        itemsModel!.variantsModel!.length,
                         (index) {
                           return buildDetailsRow(
                             context,
-                            itemsModel!.variantsModel[index],
+                            itemsModel!.variantsModel![index],
                           );
                         },
                       ),

@@ -47,7 +47,9 @@ class MyProfileView extends GetView<MyProfileController> {
             ProfileMenu(
               text: "Notifications",
               icon: FontAwesomeIcons.bell,
-              press: () {},
+              press: () {
+                Get.toNamed(Routes.NOTIFICATION);
+              },
             ),
             ProfileMenu(
               text: "Settings",

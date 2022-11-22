@@ -62,3 +62,42 @@ query {
     """;
   }
 }
+
+class GetOrderrMutation {
+  dynamic getMyorder() {
+    return """
+query {
+  auth {
+  
+  
+    distributor {
+      id
+      orders {
+       id
+       items {
+          id
+          quantity
+          product_sku {
+              sku
+              price
+              product {
+                name
+                images {
+                    id
+                    original_url
+                }
+                attributes {
+                    id
+                    name
+                }
+              }
+          }
+        }
+      }
+
+    }
+  }
+}
+    """;
+  }
+}

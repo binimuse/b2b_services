@@ -16,6 +16,7 @@ import '../data/mutation/vehcile_mutuation.dart';
 class HomeDistributerController extends GetxController {
   final count = 0.obs;
   var loadingShipmentDeatil = false.obs;
+  var loadingOrder = false.obs;
   var loadindvehicleType = false.obs;
   final reusableWidget = ReusableWidget();
   var loading = true.obs;
@@ -27,15 +28,17 @@ class HomeDistributerController extends GetxController {
   RxList<VehicleTypesModel> vehicleModel = List<VehicleTypesModel>.of([]).obs;
 
   RxList<ItemsModel> itemModel = List<ItemsModel>.of([]).obs;
+  RxList<ItemsModel> itemModelorder = List<ItemsModel>.of([]).obs;
   RxList<VariantsModel> variantsModel = List<VariantsModel>.of([]).obs;
 
-  List<OrderHistoryModel> orderData = [];
+  RxList<OrderHistoryModel> orderData = List<OrderHistoryModel>.of([]).obs;
   GraphQLConfiguration graphQLConfiguration = GraphQLConfiguration();
 
   @override
   void onInit() {
     getData();
     getvehicleTypes();
+    getOrder();
     super.onInit();
   }
 
@@ -114,6 +117,63 @@ class HomeDistributerController extends GetxController {
     }
   }
 
+  void getOrder() async {
+    GetOrderrMutation getOrderrMutation = GetOrderrMutation();
+    GraphQLClient _client = graphQLConfiguration.clientToQuery();
+
+    QueryResult result = await _client.query(
+      QueryOptions(
+        document: gql(getOrderrMutation.getMyorder()),
+      ),
+    );
+
+    if (!result.hasException) {
+      orderData.clear();
+
+      for (var i = 0;
+          i < result.data!["auth"]["distributor"]["orders"].length;
+          i++) {
+              orderData.add(OrderHistoryModel(
+              id: result.data!["auth"]["distributor"]["orders"][i]["id"],
+              itemsmodel: itemModelorder));
+        for (var k = 0;
+            k <
+                result
+                    .data!["auth"]["distributor"]["orders"][i]["items"].length;
+            k++) {
+
+
+          itemModelorder.add(ItemsModel(
+            id: result.data!["auth"]["distributor"]["orders"][i]["items"][k]
+                ["id"],
+            images: result.data!["auth"]["distributor"]["orders"][i]["items"][k]
+                ["product_sku"]["product"]["images"][0]["original_url"],
+            name: result.data!["auth"]["distributor"]["orders"][i]["items"][k]
+                ["product_sku"]["product"]["name"],
+            price: result.data!["auth"]["distributor"]["orders"][i]["items"][k]
+                    ["product_sku"]["price"]
+                .toString(),
+            quantity: result.data!["auth"]["distributor"]["orders"][i]["items"]
+                    [k]["quantity"]
+                .toString(),
+            sku: result.data!["auth"]["distributor"]["orders"][i]["items"][k]
+                ["product_sku"]["sku"],
+          ));
+
+        
+
+
+              print("fdfdf ${orderData.length}");
+
+          loadingOrder(true);
+        }
+      }
+    } else {
+      print(result.exception);
+      loadingOrder(false);
+    }
+  }
+
   void getvehicleTypes() async {
     VehicleTypesMutation vehicleTypesMutation = VehicleTypesMutation();
     GraphQLClient _client = graphQLConfiguration.clientToQuery();
@@ -125,13 +185,13 @@ class HomeDistributerController extends GetxController {
     );
 
     if (!result.hasException) {
-  
       vehicleModel.clear();
 
       for (var i = 0; i < result.data!["vehicleTypes"]["data"].length; i++) {
         vehicleModel.add(VehicleTypesModel(
           id: result.data!["vehicleTypes"]["data"][i]["id"],
           title: result.data!["vehicleTypes"]["data"][i]["title"],
+          image: result.data!["vehicleTypes"]["data"][i]["image"],
         ));
 
         loadindvehicleType(true);

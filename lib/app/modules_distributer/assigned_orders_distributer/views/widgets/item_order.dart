@@ -9,7 +9,6 @@ import 'package:get_cli/common/utils/json_serialize/json_ast/json_ast.dart';
 class ItemOrder extends StatefulWidget {
   const ItemOrder({Key? key, required this.onTap}) : super(key: key);
 
-
   final VoidCallback onTap;
 
   @override
@@ -17,7 +16,6 @@ class ItemOrder extends StatefulWidget {
 }
 
 class _ItemOrderState extends State<ItemOrder> {
-
   ///
   bool isSelected = false;
 
@@ -104,7 +102,7 @@ class _ItemOrderState extends State<ItemOrder> {
                     style: Theme.of(context).textTheme.bodySmall?.copyWith(
                           color: ColorUtil.darken(CustomColors.blue, 0.1),
                           fontSize: CustomSizes.font_8,
-                      fontWeight: FontWeight.w600,
+                          fontWeight: FontWeight.w600,
                         ),
                   ),
                 ),
@@ -139,7 +137,6 @@ class _ItemOrderState extends State<ItemOrder> {
           SizedBox(
             height: CustomSizes.mp_v_1,
           ),
-
           Row(
             children: [
               Text(
@@ -153,10 +150,10 @@ class _ItemOrderState extends State<ItemOrder> {
               ),
               const Expanded(child: SizedBox()),
               CustomButtonFeedBack(
-                onTap: (){
-                 setState(() {
-                   isSelected = !isSelected;
-                 });
+                onTap: () {
+                  setState(() {
+                    isSelected = !isSelected;
+                  });
                 },
                 child: Container(
                   width: CustomSizes.icon_size_8,
@@ -168,23 +165,25 @@ class _ItemOrderState extends State<ItemOrder> {
                         size: isSelected
                             ? CustomSizes.icon_size_8
                             : CustomSizes.icon_size_6,
-                        color: isSelected ? CustomColors.green : CustomColors.blue,
+                        color:
+                            isSelected ? CustomColors.green : CustomColors.blue,
                       ),
-                      isSelected?  Positioned(
-                      left: 0,
-                        right: 4,
-                        bottom: 7,
-                        top: 0,
-                        child: Icon(
-                          FontAwesomeIcons.check,
-                          size: CustomSizes.icon_size_4,
-                          color: CustomColors.white ,
-                        ),
-                      ):SizedBox(),
+                      isSelected
+                          ? Positioned(
+                              left: 0,
+                              right: 4,
+                              bottom: 7,
+                              top: 0,
+                              child: Icon(
+                                FontAwesomeIcons.check,
+                                size: CustomSizes.icon_size_4,
+                                color: CustomColors.white,
+                              ),
+                            )
+                          : SizedBox(),
                     ],
                   ),
                 ),
-
               ),
               SizedBox(
                 width: CustomSizes.mp_w_1,

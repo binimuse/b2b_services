@@ -1,4 +1,5 @@
-import 'package:b2b_services/app/modules/my_profile/views/widgets/editprofile.dart';
+// ignore_for_file: must_be_immutable
+
 import 'package:b2b_services/app/modules/my_profile/views/widgets/setting.dart';
 import 'package:b2b_services/app/routes/app_pages.dart';
 import 'package:flutter/material.dart';
@@ -7,8 +8,16 @@ import 'package:shared_preferences/shared_preferences.dart';
 import 'package:sizer/sizer.dart';
 
 import '../../../../constant/constants.dart';
+import '../../controllers/home_controller.dart';
 
-class NavDrawer extends StatelessWidget {
+class NavDrawer extends StatefulWidget {
+  HomeController controller = Get.find<HomeController>();
+
+  @override
+  State<NavDrawer> createState() => _NavDrawerState();
+}
+
+class _NavDrawerState extends State<NavDrawer> {
   @override
   Widget build(BuildContext context) {
     return Drawer(
@@ -37,12 +46,15 @@ class NavDrawer extends StatelessWidget {
                   mainAxisAlignment: MainAxisAlignment.center,
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
+                    widget.controller.getDriver.isNotEmpty
+                        ? Text(
+                            widget.controller.getDriver[0].name,
+                            style:
+                                TextStyle(color: Colors.white, fontSize: 14.sp),
+                          )
+                        : SizedBox(),
                     Text(
-                      "Admasu Adane",
-                      style: TextStyle(color: Colors.white, fontSize: 14.sp),
-                    ),
-                    Text(
-                      "+251922681360",
+                      widget.controller.getDriver[0].city,
                       style: TextStyle(color: Colors.white, fontSize: 11.sp),
                     )
                   ],
@@ -56,16 +68,6 @@ class NavDrawer extends StatelessWidget {
           SizedBox(
             height: 4.h,
           ),
-          buildRow(
-              textcolors: Colors.grey,
-              colors: Colors.blue,
-              context: context,
-              icon: Icons.account_box,
-              title: "My Profile",
-              onTap: () {
-                Navigator.push(context,
-                    MaterialPageRoute(builder: (context) => EditProfilePage()));
-              }),
           buildRow(
               textcolors: Colors.grey,
               colors: Colors.blue,

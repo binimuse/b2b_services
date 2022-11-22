@@ -10,6 +10,8 @@ import '../modules/home/bindings/home_binding.dart';
 import '../modules/home/views/home_view.dart';
 import '../modules/my_profile/bindings/my_profile_binding.dart';
 import '../modules/my_profile/views/my_profile_view.dart';
+import '../modules/notification/bindings/notification_binding.dart';
+import '../modules/notification/views/notification_view.dart';
 import '../modules/scan_qr_code/bindings/scan_qr_code_binding.dart';
 import '../modules/scan_qr_code/views/scan_qr_code_view.dart';
 import '../modules/sign_in/bindings/sign_in_binding.dart';
@@ -65,7 +67,7 @@ class AppPages {
     ),
     GetPage(
       name: _Paths.MY_PROFILE,
-      page: () =>  MyProfileView(),
+      page: () => MyProfileView(),
       binding: MyProfileBinding(),
     ),
     GetPage(
@@ -127,6 +129,11 @@ class AppPages {
       name: _Paths.ASSIGNED_ORDERS_DISTRIBUTER,
       page: () => const AssignedOrdersDistributerView(),
       binding: AssignedOrdersDistributerBinding(),
+    ),
+    GetPage(
+      name: _Paths.NOTIFICATION,
+      page: () => NotificationView(),
+      binding: NotificationBinding(),
     ),
   ];
 }

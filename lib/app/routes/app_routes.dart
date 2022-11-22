@@ -21,6 +21,7 @@ abstract class Routes {
       _Paths.SEARCHING_DRIVERS_DISTRIBUTER;
   static const DRIVERS_FOUND_DISTRIBUTER = _Paths.DRIVERS_FOUND_DISTRIBUTER;
   static const ASSIGNED_ORDERS_DISTRIBUTER = _Paths.ASSIGNED_ORDERS_DISTRIBUTER;
+  static const NOTIFICATION = _Paths.NOTIFICATION;
 }
 
 abstract class _Paths {
@@ -42,4 +43,5 @@ abstract class _Paths {
   static const SEARCHING_DRIVERS_DISTRIBUTER = '/searching-drivers-distributer';
   static const DRIVERS_FOUND_DISTRIBUTER = '/drivers-found-distributer';
   static const ASSIGNED_ORDERS_DISTRIBUTER = '/assigned-orders-distributer';
+  static const NOTIFICATION = '/notification';
 }

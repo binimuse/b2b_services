@@ -90,7 +90,9 @@ class SearchingDriversDistributerView
               color: CustomColors.white,
               borderRadius: BorderRadius.circular(CustomSizes.radius_6),
               child: CustomButtonFeedBack(
-                onTap: () {},
+                onTap: () {
+                  Get.toNamed(Routes.NOTIFICATION);
+                },
                 child: Padding(
                   padding: EdgeInsets.all(
                     CustomSizes.mp_w_4,
@@ -113,17 +115,14 @@ class SearchingDriversDistributerView
 
   buildSearchingContainer() {
     return Container(
-
       child: Container(
-        height: 60.h ,
+        height: 60.h,
         child: Stack(
           children: [
-
             Align(
               alignment: Alignment.center,
               child: Lottie.asset(AppAssets.pulseLottie),
             ),
-
             Align(
               alignment: Alignment.center,
               child: Container(
@@ -188,17 +187,19 @@ class SearchingDriversDistributerView
                 fontWeight: FontWeight.w500,
               ),
         ),
-        SizedBox(height: CustomSizes.mp_v_1,),
+        SizedBox(
+          height: CustomSizes.mp_v_1,
+        ),
         Padding(
           padding: EdgeInsets.symmetric(horizontal: CustomSizes.mp_w_16),
           child: Text(
             'Please wait a minute for the drivers to accept your request',
             textAlign: TextAlign.center,
             style: Theme.of(context).textTheme.bodyMedium?.copyWith(
-              color: CustomColors.grey,
-              fontSize: CustomSizes.font_10,
-              fontWeight: FontWeight.w400,
-            ),
+                  color: CustomColors.grey,
+                  fontSize: CustomSizes.font_10,
+                  fontWeight: FontWeight.w400,
+                ),
           ),
         ),
         SizedBox(

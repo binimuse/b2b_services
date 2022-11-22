@@ -12,7 +12,7 @@ class ItemVehicleType extends StatefulWidget {
       required this.typeDesc})
       : super(key: key);
 
-  final IconData icon;
+  final String icon;
   final String typeName;
   final String typeDesc;
 
@@ -21,21 +21,20 @@ class ItemVehicleType extends StatefulWidget {
 }
 
 class _ItemVehicleTypeState extends State<ItemVehicleType> {
-
   ///
-   bool isSelected = false;
+  bool isSelected = false;
 
   @override
   Widget build(BuildContext context) {
     return CustomButtonFeedBack(
       onTap: () {
         setState(() {
-          isSelected=!isSelected;
+          isSelected = !isSelected;
         });
       },
       child: Container(
         decoration: BoxDecoration(
-          color: isSelected?CustomColors.blue:CustomColors.white,
+          color: isSelected ? CustomColors.blue : CustomColors.white,
           borderRadius: BorderRadius.circular(CustomSizes.radius_12),
           boxShadow: [
             BoxShadow(
@@ -47,14 +46,14 @@ class _ItemVehicleTypeState extends State<ItemVehicleType> {
         ),
         padding: EdgeInsets.symmetric(
           horizontal: CustomSizes.mp_w_4,
-          vertical: CustomSizes.mp_v_4*0.6,
+          vertical: CustomSizes.mp_v_4 * 0.6,
         ),
         child: Row(
           children: [
-            Icon(
+            Image.network(
               widget.icon,
-              size: CustomSizes.icon_size_10,
-              color:isSelected?CustomColors.white: CustomColors.blue,
+              width: CustomSizes.icon_size_10,
+              height: CustomSizes.icon_size_10,
             ),
             SizedBox(
               width: CustomSizes.mp_w_8,
@@ -65,9 +64,10 @@ class _ItemVehicleTypeState extends State<ItemVehicleType> {
                 Text(
                   widget.typeName,
                   style: Theme.of(context).textTheme.bodyLarge?.copyWith(
-                        color: isSelected?CustomColors.white:CustomColors.blue,
+                        color:
+                            isSelected ? CustomColors.white : CustomColors.blue,
                         fontWeight: FontWeight.w500,
-                    fontSize: CustomSizes.font_12,
+                        fontSize: CustomSizes.font_12,
                       ),
                 ),
                 SizedBox(
@@ -76,7 +76,9 @@ class _ItemVehicleTypeState extends State<ItemVehicleType> {
                 Text(
                   widget.typeDesc,
                   style: Theme.of(context).textTheme.bodyMedium?.copyWith(
-                        color: isSelected?CustomColors.lightGrey:CustomColors.grey,
+                        color: isSelected
+                            ? CustomColors.lightGrey
+                            : CustomColors.grey,
                         fontWeight: FontWeight.w400,
                       ),
                 ),

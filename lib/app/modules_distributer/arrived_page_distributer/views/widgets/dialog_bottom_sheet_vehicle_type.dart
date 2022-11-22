@@ -64,7 +64,7 @@ class DialogBottomSheetVehicleType extends StatelessWidget {
                     return Obx(() => contoller!.loadindvehicleType.isTrue
                         ? ItemVehicleType(
                             typeDesc: contoller!.vehicleModel[index].title,
-                            icon: FontAwesomeIcons.solidMotorcycle,
+                            icon: contoller!.vehicleModel[index].image,
                             typeName: contoller!.vehicleModel[index].title,
                           )
                         : SizedBox());
@@ -75,55 +75,6 @@ class DialogBottomSheetVehicleType extends StatelessWidget {
                     );
                   },
                 ),
-                // ListView(
-                //   shrinkWrap: true,
-                //   padding: EdgeInsets.symmetric(horizontal: CustomSizes.mp_w_2),
-                //   children: [
-                //     SizedBox(
-                //       height: CustomSizes.mp_v_1,
-                //     ),
-                //     ItemVehicleType(
-                //       icon: FontAwesomeIcons.solidMotorcycle,
-                //       typeName: 'Motor Bicycle',
-                //       typeDesc: 'Less than 3kg',
-                //     ),
-                //     SizedBox(
-                //       height: CustomSizes.mp_v_2,
-                //     ),
-                //     ItemVehicleType(
-                //       icon: FontAwesomeIcons.solidVanShuttle,
-                //       typeName: 'Bajaj',
-                //       typeDesc: '3kg-100kg',
-                //     ),
-                //     SizedBox(
-                //       height: CustomSizes.mp_v_2,
-                //     ),
-                //     ItemVehicleType(
-                //       icon: FontAwesomeIcons.solidCarSide,
-                //       typeName: 'Mini Van',
-                //       typeDesc: '200kg-300kg',
-                //     ),
-                //     SizedBox(
-                //       height: CustomSizes.mp_v_2,
-                //     ),
-                //     ItemVehicleType(
-                //       icon: FontAwesomeIcons.solidTruckPickup,
-                //       typeName: 'Pickup Truck',
-                //       typeDesc: 'Greater than 300kg',
-                //     ),
-                //     SizedBox(
-                //       height: CustomSizes.mp_v_2,
-                //     ),
-                //     ItemVehicleType(
-                //       icon: FontAwesomeIcons.solidTruckContainer,
-                //       typeName: 'Cargo',
-                //       typeDesc: 'Greater than 300kg',
-                //     ),
-                //     SizedBox(
-                //       height: CustomSizes.mp_v_12,
-                //     ),
-                //   ],
-                // ),
                 Align(
                   alignment: Alignment.bottomCenter,
                   child: Container(

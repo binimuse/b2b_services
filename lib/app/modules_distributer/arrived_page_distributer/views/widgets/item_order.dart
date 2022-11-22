@@ -2,10 +2,11 @@ import 'package:b2b_services/app/common/widgets/custom_button_feedback.dart';
 import 'package:b2b_services/app/config/theme/custom_colors.dart';
 import 'package:b2b_services/app/config/theme/custom_sizes.dart';
 import 'package:b2b_services/app/config/utils/color_util.dart';
-import 'package:b2b_services/app/modules_distributer/home_distributer/data/model/shipment_model.dart';
+import 'package:b2b_services/app/modules_distributer/home_distributer/data/model/items_model.dart';
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
-import 'package:get_cli/common/utils/json_serialize/json_ast/json_ast.dart';
+
+import '../../../home_distributer/data/model/order_model.dart';
 
 class ItemOrder extends StatefulWidget {
   const ItemOrder({
@@ -17,7 +18,7 @@ class ItemOrder extends StatefulWidget {
 
   final VoidCallback onTap;
 
-  final ShipModel? shipModel;
+  final OrderHistoryModel? shipModel;
   final int? index;
 
   @override
@@ -27,6 +28,7 @@ class ItemOrder extends StatefulWidget {
 class _ItemOrderState extends State<ItemOrder> {
   ///
   bool isSelected = false;
+  bool isSelectedItems = false;
 
   @override
   Widget build(BuildContext context) {
@@ -40,18 +42,23 @@ class _ItemOrderState extends State<ItemOrder> {
           horizontal: CustomSizes.mp_w_4,
           vertical: CustomSizes.mp_w_2,
         ),
-        child: Row(
-          crossAxisAlignment: CrossAxisAlignment.center,
+        child: Column(
           children: [
-            ///BUILD ICON CONTAINER
-            buildIcon(),
+            Row(
+              crossAxisAlignment: CrossAxisAlignment.center,
+              children: [
+                ///BUILD ICON CONTAINER
+                buildIcon(),
 
-            SizedBox(
-              width: CustomSizes.mp_w_4,
+                SizedBox(
+                  width: CustomSizes.mp_w_4,
+                ),
+
+                ///BUILD ITEM INFO
+                buildItemInfo(context),
+              ],
             ),
-
-            ///BUILD ITEM INFO
-            buildItemInfo(context),
+            isSelectedItems ? buildExpandableView() : SizedBox(),
           ],
         ),
       ),
@@ -85,7 +92,7 @@ class _ItemOrderState extends State<ItemOrder> {
             children: [
               Expanded(
                 child: Text(
-                  "Order #${widget.shipModel!.shipmentID}",
+                  "Order #${widget.shipModel!.id}",
                   maxLines: 1,
                   overflow: TextOverflow.ellipsis,
                   style: Theme.of(context).textTheme.bodyMedium?.copyWith(
@@ -105,7 +112,7 @@ class _ItemOrderState extends State<ItemOrder> {
                     vertical: CustomSizes.mp_v_1 / 2,
                   ),
                   child: Text(
-                    widget.shipModel!.itemModel.length.toString() + " items",
+                    widget.shipModel!.itemsmodel.length.toString() + " items",
                     maxLines: 1,
                     overflow: TextOverflow.ellipsis,
                     style: Theme.of(context).textTheme.bodySmall?.copyWith(
@@ -148,6 +155,26 @@ class _ItemOrderState extends State<ItemOrder> {
           ),
           Row(
             children: [
+              CustomButtonFeedBack(
+                onTap: () {
+                  setState(() {
+                    isSelectedItems = !isSelectedItems;
+                  });
+                },
+                child: Padding(
+                  padding: EdgeInsets.all(CustomSizes.mp_w_1),
+                  child: Text(
+                    "Items Details",
+                    maxLines: 1,
+                    overflow: TextOverflow.ellipsis,
+                    style: Theme.of(context).textTheme.bodyMedium?.copyWith(
+                          color: ColorUtil.darken(CustomColors.blue, 0.1),
+                          fontWeight: FontWeight.w500,
+                          fontSize: CustomSizes.font_10,
+                        ),
+                  ),
+                ),
+              ),
               const Expanded(child: SizedBox()),
               CustomButtonFeedBack(
                 onTap: () {
@@ -195,6 +222,70 @@ class _ItemOrderState extends State<ItemOrder> {
           ),
         ],
       ),
+    );
+  }
+
+  Column buildExpandableView() {
+    return Column(
+      crossAxisAlignment: CrossAxisAlignment.end,
+      children: [
+        ListView.separated(
+          physics: const NeverScrollableScrollPhysics(),
+          shrinkWrap: true,
+          padding: EdgeInsets.only(
+              left: CustomSizes.mp_w_6, top: CustomSizes.mp_v_2),
+          itemBuilder: (context, index) {
+            return buildDetailsRow(
+                context, widget.shipModel!.itemsmodel[index]);
+          },
+          separatorBuilder: (context, index) {
+            return Padding(
+              padding: EdgeInsets.symmetric(
+                vertical: CustomSizes.mp_v_1,
+              ),
+              child: const Divider(
+                height: 1,
+                color: CustomColors.grey,
+              ),
+            );
+          },
+          itemCount: widget.shipModel!.itemsmodel.length,
+        ),
+        SizedBox(
+          height: CustomSizes.mp_v_1,
+        ),
+      ],
+    );
+  }
+
+  buildDetailsRow(BuildContext context, ItemsModel itemsmodel) {
+    return Row(
+      crossAxisAlignment: CrossAxisAlignment.center,
+      children: [
+        Expanded(
+          child: Text(
+            itemsmodel.name,
+            maxLines: 1,
+            overflow: TextOverflow.ellipsis,
+            style: Theme.of(context).textTheme.bodyMedium?.copyWith(
+                  color: CustomColors.grey,
+                  fontWeight: FontWeight.w400,
+                  fontSize: CustomSizes.font_8,
+                ),
+          ),
+        ),
+        const Expanded(
+          child: SizedBox(),
+        ),
+        Text(
+          itemsmodel.quantity,
+          style: Theme.of(context).textTheme.bodySmall?.copyWith(
+                fontWeight: FontWeight.w500,
+                color: CustomColors.grey,
+                fontSize: CustomSizes.font_10,
+              ),
+        ),
+      ],
     );
   }
 }

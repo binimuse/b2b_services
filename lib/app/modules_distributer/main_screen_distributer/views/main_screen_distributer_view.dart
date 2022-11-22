@@ -74,7 +74,9 @@ class MainScreenDistributerView
                     elevation: 4,
                     borderRadius: BorderRadius.circular(CustomSizes.radius_6),
                     child: CustomButtonFeedBack(
-                      onTap: () {},
+                      onTap: () {
+                        Get.toNamed(Routes.NOTIFICATION);
+                      },
                       child: Icon(
                         FontAwesomeIcons.solidBell,
                         color: CustomColors.blue,

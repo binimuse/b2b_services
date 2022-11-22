@@ -6,7 +6,7 @@ query {
         data {
              id
             title
-         
+            image
             
         
         }

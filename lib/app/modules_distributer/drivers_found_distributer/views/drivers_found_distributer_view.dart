@@ -4,6 +4,7 @@ import 'package:b2b_services/app/config/theme/custom_sizes.dart';
 import 'package:b2b_services/app/config/utils/pages_util.dart';
 import 'package:b2b_services/app/helper/keyboard.dart';
 import 'package:b2b_services/app/modules_distributer/drivers_found_distributer/views/widgets/item_founded_driver.dart';
+import 'package:b2b_services/app/routes/app_pages.dart';
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 
@@ -29,18 +30,21 @@ class DriversFoundDistributerView
           ///BUILD APP BAR
           buildAppBar(context),
 
-
           Expanded(
             child: ListView.separated(
               padding: EdgeInsets.symmetric(horizontal: CustomSizes.mp_w_4),
-              itemBuilder: (context,index){
+              itemBuilder: (context, index) {
                 return Padding(
-                  padding: index==0? EdgeInsets.only(top: CustomSizes.mp_v_2):EdgeInsets.zero,
+                  padding: index == 0
+                      ? EdgeInsets.only(top: CustomSizes.mp_v_2)
+                      : EdgeInsets.zero,
                   child: ItemFoundedDriver(),
                 );
               },
-              separatorBuilder: (context,index){
-                return SizedBox(height: CustomSizes.mp_v_2,);
+              separatorBuilder: (context, index) {
+                return SizedBox(
+                  height: CustomSizes.mp_v_2,
+                );
               },
               itemCount: 12,
             ),
@@ -98,7 +102,9 @@ class DriversFoundDistributerView
               color: CustomColors.white,
               borderRadius: BorderRadius.circular(CustomSizes.radius_6),
               child: CustomButtonFeedBack(
-                onTap: () {},
+                onTap: () {
+                  Get.toNamed(Routes.NOTIFICATION);
+                },
                 child: Padding(
                   padding: EdgeInsets.all(
                     CustomSizes.mp_w_4,

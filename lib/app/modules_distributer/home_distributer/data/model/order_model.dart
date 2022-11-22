@@ -1,14 +1,11 @@
-class OrderHistoryModel {
-  late int id;
-  late String name;
-  late int countItem;
-  late String date;
-  late String time;
+import 'items_model.dart';
 
-  OrderHistoryModel(
-      {required this.id,
-      required this.name,
-      required this.countItem,
-      required this.date,
-      required this.time});
+class OrderHistoryModel {
+  late String id;
+  late List<ItemsModel> itemsmodel;
+
+  OrderHistoryModel({
+    required this.id,
+    required this.itemsmodel,
+  });
 }

@@ -6,7 +6,7 @@ class ItemsModel {
   late String name;
   late String images;
 
-  late List<VariantsModel> variantsModel;
+  late List<VariantsModel>? variantsModel;
   ItemsModel({
     required this.id,
     required this.quantity,
@@ -14,7 +14,7 @@ class ItemsModel {
     required this.price,
     required this.name,
     required this.images,
-    required this.variantsModel,
+    this.variantsModel,
   });
 }
 

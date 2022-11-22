@@ -1,3 +1,5 @@
+// ignore_for_file: must_be_immutable
+
 import 'package:b2b_services/app/common/widgets/custom_normal_button_border.dart';
 import 'package:b2b_services/app/config/theme/custom_colors.dart';
 import 'package:b2b_services/app/config/theme/custom_sizes.dart';
@@ -26,28 +28,25 @@ class OrdersPage extends StatelessWidget {
         child: ListView.separated(
           padding: EdgeInsets.symmetric(horizontal: CustomSizes.mp_w_4),
           itemBuilder: (context, index) {
-            if (controller.shipModel[index].status == "DELIVERED" &&
-                controller.shipModel[index].from == "Warehouse") {
+         
               return Padding(
                 padding: index == 0
                     ? EdgeInsets.only(top: CustomSizes.mp_v_2)
                     : EdgeInsets.zero,
                 child: ItemOrder(
-                  shipModel: controller.shipModel[index],
+                  shipModel: controller.orderData[index],
                   index: index,
                   onTap: () {},
                 ),
               );
-            } else {
-              return SizedBox();
-            }
+          
           },
           separatorBuilder: (context, index) {
             return SizedBox(
               height: CustomSizes.mp_w_2,
             );
           },
-          itemCount: controller.shipModel.length,
+          itemCount: controller.orderData.length,
         ),
       ),
     );
