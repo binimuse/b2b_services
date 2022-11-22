@@ -1,3 +1,4 @@
+import 'package:b2b_services/app/common/firebase/realtime_database.dart';
 import 'package:b2b_services/app/common/widgets/custom_button_feedback.dart';
 import 'package:b2b_services/app/config/theme/custom_colors.dart';
 import 'package:b2b_services/app/config/theme/custom_sizes.dart';
@@ -52,7 +53,19 @@ class MainScreenDistributerView
                     color: CustomColors.blue,
                     borderRadius: BorderRadius.circular(CustomSizes.radius_6),
                     child: CustomButtonFeedBack(
-                      onTap: () {},
+                      onTap: () {
+                        RealtimeDatabase.write(
+                          userId: "new id",
+                          data: {
+                            'name': "bini",
+                            'email': "muse",
+                          },
+                        );
+
+                        // final _name = await RealtimeDatabase.read();
+
+                        // print(_name);
+                      },
                       child: Center(
                         child: Icon(
                           FontAwesomeIcons.solidTruckFast,
