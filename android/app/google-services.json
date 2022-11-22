@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "654120200662",
+    "project_id": "b2b-test-a729c",
+    "storage_bucket": "b2b-test-a729c.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:654120200662:android:fc785e46e40e37af985c77",
+        "android_client_info": {
+          "package_name": "b2b.b2b_services"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "654120200662-qig07dintg2cjh75m9ou9jijiv32e781.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCEzlRqBPqxSy3E5n8WMZFbIjWrpFawtWc"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "654120200662-qig07dintg2cjh75m9ou9jijiv32e781.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
