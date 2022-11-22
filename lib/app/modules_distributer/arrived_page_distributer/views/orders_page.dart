@@ -24,11 +24,14 @@ class OrdersPage extends StatelessWidget {
         toolbarHeight: 0.0,
       ),
       floatingActionButton: buildFloatingActionButton(context),
-      body: Container(
-        child: ListView.separated(
-          padding: EdgeInsets.symmetric(horizontal: CustomSizes.mp_w_4),
-          itemBuilder: (context, index) {
-         
+      body: RefreshIndicator(
+        onRefresh: () async {
+          controller.fetchAll();
+        },
+        child: Container(
+          child: ListView.separated(
+            padding: EdgeInsets.symmetric(horizontal: CustomSizes.mp_w_4),
+            itemBuilder: (context, index) {
               return Padding(
                 padding: index == 0
                     ? EdgeInsets.only(top: CustomSizes.mp_v_2)
@@ -39,14 +42,14 @@ class OrdersPage extends StatelessWidget {
                   onTap: () {},
                 ),
               );
-          
-          },
-          separatorBuilder: (context, index) {
-            return SizedBox(
-              height: CustomSizes.mp_w_2,
-            );
-          },
-          itemCount: controller.orderData.length,
+            },
+            separatorBuilder: (context, index) {
+              return SizedBox(
+                height: CustomSizes.mp_w_2,
+              );
+            },
+            itemCount: controller.orderData.length,
+          ),
         ),
       ),
     );

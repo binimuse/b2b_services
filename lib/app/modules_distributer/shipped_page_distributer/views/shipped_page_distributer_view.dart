@@ -24,33 +24,38 @@ class ShippedPageDistributerView extends StatelessWidget {
           toolbarHeight: 0.0,
         ),
         body: Obx(() => controller.loadingShipmentDeatil.value != false
-            ? ListView.separated(
-                padding: EdgeInsets.symmetric(horizontal: CustomSizes.mp_w_4),
-                itemBuilder: (context, index) {
-                  if (controller.shipModel[index].status == "SHIPPED" &&
-                      controller.shipModel[index].from == "Distributor") {
-                    return Padding(
-                      padding: index == 0
-                          ? EdgeInsets.only(top: CustomSizes.mp_v_2)
-                          : EdgeInsets.zero,
-                      child: ItemShipedItem(
-                        shipModel: controller.shipModel[index],
-                        index: index,
-                        onTap: () {
-                          //   Get.toNamed(Routes.ASSIGNED_ORDERS_DISTRIBUTER);
-                        },
-                      ),
+            ? RefreshIndicator(
+                onRefresh: () async {
+                  controller.fetchAll();
+                },
+                child: ListView.separated(
+                  padding: EdgeInsets.symmetric(horizontal: CustomSizes.mp_w_4),
+                  itemBuilder: (context, index) {
+                    if (controller.shipModel[index].status == "SHIPPED" &&
+                        controller.shipModel[index].from == "Distributor") {
+                      return Padding(
+                        padding: index == 0
+                            ? EdgeInsets.only(top: CustomSizes.mp_v_2)
+                            : EdgeInsets.zero,
+                        child: ItemShipedItem(
+                          shipModel: controller.shipModel[index],
+                          index: index,
+                          onTap: () {
+                            //   Get.toNamed(Routes.ASSIGNED_ORDERS_DISTRIBUTER);
+                          },
+                        ),
+                      );
+                    } else {
+                      return SizedBox();
+                    }
+                  },
+                  separatorBuilder: (context, index) {
+                    return SizedBox(
+                      height: CustomSizes.mp_v_2,
                     );
-                  } else {
-                    return SizedBox();
-                  }
-                },
-                separatorBuilder: (context, index) {
-                  return SizedBox(
-                    height: CustomSizes.mp_v_2,
-                  );
-                },
-                itemCount: controller.shipModel.length,
+                  },
+                  itemCount: controller.shipModel.length,
+                ),
               )
             : Center(
                 child: Text(

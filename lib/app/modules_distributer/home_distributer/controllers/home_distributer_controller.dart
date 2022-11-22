@@ -36,10 +36,14 @@ class HomeDistributerController extends GetxController {
 
   @override
   void onInit() {
+    fetchAll();
+    super.onInit();
+  }
+
+  fetchAll() {
     getData();
     getvehicleTypes();
     getOrder();
-    super.onInit();
   }
 
   void getData() async {
@@ -54,7 +58,7 @@ class HomeDistributerController extends GetxController {
 
     if (!result.hasException) {
       shipModel.clear();
-
+      itemModel.clear();
       for (var i = 0;
           i < result.data!["auth"]["distributor"]["shipmentsTo"].length;
           i++) {
@@ -133,16 +137,14 @@ class HomeDistributerController extends GetxController {
       for (var i = 0;
           i < result.data!["auth"]["distributor"]["orders"].length;
           i++) {
-              orderData.add(OrderHistoryModel(
-              id: result.data!["auth"]["distributor"]["orders"][i]["id"],
-              itemsmodel: itemModelorder));
+        orderData.add(OrderHistoryModel(
+            id: result.data!["auth"]["distributor"]["orders"][i]["id"],
+            itemsmodel: itemModelorder));
         for (var k = 0;
             k <
                 result
                     .data!["auth"]["distributor"]["orders"][i]["items"].length;
             k++) {
-
-
           itemModelorder.add(ItemsModel(
             id: result.data!["auth"]["distributor"]["orders"][i]["items"][k]
                 ["id"],
@@ -160,10 +162,7 @@ class HomeDistributerController extends GetxController {
                 ["product_sku"]["sku"],
           ));
 
-        
-
-
-              print("fdfdf ${orderData.length}");
+          print("fdfdf ${orderData.length}");
 
           loadingOrder(true);
         }

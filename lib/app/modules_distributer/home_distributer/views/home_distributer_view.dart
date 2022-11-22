@@ -20,25 +20,30 @@ class HomeDistributerView extends GetView<HomeDistributerController> {
               systemOverlayStyle: PagesUtil.getAppBarLightStyle(),
               toolbarHeight: 0.0,
             ),
-            body: ListView.separated(
-              padding: EdgeInsets.symmetric(horizontal: CustomSizes.mp_w_4),
-              itemBuilder: (context, index) {
-                if (controller.shipModel[index].status == "SHIPPED" &&
-                    controller.shipModel[index].from == "Warehouse") {
-                  return ItemIncomingItems(
-                    shipModel: controller.shipModel[index],
-                    index: index,
+            body: RefreshIndicator(
+              onRefresh: () async {
+                controller.fetchAll();
+              },
+              child: ListView.separated(
+                padding: EdgeInsets.symmetric(horizontal: CustomSizes.mp_w_4),
+                itemBuilder: (context, index) {
+                  if (controller.shipModel[index].status == "SHIPPED" &&
+                      controller.shipModel[index].from == "Warehouse") {
+                    return ItemIncomingItems(
+                      shipModel: controller.shipModel[index],
+                      index: index,
+                    );
+                  } else {
+                    return SizedBox();
+                  }
+                },
+                separatorBuilder: (context, index) {
+                  return SizedBox(
+                    height: CustomSizes.mp_w_4,
                   );
-                } else {
-                  return SizedBox();
-                }
-              },
-              separatorBuilder: (context, index) {
-                return SizedBox(
-                  height: CustomSizes.mp_w_4,
-                );
-              },
-              itemCount: controller.shipModel.length,
+                },
+                itemCount: controller.shipModel.length,
+              ),
             ),
           )
         : Center(child: CircularProgressIndicator()));

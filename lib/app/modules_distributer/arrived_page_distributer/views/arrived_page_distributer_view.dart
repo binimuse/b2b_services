@@ -21,7 +21,7 @@ class _ArrivedPageDistributerViewState
   late final ArrivedPageDistributerController controller;
 
   ///
-   late final tabBarValueNotifier;
+  late final tabBarValueNotifier;
 
   @override
   void initState() {
@@ -29,7 +29,7 @@ class _ArrivedPageDistributerViewState
     controller = Get.put(ArrivedPageDistributerController());
 
     ///
-    tabBarValueNotifier  = ValueNotifier(controller.tabItem);
+    tabBarValueNotifier = ValueNotifier(controller.tabItem);
 
     super.initState();
   }
@@ -73,7 +73,6 @@ class _ArrivedPageDistributerViewState
   }
 
   buildTabBar(context) {
-
     return Center(
       child: AdvancedSegment(
         controller: tabBarValueNotifier,
