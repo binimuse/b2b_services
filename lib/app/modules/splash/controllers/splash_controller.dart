@@ -37,6 +37,8 @@ class SplashController extends GetxController {
 
     String? fcmToken = await FirebaseMessaging.instance.getToken();
 
+    print("fcmToken ${fcmToken.toString()}");
+
     if (fcmToken != null) {
       GraphQLConfiguration graphQLConfiguration = GraphQLConfiguration();
 
@@ -53,10 +55,8 @@ class SplashController extends GetxController {
       );
 
       if (!result.hasException) {
-        print("am here");
-      } else {
-        print("am here mooo");
-      }
+        print("haha ${result.data}");
+      } else {}
     } else {}
   }
 
