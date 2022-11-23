@@ -8,7 +8,6 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:graphql_flutter/graphql_flutter.dart';
 import 'package:image_picker/image_picker.dart';
-
 import '../data/model/getuser_model.dart';
 import '../data/mutation/getuserid_mutuation.dart';
 

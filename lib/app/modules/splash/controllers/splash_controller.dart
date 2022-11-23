@@ -1,7 +1,10 @@
 // ignore_for_file: prefer_typing_uninitialized_variables
 
+import 'package:b2b_services/app/Services/graphql_conf.dart';
 import 'package:b2b_services/app/routes/app_pages.dart';
+import 'package:fcm_config/fcm_config.dart';
 import 'package:get/get.dart';
+import 'package:graphql_flutter/graphql_flutter.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 class SplashController extends GetxController {
@@ -17,12 +20,41 @@ class SplashController extends GetxController {
 
     if (acc != null && role == "distributor") {
       Get.toNamed(Routes.MAIN_SCREEN_DISTRIBUTER);
+
     } else if (acc != null && role == "driver") {
       Get.toNamed(Routes.HOME);
+
     } else {
       Get.toNamed(Routes.SIGN_IN);
       //  Get.toNamed(Routes.HOME);
     }
+  }
+
+  Future<void> syncFcmToken() async {
+    final prefs = await SharedPreferences.getInstance();
+    String? userId = prefs.getString("userId");
+    String? fcmToken = await FirebaseMessaging.instance.getToken();
+
+
+    if (userId != null && fcmToken != null && userId != null) {
+      GraphQLConfiguration graphQLConfiguration = GraphQLConfiguration();
+
+      GraphQLClient client = graphQLConfiguration.clientToQuery();
+      QueryResult result = await client.query(
+        QueryOptions(
+          document: gql(
+            FcmSyncMutation.syncFcm,
+          ),
+          variables: <String, dynamic>{
+            'userId': userId,
+            'fcmToken': fcmToken,
+          },
+        ),
+      );
+
+      if (!result.hasException) {
+      } else {}
+    } else {}
   }
 
 

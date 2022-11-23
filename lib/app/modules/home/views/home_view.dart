@@ -262,64 +262,64 @@ class HomeView extends GetView<HomeController> {
           SizedBox(
             height: 2.h,
           ),
-          Container(
-            padding: EdgeInsets.symmetric(
-              horizontal: 2.w,
-            ),
-            child: Row(
-              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-              children: [
-                SizedBox(
-                    height: 6.h,
-                    width: 42.w,
-                    child: Container(
-                      decoration: BoxDecoration(
-                        color: Colors.redAccent,
-                        borderRadius: BorderRadius.circular(8.0),
-                      ),
-                      child: ElevatedButton(
-                        onPressed: () {},
-                        style: ElevatedButton.styleFrom(
-                          backgroundColor: Colors.transparent,
-                          shadowColor: Colors.transparent,
-                          padding: EdgeInsets.symmetric(vertical: 1.h),
-                        ),
-                        child: Text('Decline',
-                            style: Theme.of(context)
-                                .textTheme
-                                .bodyMedium!
-                                .copyWith(
-                                    color: Colors.white,
-                                    fontWeight: FontWeight.w600)),
-                      ),
-                    )),
-                SizedBox(
-                    height: 6.h,
-                    width: 42.w,
-                    child: Container(
-                      decoration: BoxDecoration(
-                        color: Colors.green,
-                        borderRadius: BorderRadius.circular(8.0),
-                      ),
-                      child: ElevatedButton(
-                        onPressed: () {},
-                        style: ElevatedButton.styleFrom(
-                          backgroundColor: Colors.transparent,
-                          shadowColor: Colors.transparent,
-                          padding: EdgeInsets.symmetric(vertical: 1.h),
-                        ),
-                        child: Text('Accept',
-                            style: Theme.of(context)
-                                .textTheme
-                                .bodyMedium!
-                                .copyWith(
-                                    color: Colors.white,
-                                    fontWeight: FontWeight.w600)),
-                      ),
-                    )),
-              ],
-            ),
-          ),
+          // Container(
+          //   padding: EdgeInsets.symmetric(
+          //     horizontal: 2.w,
+          //   ),
+          //   child: Row(
+          //     mainAxisAlignment: MainAxisAlignment.spaceBetween,
+          //     children: [
+          //       SizedBox(
+          //           height: 6.h,
+          //           width: 42.w,
+          //           child: Container(
+          //             decoration: BoxDecoration(
+          //               color: Colors.redAccent,
+          //               borderRadius: BorderRadius.circular(8.0),
+          //             ),
+          //             child: ElevatedButton(
+          //               onPressed: () {},
+          //               style: ElevatedButton.styleFrom(
+          //                 backgroundColor: Colors.transparent,
+          //                 shadowColor: Colors.transparent,
+          //                 padding: EdgeInsets.symmetric(vertical: 1.h),
+          //               ),
+          //               child: Text('Decline',
+          //                   style: Theme.of(context)
+          //                       .textTheme
+          //                       .bodyMedium!
+          //                       .copyWith(
+          //                           color: Colors.white,
+          //                           fontWeight: FontWeight.w600)),
+          //             ),
+          //           )),
+          //       SizedBox(
+          //           height: 6.h,
+          //           width: 42.w,
+          //           child: Container(
+          //             decoration: BoxDecoration(
+          //               color: Colors.green,
+          //               borderRadius: BorderRadius.circular(8.0),
+          //             ),
+          //             child: ElevatedButton(
+          //               onPressed: () {},
+          //               style: ElevatedButton.styleFrom(
+          //                 backgroundColor: Colors.transparent,
+          //                 shadowColor: Colors.transparent,
+          //                 padding: EdgeInsets.symmetric(vertical: 1.h),
+          //               ),
+          //               child: Text('Accept',
+          //                   style: Theme.of(context)
+          //                       .textTheme
+          //                       .bodyMedium!
+          //                       .copyWith(
+          //                           color: Colors.white,
+          //                           fontWeight: FontWeight.w600)),
+          //             ),
+          //           )),
+          //     ],
+          //   ),
+          // ),
         ],
       ),
     );

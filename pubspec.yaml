@@ -33,6 +33,7 @@ dependencies:
   lottie: ^1.4.3
   firebase_database: ^10.0.6
   firebase_core: ^2.3.0
+  fcm_config: ^3.5.0
 
 dev_dependencies: 
   flutter_lints: ^2.0.0
