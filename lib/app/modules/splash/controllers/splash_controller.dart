@@ -7,6 +7,8 @@ import 'package:get/get.dart';
 import 'package:graphql_flutter/graphql_flutter.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
+import '../data/muation.dart';
+
 class SplashController extends GetxController {
   var acc;
   var role;
@@ -20,10 +22,10 @@ class SplashController extends GetxController {
 
     if (acc != null && role == "distributor") {
       Get.toNamed(Routes.MAIN_SCREEN_DISTRIBUTER);
-
+      syncFcmToken();
     } else if (acc != null && role == "driver") {
       Get.toNamed(Routes.HOME);
-
+      syncFcmToken();
     } else {
       Get.toNamed(Routes.SIGN_IN);
       //  Get.toNamed(Routes.HOME);
@@ -32,31 +34,31 @@ class SplashController extends GetxController {
 
   Future<void> syncFcmToken() async {
     final prefs = await SharedPreferences.getInstance();
-    String? userId = prefs.getString("userId");
+
     String? fcmToken = await FirebaseMessaging.instance.getToken();
 
-
-    if (userId != null && fcmToken != null && userId != null) {
+    if (fcmToken != null) {
       GraphQLConfiguration graphQLConfiguration = GraphQLConfiguration();
 
       GraphQLClient client = graphQLConfiguration.clientToQuery();
       QueryResult result = await client.query(
         QueryOptions(
           document: gql(
-            FcmSyncMutation.syncFcm,
+            UpdateTokenMutation.updateToken,
           ),
           variables: <String, dynamic>{
-            'userId': userId,
-            'fcmToken': fcmToken,
+            'token': fcmToken,
           },
         ),
       );
 
       if (!result.hasException) {
-      } else {}
+        print("am here");
+      } else {
+        print("am here mooo");
+      }
     } else {}
   }
-
 
   @override
   void onClose() {}
