@@ -128,7 +128,7 @@ class DialogBottomSheetVehicleType extends StatelessWidget {
                             ));
                           }
 
-                          //  Get.toNamed(Routes.SEARCHING_DRIVERS_DISTRIBUTER);
+                          //  
                         },
                         borderColor: CustomColors.blue,
                       ),

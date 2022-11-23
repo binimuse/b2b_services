@@ -2,6 +2,7 @@ import 'dart:async';
 
 import 'package:b2b_services/app/modules_distributer/home_distributer/data/model/items_model.dart';
 import 'package:b2b_services/app/modules_distributer/home_distributer/data/model/vehicle_type_model.dart';
+import 'package:b2b_services/app/routes/app_pages.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:graphql_flutter/graphql_flutter.dart';
@@ -230,9 +231,22 @@ class HomeDistributerController extends GetxController {
       ),
     );
     if (!result.hasException) {
-      print("object => LOGIN_CALLED success ${result.exception}");
+     Get.toNamed(Routes.SEARCHING_DRIVERS_DISTRIBUTER);
     } else {
-      print("object => LOGIN_CALLED unsuccess ${result.exception}");
+                     Get.dialog(AlertDialog(
+                              shape: RoundedRectangleBorder(
+                                borderRadius: BorderRadius.circular(10),
+                              ),
+                              title: const Text(
+                                'Error',
+                                style:
+                                    TextStyle(fontSize: 18, color: Colors.red),
+                              ),
+                              content: const Text(
+                                  'Try again',
+                                  style: TextStyle(
+                                      fontSize: 13, color: Colors.black)),
+                            ));
     }
   }
 
