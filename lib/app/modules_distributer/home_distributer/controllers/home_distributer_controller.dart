@@ -9,13 +9,18 @@ import 'package:graphql_flutter/graphql_flutter.dart';
 import '../../../Services/graphql_conf.dart';
 import '../../../constant/reusable_widget.dart';
 import '../data/model/order_model.dart';
+import '../data/mutation/createDropoffmuataion.dart';
 import '../data/mutation/order_deatil_mutuation.dart';
 import '../data/model/shipment_model.dart';
 import '../data/mutation/vehcile_mutuation.dart';
 
 class HomeDistributerController extends GetxController {
   final count = 0.obs;
-    final  selectedCarIndex = 1000.obs;
+  final selectedCarIndex = 1000.obs;
+  var vehicleID = ''.obs;
+  var userId = ''.obs;
+
+  List<String> orderId = <String>[].obs;
   var loadingShipmentDeatil = false.obs;
   var loadingOrder = false.obs;
   var loadindvehicleType = false.obs;
@@ -58,6 +63,7 @@ class HomeDistributerController extends GetxController {
     );
 
     if (!result.hasException) {
+      userId.value = result.data!["auth"]["distributor"]["id"];
       shipModel.clear();
       itemModel.clear();
       for (var i = 0;
@@ -200,6 +206,33 @@ class HomeDistributerController extends GetxController {
       print("ghgh ${variantsModel.length}");
       print(result.exception);
       loadindvehicleType(false);
+    }
+  }
+
+  void createDropoff() async {
+    GraphQLClient client = graphQLConfiguration.clientToQuery();
+    QueryResult result = await client.mutate(
+      MutationOptions(
+        document: gql(CreateDropoffMutation.createDropoff),
+        variables: <String, dynamic>{
+          'vehicle_type': {'connect': vehicleID.value},
+          'from': {
+            'connect': {
+
+               'type':"DISTRIBUTOR",
+               'id':userId.value,
+            }
+          },
+          'orders': {
+            "ids":orderId
+          },
+        },
+      ),
+    );
+    if (!result.hasException) {
+      print("object => LOGIN_CALLED success ${result.exception}");
+    } else {
+      print("object => LOGIN_CALLED unsuccess ${result.exception}");
     }
   }
 
