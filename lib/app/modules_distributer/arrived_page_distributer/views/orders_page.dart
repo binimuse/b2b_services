@@ -80,9 +80,7 @@ class OrdersPage extends StatelessWidget {
               backgroundColor: Colors.transparent,
               isScrollControlled: true,
               builder: (context) {
-                return DialogBottomSheetVehicleType(
-                  contoller: controller,
-                );
+                return DialogBottomSheetVehicleType();
               },
             );
           },

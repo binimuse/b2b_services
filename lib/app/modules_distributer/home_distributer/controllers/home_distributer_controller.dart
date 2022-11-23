@@ -15,6 +15,7 @@ import '../data/mutation/vehcile_mutuation.dart';
 
 class HomeDistributerController extends GetxController {
   final count = 0.obs;
+    final  selectedCarIndex = 1000.obs;
   var loadingShipmentDeatil = false.obs;
   var loadingOrder = false.obs;
   var loadindvehicleType = false.obs;

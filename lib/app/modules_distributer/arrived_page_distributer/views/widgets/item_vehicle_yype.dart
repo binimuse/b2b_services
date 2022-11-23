@@ -8,6 +8,8 @@ class ItemVehicleType extends StatefulWidget {
   const ItemVehicleType(
       {Key? key,
       required this.icon,
+      required this.isSelected,
+      required this.onTap,
       required this.typeName,
       required this.typeDesc})
       : super(key: key);
@@ -15,26 +17,21 @@ class ItemVehicleType extends StatefulWidget {
   final String icon;
   final String typeName;
   final String typeDesc;
+  final bool isSelected;
+  final VoidCallback onTap;
 
   @override
   State<ItemVehicleType> createState() => _ItemVehicleTypeState();
 }
 
 class _ItemVehicleTypeState extends State<ItemVehicleType> {
-  ///
-  bool isSelected = false;
-
   @override
   Widget build(BuildContext context) {
     return CustomButtonFeedBack(
-      onTap: () {
-        setState(() {
-          isSelected = !isSelected;
-        });
-      },
+      onTap: widget.onTap,
       child: Container(
         decoration: BoxDecoration(
-          color: isSelected ? CustomColors.blue : CustomColors.white,
+          color: widget.isSelected ? CustomColors.blue : CustomColors.white,
           borderRadius: BorderRadius.circular(CustomSizes.radius_12),
           boxShadow: [
             BoxShadow(
@@ -64,8 +61,9 @@ class _ItemVehicleTypeState extends State<ItemVehicleType> {
                 Text(
                   widget.typeName,
                   style: Theme.of(context).textTheme.bodyLarge?.copyWith(
-                        color:
-                            isSelected ? CustomColors.white : CustomColors.blue,
+                        color: widget.isSelected
+                            ? CustomColors.white
+                            : CustomColors.blue,
                         fontWeight: FontWeight.w500,
                         fontSize: CustomSizes.font_12,
                       ),
@@ -76,7 +74,7 @@ class _ItemVehicleTypeState extends State<ItemVehicleType> {
                 Text(
                   widget.typeDesc,
                   style: Theme.of(context).textTheme.bodyMedium?.copyWith(
-                        color: isSelected
+                        color: widget.isSelected
                             ? CustomColors.lightGrey
                             : CustomColors.grey,
                         fontWeight: FontWeight.w400,

@@ -1,11 +1,10 @@
+import 'dart:async';
+
 import 'package:b2b_services/app/Services/graphql_conf.dart';
 import 'package:flutter/material.dart';
 import 'package:geolocator/geolocator.dart';
 import 'package:get/get.dart';
 import 'package:graphql_flutter/graphql_flutter.dart';
-import 'package:qr_code_scanner/qr_code_scanner.dart';
-
-import '../../my_profile/data/mutation/getuserid_mutuation.dart';
 import '../data/model/getdriver_model.dart';
 import '../data/mutation/getdriver_mutuation.dart';
 
@@ -20,6 +19,7 @@ class HomeController extends GetxController {
   void onInit() {
     askforpermission();
     getUserId();
+    //checkGps();
     super.onInit();
   }
 
@@ -73,4 +73,82 @@ class HomeController extends GetxController {
   }
 
   void increment() => count.value++;
+
+  bool servicestatus = false;
+  bool haspermission = false;
+  late LocationPermission permission;
+  late Position position;
+  String long = "", lat = "";
+  late StreamSubscription<Position> positionStream;
+  checkGps() async {
+    servicestatus = await Geolocator.isLocationServiceEnabled();
+    if (servicestatus) {
+      permission = await Geolocator.checkPermission();
+
+      if (permission == LocationPermission.denied) {
+        permission = await Geolocator.requestPermission();
+        if (permission == LocationPermission.denied) {
+          print('Location permissions are denied');
+        } else if (permission == LocationPermission.deniedForever) {
+          print("'Location permissions are permanently denied");
+        } else {
+          haspermission = true;
+        }
+      } else {
+        haspermission = true;
+      }
+
+      if (haspermission) {
+        update();
+
+        getLocation();
+      }
+    } else {
+      status.value = false;
+      Get.defaultDialog(
+          title: "Error",
+          middleText: "GPS Service is not enabled, turn on GPS location",
+          backgroundColor: Colors.red,
+          titleStyle: TextStyle(color: Colors.white),
+          middleTextStyle: TextStyle(color: Colors.white),
+          radius: 30);
+      print("GPS Service is not enabled, turn on GPS location");
+    }
+
+    update();
+  }
+
+  getLocation() async {
+    position = await Geolocator.getCurrentPosition(
+        desiredAccuracy: LocationAccuracy.high);
+    print(position.longitude); //Output: 80.24599079
+    print(position.latitude); //Output: 29.6593457
+
+    long = position.longitude.toString();
+    lat = position.latitude.toString();
+
+    update();
+
+    LocationSettings locationSettings = LocationSettings(
+      accuracy: LocationAccuracy.high, //accuracy of the location data
+      distanceFilter: 100, //minimum distance (measured in meters) a
+      //device must move horizontally before an update event is generated;
+    );
+
+    StreamSubscription<Position> positionStream =
+        Geolocator.getPositionStream(locationSettings: locationSettings)
+            .listen((Position position) {
+      print(position.longitude); //Output: 80.24599079
+      print(position.latitude); //Output: 29.6593457
+
+      long = position.longitude.toString();
+      lat = position.latitude.toString();
+
+      update();
+    });
+  }
+
+  sendStatus(bool value) async {
+    
+  }
 }

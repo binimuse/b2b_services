@@ -13,13 +13,7 @@ import 'package:get/get_core/src/get_main.dart';
 import 'package:sizer/sizer.dart';
 
 class DialogBottomSheetVehicleType extends StatelessWidget {
-  DialogBottomSheetVehicleType({
-    this.contoller,
-  });
-
-  ///ADDITIONAL  PARAMS
-
-  final HomeDistributerController? contoller;
+  HomeDistributerController contoller = Get.find<HomeDistributerController>();
 
   @override
   Widget build(BuildContext context) {
@@ -61,11 +55,16 @@ class DialogBottomSheetVehicleType extends StatelessWidget {
                   shrinkWrap: true,
                   itemCount: contoller!.vehicleModel.length,
                   itemBuilder: (context, index) {
-                    return Obx(() => contoller!.loadindvehicleType.isTrue
+                    return Obx(() => contoller.loadindvehicleType.isTrue
                         ? ItemVehicleType(
-                            typeDesc: contoller!.vehicleModel[index].title,
-                            icon: contoller!.vehicleModel[index].image,
-                            typeName: contoller!.vehicleModel[index].title,
+                            typeDesc: contoller.vehicleModel[index].title,
+                            icon: contoller.vehicleModel[index].image,
+                            typeName: contoller.vehicleModel[index].title,
+                            isSelected:
+                                contoller.selectedCarIndex.value == index,
+                            onTap: () {
+                              contoller.selectedCarIndex.value = index;
+                            },
                           )
                         : SizedBox());
                   },
