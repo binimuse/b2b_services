@@ -48,15 +48,18 @@ class _NavDrawerState extends State<NavDrawer> {
                   children: [
                     widget.controller.getDriver.isNotEmpty
                         ? Text(
-                            widget.controller.getDriver[0].name,
+                            widget.controller.getDriver.single.name,
                             style:
                                 TextStyle(color: Colors.white, fontSize: 14.sp),
                           )
                         : SizedBox(),
-                    Text(
-                      widget.controller.getDriver[0].city,
-                      style: TextStyle(color: Colors.white, fontSize: 11.sp),
-                    )
+                    widget.controller.getDriver.isNotEmpty
+                        ? Text(
+                            widget.controller.getDriver.single.city,
+                            style:
+                                TextStyle(color: Colors.white, fontSize: 14.sp),
+                          )
+                        : SizedBox(),
                   ],
                 ),
                 SizedBox(
