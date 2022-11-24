@@ -1,6 +1,8 @@
 import 'dart:async';
 
 import 'package:b2b_services/app/Services/graphql_conf.dart';
+import 'package:b2b_services/app/common/firebase/firestore.dart';
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:geolocator/geolocator.dart';
 import 'package:get/get.dart';
@@ -12,11 +14,14 @@ class HomeController extends GetxController {
   GraphQLConfiguration graphQLConfiguration = GraphQLConfiguration();
   final count = 0.obs;
   var status = false.obs;
+  var isDriverRequestActive = false.obs;
   final GlobalKey<ScaffoldState> keyforall = GlobalKey<ScaffoldState>();
   var getDriver = <GestDriverModel>[].obs;
   var loadingDriver = false.obs;
   @override
   void onInit() {
+    listenToDrivedRequest();
+
     askforpermission();
     getUserId();
     //checkGps();
@@ -148,7 +153,34 @@ class HomeController extends GetxController {
     });
   }
 
-  sendStatus(bool value) async {
-    
+  sendStatus(bool value) async {}
+
+  void listenToDrivedRequest() {
+    final snapShots =
+        FirebaseFirestore.instance.collection("driver_requests").snapshots();
+    snapShots.listen(
+      (event) {
+
+       bool isRequestIdSameDriver = false;
+
+        event.docs.forEach(
+          (element) {
+
+            print("current data: ${element.data()}");
+
+            int requestDriverId = element.data()['driver_id'];
+
+            if(requestDriverId == 12){
+              isRequestIdSameDriver=true;
+            }
+
+
+          },
+        );
+
+       isDriverRequestActive(isRequestIdSameDriver);
+
+      },
+    );
   }
 }
