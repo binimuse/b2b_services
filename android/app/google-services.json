@@ -1,33 +1,41 @@
 {
   "project_info": {
-    "project_number": "654120200662",
-    "project_id": "b2b-test-a729c",
-    "storage_bucket": "b2b-test-a729c.appspot.com"
+    "project_number": "411240223100",
+    "project_id": "act-it-b2b",
+    "storage_bucket": "act-it-b2b.appspot.com"
   },
   "client": [
     {
       "client_info": {
-        "mobilesdk_app_id": "1:654120200662:android:fc785e46e40e37af985c77",
+        "mobilesdk_app_id": "1:411240223100:android:d46fcd553d00437ab254f9",
         "android_client_info": {
           "package_name": "b2b.b2b_services"
         }
       },
       "oauth_client": [
         {
-          "client_id": "654120200662-qig07dintg2cjh75m9ou9jijiv32e781.apps.googleusercontent.com",
+          "client_id": "411240223100-lduga2vq6fdlbdf8gsdfhh2dr3mhn85e.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "b2b.b2b_services",
+            "certificate_hash": "41374cb9f80b44cc1f1e1496eaa203aada0d6039"
+          }
+        },
+        {
+          "client_id": "411240223100-caqj2a3jepo1o8r87fob95a92cglftmk.apps.googleusercontent.com",
           "client_type": 3
         }
       ],
       "api_key": [
         {
-          "current_key": "AIzaSyCEzlRqBPqxSy3E5n8WMZFbIjWrpFawtWc"
+          "current_key": "AIzaSyB4YAZqHo0iACk4IWujxNnJrZuVPsH9ADA"
         }
       ],
       "services": {
         "appinvite_service": {
           "other_platform_oauth_client": [
             {
-              "client_id": "654120200662-qig07dintg2cjh75m9ou9jijiv32e781.apps.googleusercontent.com",
+              "client_id": "411240223100-caqj2a3jepo1o8r87fob95a92cglftmk.apps.googleusercontent.com",
               "client_type": 3
             }
           ]

@@ -31,10 +31,10 @@ dependencies:
   cupertino_tabbar: ^2.0.0
   flutter_advanced_segment: ^3.0.1
   lottie: ^1.4.3
+
   firebase_database: ^10.0.6
   firebase_core: ^2.3.0
   cloud_firestore: ^4.1.0
-
   fcm_config: ^3.5.0
 
 dev_dependencies: 

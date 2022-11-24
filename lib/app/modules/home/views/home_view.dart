@@ -25,6 +25,7 @@ class HomeView extends GetView<HomeController> {
   var geolocator = Geolocator();
 
   Widget build(BuildContext context) {
+    print("asdasd");
     return Scaffold(
       key: controller.keyforall,
       drawer: NavDrawer(),
@@ -133,207 +134,219 @@ class HomeView extends GetView<HomeController> {
     );
   }
 
-  Container popupdialogue(BuildContext context) {
-    return Container(
-      width: Get.width,
-      height: 28.h,
-      margin: EdgeInsets.symmetric(horizontal: 5.w, vertical: 10.h),
-      decoration: BoxDecoration(
-        borderRadius: BorderRadius.all(Radius.circular(6)),
-        color: Colors.white,
-      ),
-      child: Column(
-        children: [
-          Row(
-            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              Container(
-                margin: EdgeInsets.only(left: 10, top: 20),
-                width: 25.w,
-                height: 15.h,
-                decoration: BoxDecoration(
-                    color: Color.fromARGB(255, 68, 171, 255).withOpacity(0.1),
-                    borderRadius: BorderRadius.all(
-                      Radius.circular(6),
-                    )),
-                child: Icon(
-                  Icons.local_shipping_rounded,
-                  size: 15.w,
-                  color: Color.fromARGB(255, 68, 171, 255),
-                ),
-              ),
-              Padding(
-                padding: const EdgeInsets.symmetric(horizontal: 10),
-                child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  children: [
-                    SizedBox(
-                      height: 5.h,
-                    ),
-                    Row(
-                      children: [
-                        Icon(
-                          Icons.my_location,
-                          size: 5.w,
-                          color: Color.fromARGB(255, 68, 171, 255),
-                        ),
-                        RichText(
-                          text: TextSpan(
-                            children: const <TextSpan>[
-                              TextSpan(
-                                  text: 'From :',
-                                  style: TextStyle(
-                                      fontWeight: FontWeight.bold,
-                                      color: Colors.grey)),
-                              TextSpan(
-                                  text: ' Stadium',
-                                  style: TextStyle(
-                                      fontWeight: FontWeight.bold,
-                                      color: Colors.black)),
-                            ],
-                          ),
-                        ),
-                      ],
-                    ),
-                    Padding(
-                      padding: EdgeInsets.only(left: 2.4.w),
-                      child: SizedBox(
-                        height: 4.h,
-                        child: DottedLine(
-                          dashLength: 10,
-                          direction: Axis.vertical,
-                          dashColor: Color.fromARGB(255, 68, 171, 255),
-                          dashGapLength: 1.5,
-                          lineThickness: 1,
-                        ),
-                      ),
-                    ),
-                    Row(
-                      children: [
-                        Icon(
-                          Icons.location_on_outlined,
-                          size: 5.5.w,
-                          color: Color.fromARGB(255, 68, 171, 255),
-                        ),
-                        RichText(
-                          text: TextSpan(
-                            children: const <TextSpan>[
-                              TextSpan(
-                                  text: 'To :',
-                                  style: TextStyle(
-                                      fontWeight: FontWeight.bold,
-                                      color: Colors.grey)),
-                              TextSpan(
-                                  text: ' Stadium',
-                                  style: TextStyle(
-                                      fontWeight: FontWeight.bold,
-                                      color: Colors.black)),
-                            ],
-                          ),
-                        )
-                      ],
-                    ),
-                  ],
-                ),
-              ),
-              Container(
-                height: 17.h,
-                child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                  children: [
-                    Container(
-                      width: 20.w,
-                      height: 6.h,
-                      decoration: BoxDecoration(
-                          color: Color.fromARGB(255, 68, 171, 255),
-                          borderRadius: BorderRadius.only(
-                              bottomLeft: Radius.circular(6),
-                              bottomRight: Radius.circular(6))),
-                      child: Center(
-                          child: Text(
-                        "200 ETB",
-                        style: TextStyle(
-                            color: Colors.white, fontWeight: FontWeight.w600),
-                      )),
-                    ),
-                    Text(
-                      "Details",
-                      style: TextStyle(
-                          color: Color.fromARGB(255, 68, 171, 255),
-                          fontWeight: FontWeight.w700),
-                    ),
-                  ],
-                ),
-              ),
-              // SizedBox(width: 2.w,)
-            ],
-          ),
-          SizedBox(
-            height: 2.h,
-          ),
-          // Container(
-          //   padding: EdgeInsets.symmetric(
-          //     horizontal: 2.w,
-          //   ),
-          //   child: Row(
-          //     mainAxisAlignment: MainAxisAlignment.spaceBetween,
-          //     children: [
-          //       SizedBox(
-          //           height: 6.h,
-          //           width: 42.w,
-          //           child: Container(
-          //             decoration: BoxDecoration(
-          //               color: Colors.redAccent,
-          //               borderRadius: BorderRadius.circular(8.0),
-          //             ),
-          //             child: ElevatedButton(
-          //               onPressed: () {},
-          //               style: ElevatedButton.styleFrom(
-          //                 backgroundColor: Colors.transparent,
-          //                 shadowColor: Colors.transparent,
-          //                 padding: EdgeInsets.symmetric(vertical: 1.h),
-          //               ),
-          //               child: Text('Decline',
-          //                   style: Theme.of(context)
-          //                       .textTheme
-          //                       .bodyMedium!
-          //                       .copyWith(
-          //                           color: Colors.white,
-          //                           fontWeight: FontWeight.w600)),
-          //             ),
-          //           )),
-          //       SizedBox(
-          //           height: 6.h,
-          //           width: 42.w,
-          //           child: Container(
-          //             decoration: BoxDecoration(
-          //               color: Colors.green,
-          //               borderRadius: BorderRadius.circular(8.0),
-          //             ),
-          //             child: ElevatedButton(
-          //               onPressed: () {},
-          //               style: ElevatedButton.styleFrom(
-          //                 backgroundColor: Colors.transparent,
-          //                 shadowColor: Colors.transparent,
-          //                 padding: EdgeInsets.symmetric(vertical: 1.h),
-          //               ),
-          //               child: Text('Accept',
-          //                   style: Theme.of(context)
-          //                       .textTheme
-          //                       .bodyMedium!
-          //                       .copyWith(
-          //                           color: Colors.white,
-          //                           fontWeight: FontWeight.w600)),
-          //             ),
-          //           )),
-          //     ],
-          //   ),
-          // ),
-        ],
-      ),
+  Widget popupdialogue(BuildContext context) {
+
+
+
+    return Obx(
+       () {
+         if(controller.isDriverRequestActive.value){
+           return Container(
+             width: Get.width,
+             height: 28.h,
+             margin: EdgeInsets.symmetric(horizontal: 5.w, vertical: 10.h),
+             decoration: BoxDecoration(
+               borderRadius: BorderRadius.all(Radius.circular(6)),
+               color: Colors.white,
+             ),
+             child: Column(
+               children: [
+                 Row(
+                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                   crossAxisAlignment: CrossAxisAlignment.start,
+                   children: [
+                     Container(
+                       margin: EdgeInsets.only(left: 10, top: 20),
+                       width: 25.w,
+                       height: 15.h,
+                       decoration: BoxDecoration(
+                           color: Color.fromARGB(255, 68, 171, 255).withOpacity(0.1),
+                           borderRadius: BorderRadius.all(
+                             Radius.circular(6),
+                           )),
+                       child: Icon(
+                         Icons.local_shipping_rounded,
+                         size: 15.w,
+                         color: Color.fromARGB(255, 68, 171, 255),
+                       ),
+                     ),
+                     Padding(
+                       padding: const EdgeInsets.symmetric(horizontal: 10),
+                       child: Column(
+                         crossAxisAlignment: CrossAxisAlignment.start,
+                         mainAxisAlignment: MainAxisAlignment.center,
+                         children: [
+                           SizedBox(
+                             height: 5.h,
+                           ),
+                           Row(
+                             children: [
+                               Icon(
+                                 Icons.my_location,
+                                 size: 5.w,
+                                 color: Color.fromARGB(255, 68, 171, 255),
+                               ),
+                               RichText(
+                                 text: TextSpan(
+                                   children: const <TextSpan>[
+                                     TextSpan(
+                                         text: 'From :',
+                                         style: TextStyle(
+                                             fontWeight: FontWeight.bold,
+                                             color: Colors.grey)),
+                                     TextSpan(
+                                         text: ' Stadium',
+                                         style: TextStyle(
+                                             fontWeight: FontWeight.bold,
+                                             color: Colors.black)),
+                                   ],
+                                 ),
+                               ),
+                             ],
+                           ),
+                           Padding(
+                             padding: EdgeInsets.only(left: 2.4.w),
+                             child: SizedBox(
+                               height: 4.h,
+                               child: DottedLine(
+                                 dashLength: 10,
+                                 direction: Axis.vertical,
+                                 dashColor: Color.fromARGB(255, 68, 171, 255),
+                                 dashGapLength: 1.5,
+                                 lineThickness: 1,
+                               ),
+                             ),
+                           ),
+                           Row(
+                             children: [
+                               Icon(
+                                 Icons.location_on_outlined,
+                                 size: 5.5.w,
+                                 color: Color.fromARGB(255, 68, 171, 255),
+                               ),
+                               RichText(
+                                 text: TextSpan(
+                                   children: const <TextSpan>[
+                                     TextSpan(
+                                         text: 'To :',
+                                         style: TextStyle(
+                                             fontWeight: FontWeight.bold,
+                                             color: Colors.grey)),
+                                     TextSpan(
+                                         text: ' Stadium',
+                                         style: TextStyle(
+                                             fontWeight: FontWeight.bold,
+                                             color: Colors.black)),
+                                   ],
+                                 ),
+                               )
+                             ],
+                           ),
+                         ],
+                       ),
+                     ),
+                     Container(
+                       height: 17.h,
+                       child: Column(
+                         crossAxisAlignment: CrossAxisAlignment.start,
+                         mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                         children: [
+                           Container(
+                             width: 20.w,
+                             height: 6.h,
+                             decoration: BoxDecoration(
+                                 color: Color.fromARGB(255, 68, 171, 255),
+                                 borderRadius: BorderRadius.only(
+                                     bottomLeft: Radius.circular(6),
+                                     bottomRight: Radius.circular(6))),
+                             child: Center(
+                                 child: Text(
+                                   "200 ETB",
+                                   style: TextStyle(
+                                       color: Colors.white, fontWeight: FontWeight.w600),
+                                 )),
+                           ),
+                           Text(
+                             "Details",
+                             style: TextStyle(
+                                 color: Color.fromARGB(255, 68, 171, 255),
+                                 fontWeight: FontWeight.w700),
+                           ),
+                         ],
+                       ),
+                     ),
+                     // SizedBox(width: 2.w,)
+                   ],
+                 ),
+                 SizedBox(
+                   height: 2.h,
+                 ),
+                 Container(
+                   padding: EdgeInsets.symmetric(
+                     horizontal: 2.w,
+                   ),
+                   child: Row(
+                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                     children: [
+                       SizedBox(
+                           height: 6.h,
+                           width: 42.w,
+                           child: Container(
+                             decoration: BoxDecoration(
+                               color: Colors.redAccent,
+                               borderRadius: BorderRadius.circular(8.0),
+                             ),
+                             child: ElevatedButton(
+                               onPressed: () {},
+                               style: ElevatedButton.styleFrom(
+                                 backgroundColor: Colors.transparent,
+                                 shadowColor: Colors.transparent,
+                                 padding: EdgeInsets.symmetric(vertical: 1.h),
+                               ),
+                               child: Text('Decline',
+                                   style: Theme.of(context)
+                                       .textTheme
+                                       .bodyMedium!
+                                       .copyWith(
+                                       color: Colors.white,
+                                       fontWeight: FontWeight.w600)),
+                             ),
+                           )),
+                       SizedBox(
+                           height: 6.h,
+                           width: 42.w,
+                           child: Container(
+                             decoration: BoxDecoration(
+                               color: Colors.green,
+                               borderRadius: BorderRadius.circular(8.0),
+                             ),
+                             child: ElevatedButton(
+                               onPressed: () {},
+                               style: ElevatedButton.styleFrom(
+                                 backgroundColor: Colors.transparent,
+                                 shadowColor: Colors.transparent,
+                                 padding: EdgeInsets.symmetric(vertical: 1.h),
+                               ),
+                               child: Text('Accept',
+                                   style: Theme.of(context)
+                                       .textTheme
+                                       .bodyMedium!
+                                       .copyWith(
+                                       color: Colors.white,
+                                       fontWeight: FontWeight.w600)),
+                             ),
+                           )),
+                     ],
+                   ),
+                 ),
+               ],
+             ),
+           );
+         }else{
+           return SizedBox();
+         }
+
+      }
     );
   }
 

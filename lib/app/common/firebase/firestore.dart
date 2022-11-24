@@ -64,4 +64,27 @@ class Firestore {
         .doc(documentId)
         .delete();
   }
+
+
+  // deletes the entry with the given document id
+  static Future listenToDriverrequest() async {
+
+
+
+    final snapShots = FirebaseFirestore.instance.collection("driver_requests").snapshots();
+    snapShots.listen((event) {
+      event.docs.forEach((element) {
+        print("current data: ${element.data().toString()}");
+      })
+     ;
+    });
+
+    // docRef.snapshots().listen(
+    //       (event) => print("current data: ${event.data()}"),
+    //   onError: (error) => print("Listen failed: $error"),
+    // );
+  }
+
+
+
 }
