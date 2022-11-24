@@ -1,10 +1,9 @@
+// ignore_for_file: must_be_immutable
+
 import 'dart:async';
 
-import 'package:b2b_services/app/common/firebase/car_model.dart';
-import 'package:b2b_services/app/modules/home/views/widgets/nav_drawer.dart';
 import 'package:b2b_services/app/modules/home/views/widgets/scan_qr_code.dart';
 import 'package:b2b_services/app/routes/app_pages.dart';
-import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:dotted_line/dotted_line.dart';
 import 'package:flutter/material.dart';
 import 'package:geolocator/geolocator.dart';
@@ -13,7 +12,6 @@ import 'package:get/get.dart';
 import 'package:flutter_switch/flutter_switch.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
 import 'package:sizer/sizer.dart';
-import '../../../common/firebase/firestore.dart';
 import '../controllers/home_controller.dart';
 
 class HomeView extends GetView<HomeController> {
@@ -24,30 +22,35 @@ class HomeView extends GetView<HomeController> {
   late Position currentposition;
   var geolocator = Geolocator();
 
+  @override
   Widget build(BuildContext context) {
-    print("asdasd");
     return Scaffold(
       key: controller.keyforall,
       //drawer: NavDrawer(),
       body: SafeArea(
         child: Stack(
           children: [
-            Container(
-              height: MediaQuery.of(context).size.height,
-              width: MediaQuery.of(context).size.height,
-              child: GoogleMap(
-                  myLocationButtonEnabled: true,
-                  myLocationEnabled: false,
-                  zoomGesturesEnabled: true,
-                  zoomControlsEnabled: false,
-                  mapType: MapType.normal,
-                  initialCameraPosition: initialposition,
-                  onMapCreated: (GoogleMapController controller) {
-                    _controllerGoogleMap.complete(controller);
-                    googleMapController = controller;
-                    // locatePosition();
-                  }),
-            ),
+            Obx(() => controller.isLoading.value == true
+                ? Container(
+                    height: MediaQuery.of(context).size.height,
+                    width: MediaQuery.of(context).size.height,
+                    child: GoogleMap(
+                        myLocationButtonEnabled: true,
+                        myLocationEnabled: false,
+                        zoomGesturesEnabled: true,
+                        zoomControlsEnabled: false,
+                        mapType: MapType.normal,
+                        initialCameraPosition: CameraPosition(
+                          target: controller.currentPosition,
+                          zoom: 16.0,
+                        ),
+                        onMapCreated: (GoogleMapController controller) {
+                          _controllerGoogleMap.complete(controller);
+                          googleMapController = controller;
+                          // locatePosition();
+                        }),
+                  )
+                : SizedBox()),
             customappbar(),
             popupdialogue(context),
             Positioned(

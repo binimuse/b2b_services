@@ -9,6 +9,7 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:geolocator/geolocator.dart';
 import 'package:get/get.dart';
+import 'package:google_maps_flutter/google_maps_flutter.dart';
 import 'package:graphql_flutter/graphql_flutter.dart';
 import '../data/model/getdriver_model.dart';
 import '../data/mutation/getdriver_mutuation.dart';
@@ -22,13 +23,19 @@ class HomeController extends GetxController {
   final GlobalKey<ScaffoldState> keyforall = GlobalKey<ScaffoldState>();
   var getDriver = <GestDriverModel>[].obs;
   var loadingDriver = false.obs;
+
+  late GoogleMapController mapController;
+
+  late LatLng currentPosition = LatLng(0, 0);
+
+  var isLoading = false.obs;
   @override
   void onInit() {
+    checkGps();
     listenToDrivedRequest();
     askforpermission();
     getUserId();
 
-    //checkGps();
     super.onInit();
   }
 
@@ -88,7 +95,7 @@ class HomeController extends GetxController {
   bool haspermission = false;
   late LocationPermission permission;
   late Position position;
-  String long = "", lat = "";
+
   late StreamSubscription<Position> positionStream;
   checkGps() async {
     servicestatus = await Geolocator.isLocationServiceEnabled();
@@ -129,33 +136,22 @@ class HomeController extends GetxController {
   }
 
   getLocation() async {
-    position = await Geolocator.getCurrentPosition(
+    LocationPermission permission;
+    permission = await Geolocator.requestPermission();
+
+    Position position = await Geolocator.getCurrentPosition(
         desiredAccuracy: LocationAccuracy.high);
-    print(position.longitude); //Output: 80.24599079
-    print(position.latitude); //Output: 29.6593457
+    double lat = position.latitude;
+    double long = position.longitude;
 
-    long = position.longitude.toString();
-    lat = position.latitude.toString();
+    LatLng location = LatLng(lat, long);
 
-    update();
+    currentPosition = location;
+    isLoading(true);
+  }
 
-    LocationSettings locationSettings = LocationSettings(
-      accuracy: LocationAccuracy.high, //accuracy of the location data
-      distanceFilter: 100, //minimum distance (measured in meters) a
-      //device must move horizontally before an update event is generated;
-    );
-
-    StreamSubscription<Position> positionStream =
-        Geolocator.getPositionStream(locationSettings: locationSettings)
-            .listen((Position position) {
-      print(position.longitude); //Output: 80.24599079
-      print(position.latitude); //Output: 29.6593457
-
-      long = position.longitude.toString();
-      lat = position.latitude.toString();
-
-      update();
-    });
+  void _onMapCreated(GoogleMapController controller) {
+    mapController = controller;
   }
 
   sendStatus() async {
