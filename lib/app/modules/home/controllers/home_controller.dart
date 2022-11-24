@@ -7,6 +7,7 @@ import 'package:get/get.dart';
 import 'package:graphql_flutter/graphql_flutter.dart';
 import '../data/model/getdriver_model.dart';
 import '../data/mutation/getdriver_mutuation.dart';
+import '../data/mutation/status_mutuation.dart';
 
 class HomeController extends GetxController {
   GraphQLConfiguration graphQLConfiguration = GraphQLConfiguration();
@@ -149,6 +150,22 @@ class HomeController extends GetxController {
   }
 
   sendStatus(bool value) async {
-    
+    // print(int.parse(txtAge.text));
+    GraphQLClient client = graphQLConfiguration.clientToQuery();
+
+    QueryResult result = await client.mutate(
+      MutationOptions(
+        document: gql(StatusMutation.status),
+      ),
+    );
+
+    if (!result.hasException) {
+      print("yesss");
+      print("yesss" + value.toString());
+      print(result.data!["toggleDriverStatus"]["is_on"]);
+    } else {
+      print(result.exception);
+      print("mooo");
+    }
   }
 }
