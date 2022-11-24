@@ -53,7 +53,7 @@ class DialogBottomSheetVehicleType extends StatelessWidget {
                 ListView.separated(
                   physics: NeverScrollableScrollPhysics(),
                   shrinkWrap: true,
-                  itemCount: contoller!.vehicleModel.length,
+                  itemCount: contoller.vehicleModel.length,
                   itemBuilder: (context, index) {
                     return Obx(() => contoller.loadindvehicleType.isTrue
                         ? ItemVehicleType(
@@ -64,6 +64,13 @@ class DialogBottomSheetVehicleType extends StatelessWidget {
                                 contoller.selectedCarIndex.value == index,
                             onTap: () {
                               contoller.selectedCarIndex.value = index;
+
+                              if (contoller.selectedCarIndex.value != 1000) {
+                                contoller.vehicleID.value =
+                                    contoller.vehicleModel[index].id;
+                              } else {
+                                contoller.vehicleID = ''.obs;
+                              }
                             },
                           )
                         : SizedBox());
@@ -97,7 +104,31 @@ class DialogBottomSheetVehicleType extends StatelessWidget {
                           vertical: CustomSizes.mp_w_4,
                         ),
                         onPressed: () {
-                          Get.toNamed(Routes.SEARCHING_DRIVERS_DISTRIBUTER);
+                          print("orderData ${contoller.orderId}");
+                          print("vehicleID ${contoller.vehicleID}");
+                          print("userId ${contoller.userId}");
+
+                          if (contoller.selectedCarIndex.value != 1000 &&
+                              contoller.orderId.isNotEmpty) {
+                            contoller.createDropoff();
+                          } else {
+                            Get.dialog(AlertDialog(
+                              shape: RoundedRectangleBorder(
+                                borderRadius: BorderRadius.circular(10),
+                              ),
+                              title: const Text(
+                                'Warning',
+                                style:
+                                    TextStyle(fontSize: 18, color: Colors.red),
+                              ),
+                              content: const Text(
+                                  'Please Select Order or Vehicle',
+                                  style: TextStyle(
+                                      fontSize: 13, color: Colors.black)),
+                            ));
+                          }
+
+                          //  
                         },
                         borderColor: CustomColors.blue,
                       ),

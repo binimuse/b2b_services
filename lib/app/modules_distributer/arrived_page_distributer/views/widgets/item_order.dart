@@ -1,3 +1,5 @@
+// ignore_for_file: iterable_contains_unrelated_type
+
 import 'package:b2b_services/app/common/widgets/custom_button_feedback.dart';
 import 'package:b2b_services/app/config/theme/custom_colors.dart';
 import 'package:b2b_services/app/config/theme/custom_sizes.dart';
@@ -5,11 +7,13 @@ import 'package:b2b_services/app/config/utils/color_util.dart';
 import 'package:b2b_services/app/modules_distributer/home_distributer/data/model/items_model.dart';
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
+import 'package:get/get.dart';
 
+import '../../../home_distributer/controllers/home_distributer_controller.dart';
 import '../../../home_distributer/data/model/order_model.dart';
 
 class ItemOrder extends StatefulWidget {
-  const ItemOrder({
+  ItemOrder({
     Key? key,
     required this.onTap,
     this.shipModel,
@@ -29,7 +33,7 @@ class _ItemOrderState extends State<ItemOrder> {
   ///
   bool isSelected = false;
   bool isSelectedItems = false;
-
+  HomeDistributerController contoller = Get.find<HomeDistributerController>();
   @override
   Widget build(BuildContext context) {
     return Material(
@@ -181,6 +185,14 @@ class _ItemOrderState extends State<ItemOrder> {
                   setState(() {
                     isSelected = !isSelected;
                   });
+
+                  if (isSelected) {
+                    contoller.orderId.add(widget.shipModel!.id);
+                  } else {
+                    contoller.orderId.remove(widget.shipModel!.id);
+                  }
+
+               
                 },
                 child: Container(
                   width: CustomSizes.icon_size_8,

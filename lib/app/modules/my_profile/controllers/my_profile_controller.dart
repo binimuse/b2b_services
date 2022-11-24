@@ -99,6 +99,8 @@ class MyProfileController extends GetxController {
         contact_phone: result.data!["auth"]["distributor"]["contact_phone"],
         contact_email: result.data!["auth"]["distributor"]["contact_email"],
       ));
+
+      print("idd ${getUser[0].id}");
     } else {
       loadingUserID(false);
     }
