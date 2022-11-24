@@ -5,8 +5,9 @@ class DriverMutation {
          {
           auth{
           driver{
+            id
           name
-         id
+         
          address
          city
      

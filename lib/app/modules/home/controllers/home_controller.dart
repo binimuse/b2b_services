@@ -1,7 +1,10 @@
+// ignore_for_file: unrelated_type_equality_checks
+
 import 'dart:async';
 
 import 'package:b2b_services/app/Services/graphql_conf.dart';
 import 'package:b2b_services/app/common/firebase/firestore.dart';
+import 'package:b2b_services/app/modules/home/data/mutation/acceptorrejectrequest.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:geolocator/geolocator.dart';
@@ -22,9 +25,9 @@ class HomeController extends GetxController {
   @override
   void onInit() {
     listenToDrivedRequest();
-
     askforpermission();
     getUserId();
+
     //checkGps();
     super.onInit();
   }
@@ -40,6 +43,7 @@ class HomeController extends GetxController {
     );
 
     if (!result.hasException) {
+      print(result.data);
       loadingDriver(true);
 
       getDriver.add(GestDriverModel(
@@ -154,7 +158,7 @@ class HomeController extends GetxController {
     });
   }
 
-  sendStatus(bool value) async {
+  sendStatus() async {
     // print(int.parse(txtAge.text));
     GraphQLClient client = graphQLConfiguration.clientToQuery();
 
@@ -165,29 +169,26 @@ class HomeController extends GetxController {
     );
 
     if (!result.hasException) {
-      print("yesss");
-      print("yesss" + value.toString());
-      print(result.data!["toggleDriverStatus"]["is_on"]);
+      print("sendStatus ${result.data!["toggleDriverStatus"]["is_on"]}");
     } else {
       print(result.exception);
-      print("mooo");
     }
   }
 
   void listenToDrivedRequest() {
     final snapShots =
-        FirebaseFirestore.instance.collection("driver_requests").snapshots();
+        FirebaseFirestore.instance.collection("/driver_requests").snapshots();
     snapShots.listen(
       (event) {
         bool isRequestIdSameDriver = false;
-
+        print("am here ${event.docs.length}");
         event.docs.forEach(
           (element) {
             print("current data: ${element.data()}");
 
             int requestDriverId = element.data()['driver_id'];
 
-            if (requestDriverId == 12) {
+            if (requestDriverId == getDriver.first.id) {
               isRequestIdSameDriver = true;
             }
           },
@@ -196,5 +197,52 @@ class HomeController extends GetxController {
         isDriverRequestActive(isRequestIdSameDriver);
       },
     );
+
+    FirebaseFirestore.instance
+        .collection('/driver_requests')
+        .doc("1a6a3ca6bd1b494bb466")
+        .get()
+        .then((DocumentSnapshot documentSnapshot) {
+      print('Document dont exists on the database');
+      if (documentSnapshot.exists) {
+        print('Document exists on the database');
+        Map<String, dynamic> data =
+            documentSnapshot.data() as Map<String, dynamic>;
+      }
+    });
+  }
+
+  acceptDropoffRequest() async {
+    // print(int.parse(txtAge.text));
+    GraphQLClient client = graphQLConfiguration.clientToQuery();
+
+    QueryResult result = await client.mutate(
+      MutationOptions(
+        document: gql(AcceptDropoffRequest.request),
+      ),
+    );
+
+    if (!result.hasException) {
+      print("sendStatus ${result.data!["toggleDriverStatus"]["is_on"]}");
+    } else {
+      print(result.exception);
+    }
+  }
+
+  rejectDropoffRequest() async {
+    // print(int.parse(txtAge.text));
+    GraphQLClient client = graphQLConfiguration.clientToQuery();
+
+    QueryResult result = await client.mutate(
+      MutationOptions(
+        document: gql(RejectDropoffRequest.request),
+      ),
+    );
+
+    if (!result.hasException) {
+      print("sendStatus ${result.data!["toggleDriverStatus"]["is_on"]}");
+    } else {
+      print(result.exception);
+    }
   }
 }
