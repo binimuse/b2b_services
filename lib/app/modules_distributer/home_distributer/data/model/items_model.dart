@@ -14,7 +14,8 @@ class ItemsModel {
     required this.price,
     required this.name,
     required this.images,
-    this.variantsModel,
+    this.variantsModel, 
+   
   });
 }
 

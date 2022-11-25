@@ -5,35 +5,33 @@ import 'package:b2b_services/app/config/theme/custom_colors.dart';
 import 'package:b2b_services/app/config/theme/custom_sizes.dart';
 import 'package:b2b_services/app/config/utils/color_util.dart';
 import 'package:b2b_services/app/modules_distributer/home_distributer/data/model/items_model.dart';
+import 'package:b2b_services/app/modules_distributer/home_distributer/data/model/order_model.dart';
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:get/get.dart';
 
-import '../../../home_distributer/controllers/home_distributer_controller.dart';
-import '../../../home_distributer/data/model/order_model.dart';
-
-class ItemOrder extends StatefulWidget {
-  ItemOrder({
+class ItemOrder2 extends StatefulWidget {
+  ItemOrder2({
     Key? key,
     required this.onTap,
-    this.shipModel,
+    this.orderHistory,
     this.index,
   }) : super(key: key);
 
   final VoidCallback onTap;
 
-  final OrderHistoryModel? shipModel;
+  final List<OrderHistoryModel>? orderHistory;
   final int? index;
 
   @override
-  State<ItemOrder> createState() => _ItemOrderState();
+  State<ItemOrder2> createState() => _ItemOrderState();
 }
 
-class _ItemOrderState extends State<ItemOrder> {
+class _ItemOrderState extends State<ItemOrder2> {
   ///
   bool isSelected = false;
   bool isSelectedItems = false;
-  HomeDistributerController contoller = Get.find<HomeDistributerController>();
+
   @override
   Widget build(BuildContext context) {
     return Material(
@@ -96,7 +94,7 @@ class _ItemOrderState extends State<ItemOrder> {
             children: [
               Expanded(
                 child: Text(
-                  "Order #${widget.shipModel!.id}",
+                  "Order 1",
                   maxLines: 1,
                   overflow: TextOverflow.ellipsis,
                   style: Theme.of(context).textTheme.bodyMedium?.copyWith(
@@ -116,7 +114,7 @@ class _ItemOrderState extends State<ItemOrder> {
                     vertical: CustomSizes.mp_v_1 / 2,
                   ),
                   child: Text(
-                    widget.shipModel!.itemsmodel.length.toString() + " items",
+                    " 1 items",
                     maxLines: 1,
                     overflow: TextOverflow.ellipsis,
                     style: Theme.of(context).textTheme.bodySmall?.copyWith(
@@ -187,9 +185,9 @@ class _ItemOrderState extends State<ItemOrder> {
                   });
 
                   if (isSelected) {
-                    contoller.orderId.add(widget.shipModel!.id);
+                    //  contoller.orderId.add(widget.shipModel!.id);
                   } else {
-                    contoller.orderId.remove(widget.shipModel!.id);
+                    //   contoller.orderId.remove(widget.shipModel!.id);
                   }
                 },
                 child: Container(
@@ -239,28 +237,28 @@ class _ItemOrderState extends State<ItemOrder> {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.end,
       children: [
-        ListView.separated(
-          physics: const NeverScrollableScrollPhysics(),
-          shrinkWrap: true,
-          padding: EdgeInsets.only(
-              left: CustomSizes.mp_w_6, top: CustomSizes.mp_v_2),
-          itemBuilder: (context, index) {
-            return buildDetailsRow(
-                context, widget.shipModel!.itemsmodel[index]);
-          },
-          separatorBuilder: (context, index) {
-            return Padding(
-              padding: EdgeInsets.symmetric(
-                vertical: CustomSizes.mp_v_1,
-              ),
-              child: const Divider(
-                height: 1,
-                color: CustomColors.grey,
-              ),
-            );
-          },
-          itemCount: widget.shipModel!.itemsmodel.length,
-        ),
+        // ListView.separated(
+        //   physics: const NeverScrollableScrollPhysics(),
+        //   shrinkWrap: true,
+        //   padding: EdgeInsets.only(
+        //       left: CustomSizes.mp_w_6, top: CustomSizes.mp_v_2),
+        //   itemBuilder: (context, index) {
+        //     return buildDetailsRow(
+        //         context, widget.shipModel!.itemsmodel[index]);
+        //   },
+        //   separatorBuilder: (context, index) {
+        //     return Padding(
+        //       padding: EdgeInsets.symmetric(
+        //         vertical: CustomSizes.mp_v_1,
+        //       ),
+        //       child: const Divider(
+        //         height: 1,
+        //         color: CustomColors.grey,
+        //       ),
+        //     );
+        //   },
+        //   itemCount: widget.shipModel!.itemsmodel.length,
+        // ),
         SizedBox(
           height: CustomSizes.mp_v_1,
         ),

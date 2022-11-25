@@ -1,3 +1,4 @@
+import 'package:b2b_services/app/config/theme/custom_colors.dart';
 import 'package:flutter/material.dart';
 
 import 'package:get/get.dart';
@@ -9,7 +10,6 @@ class ScanQrCodeView extends GetView<ScanQrCodeController> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      
       body: Center(
         child: Container(
             alignment: Alignment.center,
@@ -51,7 +51,7 @@ class ScanQrCodeView extends GetView<ScanQrCodeController> {
                   height: 4.w,
                 ),
                 Container(
-                  width: Get.width/2,
+                  width: Get.width / 2,
                   child: Row(
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: [
@@ -60,9 +60,9 @@ class ScanQrCodeView extends GetView<ScanQrCodeController> {
                               fontWeight: FontWeight.w500,
                               color: Colors.grey,
                               fontSize: 14.sp)),
-                              SizedBox(
-                                width: 15.w,
-                              ),
+                      SizedBox(
+                        width: 15.w,
+                      ),
                       Text('12 PCS',
                           style: TextStyle(
                               fontWeight: FontWeight.w500,
@@ -76,8 +76,8 @@ class ScanQrCodeView extends GetView<ScanQrCodeController> {
                   indent: 12.w,
                   endIndent: 12.w,
                 ),
-                 Container(
-                  width: Get.width/2,
+                Container(
+                  width: Get.width / 2,
                   child: Row(
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: [
@@ -86,7 +86,6 @@ class ScanQrCodeView extends GetView<ScanQrCodeController> {
                               fontWeight: FontWeight.w500,
                               color: Colors.grey,
                               fontSize: 14.sp)),
-                             
                       Text('2.4 KM',
                           style: TextStyle(
                               fontWeight: FontWeight.w500,
@@ -101,7 +100,7 @@ class ScanQrCodeView extends GetView<ScanQrCodeController> {
                   endIndent: 12.w,
                 ),
                 Container(
-                  width: Get.width/2,
+                  width: Get.width / 2,
                   child: Row(
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: [
@@ -110,45 +109,46 @@ class ScanQrCodeView extends GetView<ScanQrCodeController> {
                               fontWeight: FontWeight.w500,
                               color: Colors.grey,
                               fontSize: 14.sp)),
-                             
                       Text('250 ETB',
                           style: TextStyle(
                               fontWeight: FontWeight.w500,
                               color: Colors.grey,
                               fontSize: 14.sp)),
-
                     ],
                   ),
                 ),
-                SizedBox(height: 10.w,),
+                SizedBox(
+                  height: 10.w,
+                ),
                 finishandstartbutton(context)
               ],
             )),
       ),
     );
   }
+
   Container finishandstartbutton(BuildContext context) {
     return Container(
       height: 15.w,
       width: 60.w,
       decoration: BoxDecoration(
-        border: Border.all(color: Color.fromARGB(255, 62, 164, 247),),
-       
+        border: Border.all(
+          color: CustomColors.blue,
+        ),
         borderRadius: BorderRadius.circular(8.0),
       ),
       child: ElevatedButton(
         onPressed: () {},
         style: ElevatedButton.styleFrom(
-
-          backgroundColor: Colors.transparent,
+          backgroundColor: Colors.white,
           shadowColor: Colors.grey,
           padding: EdgeInsets.symmetric(vertical: 2.3.h),
         ),
         child: Text("Done",
-            style: Theme.of(context)
-                .textTheme
-                .bodyMedium!
-                .copyWith(color: Color.fromARGB(255, 62, 164, 247), fontWeight: FontWeight.w400,fontSize: 16.sp)),
+            style: Theme.of(context).textTheme.bodyMedium!.copyWith(
+                color: CustomColors.blue,
+                fontWeight: FontWeight.w400,
+                fontSize: 16.sp)),
       ),
     );
   }

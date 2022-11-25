@@ -131,9 +131,9 @@ class HomeDistributerController extends GetxController {
 
   void getOrder() async {
     GetOrderrMutation getOrderrMutation = GetOrderrMutation();
-    GraphQLClient _client = graphQLConfiguration.clientToQuery();
+    GraphQLClient client = graphQLConfiguration.clientToQuery();
 
-    QueryResult result = await _client.query(
+    QueryResult result = await client.query(
       QueryOptions(
         document: gql(getOrderrMutation.getMyorder()),
       ),

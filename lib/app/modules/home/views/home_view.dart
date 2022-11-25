@@ -3,6 +3,7 @@
 import 'dart:async';
 
 import 'package:b2b_services/app/modules/home/views/widgets/scan_qr_code.dart';
+import 'package:b2b_services/app/modules/scan_qr_code/views/scan_qr_code_view.dart';
 import 'package:b2b_services/app/routes/app_pages.dart';
 import 'package:dotted_line/dotted_line.dart';
 import 'package:flutter/material.dart';
@@ -13,6 +14,7 @@ import 'package:flutter_switch/flutter_switch.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
 import 'package:sizer/sizer.dart';
 import '../controllers/home_controller.dart';
+import 'widgets/listofdeleivery.dart';
 
 class HomeView extends GetView<HomeController> {
   static final CameraPosition initialposition = CameraPosition(
@@ -126,7 +128,9 @@ class HomeView extends GetView<HomeController> {
             color: Colors.white,
             child: IconButton(
                 onPressed: () {
-                  Get.to(() => ScanQRCodepage());
+                  // Get.to(() => ScanQrCodeView());
+
+                  Get.to(() => ListOfDeleivery());
                 },
                 icon: Icon(
                   Icons.qr_code_scanner_rounded,

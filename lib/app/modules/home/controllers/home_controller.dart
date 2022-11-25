@@ -5,12 +5,14 @@ import 'dart:async';
 import 'package:b2b_services/app/Services/graphql_conf.dart';
 import 'package:b2b_services/app/common/firebase/firestore.dart';
 import 'package:b2b_services/app/modules/home/data/mutation/acceptorrejectrequest.dart';
+import 'package:b2b_services/app/modules_distributer/home_distributer/data/model/items_model.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:geolocator/geolocator.dart';
 import 'package:get/get.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
 import 'package:graphql_flutter/graphql_flutter.dart';
+import '../../../modules_distributer/home_distributer/data/model/order_model.dart';
 import '../data/model/getdriver_model.dart';
 import '../data/mutation/getdriver_mutuation.dart';
 import '../data/mutation/status_mutuation.dart';
@@ -28,14 +30,17 @@ class HomeController extends GetxController {
 
   late LatLng currentPosition = LatLng(0, 0);
 
+  var itemModel = <ItemsModel>[].obs;
+  var orderHistory = <OrderHistoryModel>[].obs;
   var isLoading = false.obs;
   @override
   void onInit() {
     checkGps();
-    listenToDrivedRequest();
+
     askforpermission();
     getUserId();
-
+    getFakedata();
+    getFakedata2();
     super.onInit();
   }
 
@@ -53,13 +58,17 @@ class HomeController extends GetxController {
       print(result.data);
       loadingDriver(true);
 
+      print("result.data => ${result.data!["auth"]["driver"]}");
+
       getDriver.add(GestDriverModel(
         id: result.data!["auth"]["driver"]["id"],
         name: result.data!["auth"]["driver"]["name"],
         city: result.data!["auth"]["driver"]["city"],
       ));
 
-      print("hahah ${getDriver[0].name}");
+      listenToDrivedRequest();
+
+      print("d ${getDriver[0].name}");
     } else {
       print(result.exception);
       loadingDriver(false);
@@ -172,40 +181,27 @@ class HomeController extends GetxController {
   }
 
   void listenToDrivedRequest() {
-    final snapShots =
-        FirebaseFirestore.instance.collection("/driver_requests").snapshots();
+    print("TEST=> getDriver ${getDriver.length}");
+    final snapShots = FirebaseFirestore.instance
+        .collection("/driver_requests")
+        .doc(getDriver.single.toString())
+        .snapshots();
     snapShots.listen(
       (event) {
         bool isRequestIdSameDriver = false;
-        print("am here ${event.docs.length}");
-        event.docs.forEach(
-          (element) {
-            print("current data: ${element.data()}");
+        print("am here ${event.data()}");
 
-            int requestDriverId = element.data()['driver_id'];
+        print("current data: ${event.data()}");
 
-            if (requestDriverId == getDriver.first.id) {
-              isRequestIdSameDriver = true;
-            }
-          },
-        );
+        // int requestDriverId = event.data();
 
-        isDriverRequestActive(isRequestIdSameDriver);
+        // if (requestDriverId == getDriver.first.id) {
+        //   isRequestIdSameDriver = true;
+        // }
+
+        //isDriverRequestActive(isRequestIdSameDriver);
       },
     );
-
-    FirebaseFirestore.instance
-        .collection('/driver_requests')
-        .doc("1a6a3ca6bd1b494bb466")
-        .get()
-        .then((DocumentSnapshot documentSnapshot) {
-      print('Document dont exists on the database');
-      if (documentSnapshot.exists) {
-        print('Document exists on the database');
-        Map<String, dynamic> data =
-            documentSnapshot.data() as Map<String, dynamic>;
-      }
-    });
   }
 
   acceptDropoffRequest() async {
@@ -240,5 +236,20 @@ class HomeController extends GetxController {
     } else {
       print(result.exception);
     }
+  }
+
+  void getFakedata2() {
+    itemModel.add(ItemsModel(
+      id: '1',
+      name: 'fdg',
+      price: '343',
+      quantity: '2',
+      sku: '45',
+      images: '',
+    ));
+  }
+
+  void getFakedata() {
+    orderHistory.add(OrderHistoryModel(id: "1", itemsmodel: itemModel));
   }
 }
