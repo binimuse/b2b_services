@@ -28,6 +28,8 @@ dependencies:
   flutter_svg: ^1.1.5
   graphql_flutter: ^5.1.0
   salomon_bottom_bar: ^3.3.1
+  elegant_notification: ^1.6.3
+  flutter_ringtone_player: ^3.2.0
   cupertino_tabbar: ^2.0.0
   flutter_advanced_segment: ^3.0.1
   lottie: ^1.4.3

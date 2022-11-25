@@ -239,6 +239,13 @@ packages:
       url: "https://pub.dartlang.org"
     source: hosted
     version: "3.1.0"
+  elegant_notification:
+    dependency: "direct main"
+    description:
+      name: elegant_notification
+      url: "https://pub.dartlang.org"
+    source: hosted
+    version: "1.6.4"
   fake_async:
     dependency: transitive
     description:
@@ -398,6 +405,13 @@ packages:
       url: "https://pub.dartlang.org"
     source: hosted
     version: "2.0.7"
+  flutter_ringtone_player:
+    dependency: "direct main"
+    description:
+      name: flutter_ringtone_player
+      url: "https://pub.dartlang.org"
+    source: hosted
+    version: "3.2.0"
   flutter_svg:
     dependency: "direct main"
     description:
