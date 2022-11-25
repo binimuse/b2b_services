@@ -222,7 +222,6 @@ class HomeController extends GetxController {
               asAlarm: false, // Android only - all APIs
             );
 
-
         print("dropoff_id.value => ${dropoff_id.value}");
           }else if (event.data()!['status'] == 'ACCEPTED') {
             isDriverRequestActive(false);
