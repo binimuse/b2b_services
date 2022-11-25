@@ -22,6 +22,14 @@
           }
         },
         {
+          "client_id": "411240223100-srgocnapr6lvkadai4hcl27p5q1kpaan.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "b2b.b2b_services",
+            "certificate_hash": "846bccaff6375feb416ec0d01290c1fb315f3e23"
+          }
+        },
+        {
           "client_id": "411240223100-caqj2a3jepo1o8r87fob95a92cglftmk.apps.googleusercontent.com",
           "client_type": 3
         }
