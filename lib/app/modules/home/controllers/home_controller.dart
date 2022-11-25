@@ -8,7 +8,9 @@ import 'package:b2b_services/app/modules/home/data/mutation/acceptorrejectreques
 import 'package:b2b_services/app/modules_distributer/home_distributer/data/model/items_model.dart';
 import 'package:b2b_services/app/modules_distributer/home_distributer/data/mutation/updatedropoffmuataion.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:elegant_notification/elegant_notification.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_ringtone_player/flutter_ringtone_player.dart';
 import 'package:geolocator/geolocator.dart';
 import 'package:get/get.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
@@ -26,6 +28,9 @@ class HomeController extends GetxController {
   final GlobalKey<ScaffoldState> keyforall = GlobalKey<ScaffoldState>();
   var getDriver = <GestDriverModel>[].obs;
   var loadingDriver = false.obs;
+  var fromName = "".obs;
+  var dropoff_id = 0.obs;
+
 
   late GoogleMapController mapController;
 
@@ -60,7 +65,7 @@ class HomeController extends GetxController {
       print(result.data);
       loadingDriver(true);
 
-      print("result.data => ${result.data!["auth"]["driver"]["id"]}");
+      print("result.data => ${result.data!["auth"]["driver"]}");
 
       getDriver.add(GestDriverModel(
         id: result.data!["auth"]["driver"]["id"],
@@ -190,8 +195,8 @@ class HomeController extends GetxController {
   void listenToDrivedRequest() {
     print("TEST=> getDriver ${getDriver.length}");
     final snapShots = FirebaseFirestore.instance
-        .collection("/driver_requests")
-        .doc(getDriver.first.id)
+        .collection("driver_requests")
+        .doc(getDriver.single.id)
         .snapshots();
     snapShots.listen(
       (event) {
@@ -200,13 +205,42 @@ class HomeController extends GetxController {
 
         print("current data: ${event.data()}");
 
-        // int requestDriverId = event.data();
+        if (event.data() == null) {
+          isDriverRequestActive(false);
+        } else {
+          if (event.data()!['status'] == 'PENDING') {
+            isDriverRequestActive(true);
+            fromName.value = event.data()!['from'];
+            dropoff_id.value = event.data()!['dropoff_id'];
 
-        // if (requestDriverId == getDriver.first.id) {
-        //   isRequestIdSameDriver = true;
-        // }
 
-        //isDriverRequestActive(isRequestIdSameDriver);
+            FlutterRingtonePlayer.play(
+              android: AndroidSounds.notification,
+              ios: IosSounds.glass,
+              looping: true, // Android only - API >= 28
+              volume: 0.1, // Android only - API >= 28
+              asAlarm: false, // Android only - all APIs
+            );
+
+
+        print("dropoff_id.value => ${dropoff_id.value}");
+          }else if (event.data()!['status'] == 'ACCEPTED') {
+            isDriverRequestActive(false);
+            fromName.value = event.data()!['from'];
+            dropoff_id.value = event.data()!['dropoff_id'];
+            print("dropoff_id.value => ${dropoff_id.value}");
+
+            FlutterRingtonePlayer.play(
+              android: AndroidSounds.notification,
+              ios: IosSounds.glass,
+              looping: true, // Android only - API >= 28
+              volume: 0.1, // Android only - API >= 28
+              asAlarm: false, // Android only - all APIs
+            );
+          } else {
+            isDriverRequestActive(false);
+          }
+        }
       },
     );
   }
@@ -222,7 +256,7 @@ class HomeController extends GetxController {
     );
 
     if (!result.hasException) {
-      print("sendStatus ${result.data!["toggleDriverStatus"]["is_on"]}");
+      //print("sendStatus ${result.data!["toggleDriverStatus"]["is_on"]}");
     } else {
       print(result.exception);
     }
