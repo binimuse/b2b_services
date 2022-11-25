@@ -176,79 +176,89 @@ class HomeView extends GetView<HomeController> {
                       color: Color.fromARGB(255, 68, 171, 255),
                     ),
                   ),
-                  Padding(
-                    padding: const EdgeInsets.symmetric(horizontal: 10),
-                    child: Column(
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      mainAxisAlignment: MainAxisAlignment.center,
-                      children: [
-                        SizedBox(
-                          height: 5.h,
-                        ),
-                        Row(
-                          children: [
-                            Icon(
-                              Icons.my_location,
-                              size: 5.w,
-                              color: Color.fromARGB(255, 68, 171, 255),
-                            ),
-                            RichText(
-                              text: TextSpan(
-                                children: const <TextSpan>[
-                                  TextSpan(
-                                      text: 'From :',
-                                      style: TextStyle(
-                                          fontWeight: FontWeight.bold,
-                                          color: Colors.grey)),
-                                  TextSpan(
-                                      text: ' Stadium',
-                                      style: TextStyle(
-                                          fontWeight: FontWeight.bold,
-                                          color: Colors.black)),
-                                ],
+                  Expanded(
+
+                    child: Padding(
+                      padding: const EdgeInsets.symmetric(horizontal: 10),
+                      child: Column(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        children: [
+                          SizedBox(
+                            height: 5.h,
+                          ),
+                          Row(
+                            children: [
+                              Icon(
+                                Icons.my_location,
+                                size: 5.w,
+                                color: Color.fromARGB(255, 68, 171, 255),
                               ),
-                            ),
-                          ],
-                        ),
-                        Padding(
-                          padding: EdgeInsets.only(left: 2.4.w),
-                          child: SizedBox(
-                            height: 4.h,
-                            child: DottedLine(
-                              dashLength: 10,
-                              direction: Axis.vertical,
-                              dashColor: Color.fromARGB(255, 68, 171, 255),
-                              dashGapLength: 1.5,
-                              lineThickness: 1,
+                              Expanded(
+
+                                child: RichText(
+                                  maxLines: 2,
+                                  overflow: TextOverflow.ellipsis,
+                                  text: TextSpan(
+                                    children: <TextSpan>[
+                                      TextSpan(
+                                          text: 'From :',
+                                          style: TextStyle(
+                                              fontWeight: FontWeight.bold,
+                                              color: Colors.grey)),
+                                      TextSpan(
+                                        text: ' ${controller.fromName.value}',
+                                        style: TextStyle(
+                                          fontWeight: FontWeight.bold,
+                                          color: Colors.black,
+                                        ),
+                                      ),
+                                    ],
+                                  ),
+                                ),
+                              ),
+                            ],
+                          ),
+                          Padding(
+                            padding: EdgeInsets.only(left: 2.4.w),
+                            child: SizedBox(
+                              height: 4.h,
+                              child: DottedLine(
+                                dashLength: 10,
+                                direction: Axis.vertical,
+                                dashColor: Color.fromARGB(255, 68, 171, 255),
+                                dashGapLength: 1.5,
+                                lineThickness: 1,
+                              ),
                             ),
                           ),
-                        ),
-                        Row(
-                          children: [
-                            Icon(
-                              Icons.location_on_outlined,
-                              size: 5.5.w,
-                              color: Color.fromARGB(255, 68, 171, 255),
-                            ),
-                            RichText(
-                              text: TextSpan(
-                                children: const <TextSpan>[
-                                  TextSpan(
-                                      text: 'To :',
-                                      style: TextStyle(
-                                          fontWeight: FontWeight.bold,
-                                          color: Colors.grey)),
-                                  TextSpan(
-                                      text: ' Stadium',
-                                      style: TextStyle(
-                                          fontWeight: FontWeight.bold,
-                                          color: Colors.black)),
-                                ],
+                          Row(
+                            children: [
+                              Icon(
+                                Icons.location_on_outlined,
+                                size: 5.5.w,
+                                color: Color.fromARGB(255, 68, 171, 255),
                               ),
-                            )
-                          ],
-                        ),
-                      ],
+                              RichText(
+                                text: TextSpan(
+                                  children: const <TextSpan>[
+                                    TextSpan(
+                                        text: 'To :',
+                                        style: TextStyle(
+                                            fontWeight: FontWeight.bold,
+                                            color: Colors.grey)),
+                                    TextSpan(
+                                        text: ' Stadium',
+                                        style: TextStyle(
+                                            fontWeight: FontWeight.bold,
+                                            color: Colors.black)),
+                                  ],
+                                ),
+                              )
+                            ],
+                          ),
+                        ],
+                      ),
                     ),
                   ),
                   Container(

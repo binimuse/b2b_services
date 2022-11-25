@@ -25,6 +25,9 @@ class HomeController extends GetxController {
   final GlobalKey<ScaffoldState> keyforall = GlobalKey<ScaffoldState>();
   var getDriver = <GestDriverModel>[].obs;
   var loadingDriver = false.obs;
+  var fromName = "".obs;
+  var dropoff_id = 0.obs;
+
 
   late GoogleMapController mapController;
 
@@ -183,8 +186,8 @@ class HomeController extends GetxController {
   void listenToDrivedRequest() {
     print("TEST=> getDriver ${getDriver.length}");
     final snapShots = FirebaseFirestore.instance
-        .collection("/driver_requests")
-        .doc(getDriver.single.toString())
+        .collection("driver_requests")
+        .doc(getDriver.single.id)
         .snapshots();
     snapShots.listen(
       (event) {
@@ -193,13 +196,19 @@ class HomeController extends GetxController {
 
         print("current data: ${event.data()}");
 
-        // int requestDriverId = event.data();
+        if (event.data() == null) {
+          isDriverRequestActive(false);
+        } else {
+          if (event.data()!['status'] == 'ACCEPTED') {
+            isDriverRequestActive(true);
+            fromName.value = event.data()!['from'];
+            dropoff_id.value = event.data()!['dropoff_id'];
 
-        // if (requestDriverId == getDriver.first.id) {
-        //   isRequestIdSameDriver = true;
-        // }
-
-        //isDriverRequestActive(isRequestIdSameDriver);
+            print("dropoff_id.value => ${dropoff_id.value}");
+          } else {
+            isDriverRequestActive(false);
+          }
+        }
       },
     );
   }
