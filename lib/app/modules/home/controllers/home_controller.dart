@@ -58,7 +58,7 @@ class HomeController extends GetxController {
       print(result.data);
       loadingDriver(true);
 
-      print("result.data => ${result.data!["auth"]["driver"]}");
+      print("result.data => ${result.data!["auth"]["driver"]["id"]}");
 
       getDriver.add(GestDriverModel(
         id: result.data!["auth"]["driver"]["id"],
@@ -184,7 +184,7 @@ class HomeController extends GetxController {
     print("TEST=> getDriver ${getDriver.length}");
     final snapShots = FirebaseFirestore.instance
         .collection("/driver_requests")
-        .doc(getDriver.single.toString())
+        .doc(getDriver.first.id)
         .snapshots();
     snapShots.listen(
       (event) {

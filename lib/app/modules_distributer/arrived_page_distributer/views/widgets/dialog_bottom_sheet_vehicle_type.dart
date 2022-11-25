@@ -51,27 +51,36 @@ class DialogBottomSheetVehicleType extends StatelessWidget {
             child: Stack(
               children: [
                 ListView.separated(
-                  physics: NeverScrollableScrollPhysics(),
                   shrinkWrap: true,
                   itemCount: contoller.vehicleModel.length,
                   itemBuilder: (context, index) {
                     return Obx(() => contoller.loadindvehicleType.isTrue
-                        ? ItemVehicleType(
-                            typeDesc: contoller.vehicleModel[index].title,
-                            icon: contoller.vehicleModel[index].image,
-                            typeName: contoller.vehicleModel[index].title,
-                            isSelected:
-                                contoller.selectedCarIndex.value == index,
-                            onTap: () {
-                              contoller.selectedCarIndex.value = index;
+                        ? Column(
+                            children: [
+                              ItemVehicleType(
+                                typeDesc: contoller.vehicleModel[index].title,
+                                icon: contoller.vehicleModel[index].image,
+                                typeName: contoller.vehicleModel[index].title,
+                                isSelected:
+                                    contoller.selectedCarIndex.value == index,
+                                onTap: () {
+                                  contoller.selectedCarIndex.value = index;
 
-                              if (contoller.selectedCarIndex.value != 1000) {
-                                contoller.vehicleID.value =
-                                    contoller.vehicleModel[index].id;
-                              } else {
-                                contoller.vehicleID = ''.obs;
-                              }
-                            },
+                                  if (contoller.selectedCarIndex.value !=
+                                      1000) {
+                                    contoller.vehicleID.value =
+                                        contoller.vehicleModel[index].id;
+                                  } else {
+                                    contoller.vehicleID = ''.obs;
+                                  }
+                                },
+                              ),
+                              (contoller.vehicleModel.length - 1) == index
+                                  ? SizedBox(
+                                      height: 10.h,
+                                    )
+                                  : SizedBox(),
+                            ],
                           )
                         : SizedBox());
                   },
@@ -104,9 +113,7 @@ class DialogBottomSheetVehicleType extends StatelessWidget {
                           vertical: CustomSizes.mp_w_4,
                         ),
                         onPressed: () {
-                          print("orderData ${contoller.orderId}");
-                          print("vehicleID ${contoller.vehicleID}");
-                          print("userId ${contoller.userId}");
+                        
 
                           if (contoller.selectedCarIndex.value != 1000 &&
                               contoller.orderId.isNotEmpty) {
@@ -128,7 +135,7 @@ class DialogBottomSheetVehicleType extends StatelessWidget {
                             ));
                           }
 
-                          //  
+                          //
                         },
                         borderColor: CustomColors.blue,
                       ),
