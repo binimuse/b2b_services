@@ -219,34 +219,29 @@ class HomeDistributerController extends GetxController {
           'vehicle_type': {'connect': vehicleID.value},
           'from': {
             'connect': {
-
-               'type':"DISTRIBUTOR",
-               'id':userId.value,
+              'type': "DISTRIBUTOR",
+              'id': userId.value,
             }
           },
-          'orders': {
-            "ids":orderId
-          },
+          'orders': {"ids": orderId},
         },
       ),
     );
     if (!result.hasException) {
-     Get.toNamed(Routes.SEARCHING_DRIVERS_DISTRIBUTER);
+      Get.toNamed(Routes.SEARCHING_DRIVERS_DISTRIBUTER);
     } else {
-                     Get.dialog(AlertDialog(
-                              shape: RoundedRectangleBorder(
-                                borderRadius: BorderRadius.circular(10),
-                              ),
-                              title: const Text(
-                                'Error',
-                                style:
-                                    TextStyle(fontSize: 18, color: Colors.red),
-                              ),
-                              content: const Text(
-                                  'Try again',
-                                  style: TextStyle(
-                                      fontSize: 13, color: Colors.black)),
-                            ));
+      print(result.exception);
+      Get.dialog(AlertDialog(
+        shape: RoundedRectangleBorder(
+          borderRadius: BorderRadius.circular(10),
+        ),
+        title: const Text(
+          'Error',
+          style: TextStyle(fontSize: 18, color: Colors.red),
+        ),
+        content: const Text('Try again',
+            style: TextStyle(fontSize: 13, color: Colors.black)),
+      ));
     }
   }
 

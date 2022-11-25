@@ -70,6 +70,7 @@ class SignInController extends GetxController {
   }
 
   void signIn() async {
+    print("haha ");
     openAndCloseLoadingDialog();
     if (email!.isNotEmpty && password!.isNotEmpty) {
       signingIn(true);
@@ -93,7 +94,7 @@ class SignInController extends GetxController {
         getUser();
       } else {
         Navigator.of(Get.context!).pop();
-        print(result.exception);
+        print("haha ${result.exception}");
         addError(error: valid);
       }
     }
@@ -142,10 +143,10 @@ class SignInController extends GetxController {
 
     if (!result.hasException) {
       role.value = result.data!["auth"]["role"];
+      print("haha ${role.value}");
       await prefs.setString('role', result.data!["auth"]["role"]);
 
       if (role.value == "distributor") {
-   
         Navigator.of(Get.context!).pop();
         Get.offNamed(Routes.MAIN_SCREEN_DISTRIBUTER);
       } else {
