@@ -6,6 +6,7 @@ import 'package:b2b_services/app/Services/graphql_conf.dart';
 import 'package:b2b_services/app/common/firebase/firestore.dart';
 import 'package:b2b_services/app/modules/home/data/mutation/acceptorrejectrequest.dart';
 import 'package:b2b_services/app/modules_distributer/home_distributer/data/model/items_model.dart';
+import 'package:b2b_services/app/modules_distributer/home_distributer/data/mutation/updatedropoffmuataion.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:geolocator/geolocator.dart';
@@ -41,6 +42,7 @@ class HomeController extends GetxController {
     getUserId();
     getFakedata();
     getFakedata2();
+    sendStatus();
     super.onInit();
   }
 
@@ -174,6 +176,11 @@ class HomeController extends GetxController {
     );
 
     if (!result.hasException) {
+      if (result.data!["toggleDriverStatus"]["is_on"] == true) {
+        status.value = true;
+      } else {
+        status.value = false;
+      }
       print("sendStatus ${result.data!["toggleDriverStatus"]["is_on"]}");
     } else {
       print(result.exception);
@@ -251,5 +258,22 @@ class HomeController extends GetxController {
 
   void getFakedata() {
     orderHistory.add(OrderHistoryModel(id: "1", itemsmodel: itemModel));
+  }
+
+  void updateDropoff() async {
+    GraphQLClient client = graphQLConfiguration.clientToQuery();
+    QueryResult result = await client.mutate(
+      MutationOptions(
+        document: gql(UpdatedropoffMutation.updateDropoff),
+        variables: <String, dynamic>{
+          'orders': {'received': "", 'id': ""},
+        },
+      ),
+    );
+    if (!result.hasException) {
+      // Get.toNamed(Routes.SEARCHING_DRIVERS_DISTRIBUTER);
+    } else {
+      print(result.exception);
+    }
   }
 }
