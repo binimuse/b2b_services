@@ -31,7 +31,6 @@ class HomeController extends GetxController {
   var fromName = "".obs;
   var dropoff_id = 0.obs;
 
-
   late GoogleMapController mapController;
 
   late LatLng currentPosition = LatLng(0, 0);
@@ -213,7 +212,6 @@ class HomeController extends GetxController {
             fromName.value = event.data()!['from'];
             dropoff_id.value = event.data()!['dropoff_id'];
 
-
             FlutterRingtonePlayer.play(
               android: AndroidSounds.notification,
               ios: IosSounds.glass,
@@ -222,9 +220,8 @@ class HomeController extends GetxController {
               asAlarm: false, // Android only - all APIs
             );
 
-
-        print("dropoff_id.value => ${dropoff_id.value}");
-          }else if (event.data()!['status'] == 'ACCEPTED') {
+            print("dropoff_id.value => ${dropoff_id.value}");
+          } else if (event.data()!['status'] == 'ACCEPTED') {
             isDriverRequestActive(false);
             fromName.value = event.data()!['from'];
             dropoff_id.value = event.data()!['dropoff_id'];
@@ -273,7 +270,6 @@ class HomeController extends GetxController {
     );
 
     if (!result.hasException) {
-      print("sendStatus ${result.data!["toggleDriverStatus"]["is_on"]}");
     } else {
       print(result.exception);
     }
