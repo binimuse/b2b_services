@@ -1,22 +1,13 @@
 class GetDropOff {
   dynamic dropoff(
-    int id,
+    String id,
   ) {
     return """
 query {
     dropoff(id: $id) {
        id
     status
-    from {
-      ...on Distributor {
-        id
-        name
-      }
-    }
-    driver {
-      id
-      name
-    }
+ 
     dropoff_order {
       id
       received
@@ -32,6 +23,10 @@ query {
           product_sku {
             id
             sku
+             product
+            {
+                name
+            }
           }
         }
       }

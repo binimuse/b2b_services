@@ -253,7 +253,7 @@ class HomeController extends GetxController {
                     ["retailer_name"],
               ));
             }
-            print("haygy ${"getdropOff"}");
+
             getDropOffs();
           } else {
             isDriverRequestActive(false);
@@ -335,30 +335,36 @@ class HomeController extends GetxController {
     GraphQLClient client = graphQLConfiguration.clientToQuery();
     QueryResult result = await client.query(
       QueryOptions(
-        document: gql(getDropOff.dropoff(dropoff_id.value)),
+        document: gql(getDropOff.dropoff(dropoff_id.value.toString())),
       ),
     );
     if (!result.hasException) {
-      for (var i = 0; i < result.data!["dropoff_order"].length; i++) {
+      for (var i = 0;
+          i < result.data!["dropoff"]["dropoff_order"].length;
+          i++) {
         dropOffOrder.add(Dropofforder(
-            itemsmodel: [], orderId: result.data!["dropoff_order"][i]["id"]));
+            itemsmodel: [],
+            orderId: result.data!["dropoff"]["dropoff_order"][i]["id"]));
 
         for (var k = 0;
-            k < result.data!["dropoff_order"][i]["items"].length;
+            k <
+                result.data!["dropoff"]["dropoff_order"][i]["order"]["items"]
+                    .length;
             k++) {
           itemModelorder.add(ItemsModelOrder(
-            id: result.data!["dropoff_order"][i]["items"][k]["id"],
-            images: result.data!["dropoff_order"][i]["items"][k]["product_sku"]
-                ["product"]["images"][0]["original_url"],
-            name: result.data!["dropoff_order"][i]["items"][k]["product_sku"]
-                ["product"]["name"],
-            price: result.data!["dropoff_order"][i]["items"][k]["product_sku"]
-                    ["price"]
+            id: result.data!["dropoff"]["dropoff_order"][i]["order"]["items"][k]
+                ["id"],
+            images: "",
+            name: result.data!["dropoff"]["dropoff_order"][i]["order"]["items"]
+                [k]["product_sku"]["product"]["name"],
+            price: result.data!["dropoff"]["dropoff_order"][i]["order"]["items"]
+                    [k]["product_sku"]["price"]
                 .toString(),
-            quantity: result.data!["dropoff_order"][i]["items"][k]["quantity"]
+            quantity: result.data!["dropoff"]["dropoff_order"][i]["order"]
+                    ["items"][k]["quantity"]
                 .toString(),
-            sku: result.data!["dropoff_order"][i]["items"][k]["product_sku"]
-                ["sku"],
+            sku: result.data!["dropoff"]["dropoff_order"][i]["order"]["items"]
+                [k]["product_sku"]["sku"],
           ));
         }
       }
