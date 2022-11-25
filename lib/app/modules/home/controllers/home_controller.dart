@@ -16,6 +16,7 @@ import 'package:get/get.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
 import 'package:graphql_flutter/graphql_flutter.dart';
 import '../../../modules_distributer/home_distributer/data/model/order_model.dart';
+import '../../../modules_distributer/home_distributer/data/mutation/getdropoffquery.dart';
 import '../data/model/getdriver_model.dart';
 import '../data/mutation/getdriver_mutuation.dart';
 import '../data/mutation/status_mutuation.dart';
@@ -24,6 +25,7 @@ class HomeController extends GetxController {
   GraphQLConfiguration graphQLConfiguration = GraphQLConfiguration();
   final count = 0.obs;
   var status = false.obs;
+  var getDropOffss = false.obs;
   var isDriverRequestActive = false.obs;
   final GlobalKey<ScaffoldState> keyforall = GlobalKey<ScaffoldState>();
   var getDriver = <GestDriverModel>[].obs;
@@ -34,7 +36,10 @@ class HomeController extends GetxController {
   late GoogleMapController mapController;
 
   late LatLng currentPosition = LatLng(0, 0);
+  RxList<Dropofforderdestinations> dropofforderdestinations =
+      List<Dropofforderdestinations>.of([]).obs;
 
+  RxList<Dropofforder> dropOffOrder = List<Dropofforder>.of([]).obs;
   var itemModel = <ItemsModel>[].obs;
   var orderHistory = <OrderHistoryModel>[].obs;
   var isLoading = false.obs;
@@ -47,6 +52,7 @@ class HomeController extends GetxController {
     getFakedata();
     getFakedata2();
     sendStatus();
+    FlutterRingtonePlayer.stop();
     super.onInit();
   }
 
@@ -170,6 +176,7 @@ class HomeController extends GetxController {
   }
 
   sendStatus() async {
+    FlutterRingtonePlayer.stop();
     // print(int.parse(txtAge.text));
     GraphQLClient client = graphQLConfiguration.clientToQuery();
 
@@ -192,6 +199,7 @@ class HomeController extends GetxController {
   }
 
   void listenToDrivedRequest() {
+    FlutterRingtonePlayer.stop();
     print("TEST=> getDriver ${getDriver.length}");
     final snapShots = FirebaseFirestore.instance
         .collection("driver_requests")
@@ -234,6 +242,19 @@ class HomeController extends GetxController {
               volume: 0.1, // Android only - API >= 28
               asAlarm: false, // Android only - all APIs
             );
+
+            for (var i = 0;
+                i < event.data()!['dropoff_order_destinations'].length;
+                i++) {
+              dropofforderdestinations.add(Dropofforderdestinations(
+                orderId: event.data()!['dropoff_order_destinations'][i]
+                    ["order_id"],
+                retailer_name: event.data()!['dropoff_order_destinations'][i]
+                    ["retailer_name"],
+              ));
+            }
+            print("haygy ${"getdropOff"}");
+            getDropOffs();
           } else {
             isDriverRequestActive(false);
           }
@@ -296,13 +317,55 @@ class HomeController extends GetxController {
       MutationOptions(
         document: gql(UpdatedropoffMutation.updateDropoff),
         variables: <String, dynamic>{
-          'orders': {'received': "", 'id': ""},
+          'id': '',
+          'orders': {'received': "true", 'id': dropoff_id},
         },
       ),
     );
     if (!result.hasException) {
       // Get.toNamed(Routes.SEARCHING_DRIVERS_DISTRIBUTER);
     } else {
+      print(result.exception);
+    }
+  }
+
+  RxList<ItemsModelOrder> itemModelorder = List<ItemsModelOrder>.of([]).obs;
+  void getDropOffs() async {
+    GetDropOff getDropOff = GetDropOff();
+    GraphQLClient client = graphQLConfiguration.clientToQuery();
+    QueryResult result = await client.query(
+      QueryOptions(
+        document: gql(getDropOff.dropoff(dropoff_id.value)),
+      ),
+    );
+    if (!result.hasException) {
+      for (var i = 0; i < result.data!["dropoff_order"].length; i++) {
+        dropOffOrder.add(Dropofforder(
+            itemsmodel: [], orderId: result.data!["dropoff_order"][i]["id"]));
+
+        for (var k = 0;
+            k < result.data!["dropoff_order"][i]["items"].length;
+            k++) {
+          itemModelorder.add(ItemsModelOrder(
+            id: result.data!["dropoff_order"][i]["items"][k]["id"],
+            images: result.data!["dropoff_order"][i]["items"][k]["product_sku"]
+                ["product"]["images"][0]["original_url"],
+            name: result.data!["dropoff_order"][i]["items"][k]["product_sku"]
+                ["product"]["name"],
+            price: result.data!["dropoff_order"][i]["items"][k]["product_sku"]
+                    ["price"]
+                .toString(),
+            quantity: result.data!["dropoff_order"][i]["items"][k]["quantity"]
+                .toString(),
+            sku: result.data!["dropoff_order"][i]["items"][k]["product_sku"]
+                ["sku"],
+          ));
+        }
+      }
+
+      getDropOffss(true);
+    } else {
+      getDropOffss(false);
       print(result.exception);
     }
   }

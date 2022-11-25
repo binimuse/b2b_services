@@ -10,6 +10,9 @@ import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:get/get.dart';
 
+import '../../../../routes/app_pages.dart';
+import '../../data/model/getdriver_model.dart';
+
 class ItemOrder2 extends StatefulWidget {
   ItemOrder2({
     Key? key,
@@ -20,7 +23,7 @@ class ItemOrder2 extends StatefulWidget {
 
   final VoidCallback onTap;
 
-  final List<OrderHistoryModel>? orderHistory;
+  final Dropofforder? orderHistory;
   final int? index;
 
   @override
@@ -94,7 +97,7 @@ class _ItemOrderState extends State<ItemOrder2> {
             children: [
               Expanded(
                 child: Text(
-                  "Order 1",
+                  widget.orderHistory!.orderId,
                   maxLines: 1,
                   overflow: TextOverflow.ellipsis,
                   style: Theme.of(context).textTheme.bodyMedium?.copyWith(
@@ -114,7 +117,7 @@ class _ItemOrderState extends State<ItemOrder2> {
                     vertical: CustomSizes.mp_v_1 / 2,
                   ),
                   child: Text(
-                    " 1 items",
+                    widget.orderHistory!.itemsmodel.length.toString(),
                     maxLines: 1,
                     overflow: TextOverflow.ellipsis,
                     style: Theme.of(context).textTheme.bodySmall?.copyWith(
@@ -185,6 +188,7 @@ class _ItemOrderState extends State<ItemOrder2> {
                   });
 
                   if (isSelected) {
+                    Get.toNamed(Routes.SCAN_QR_CODE);
                     //  contoller.orderId.add(widget.shipModel!.id);
                   } else {
                     //   contoller.orderId.remove(widget.shipModel!.id);
@@ -196,7 +200,7 @@ class _ItemOrderState extends State<ItemOrder2> {
                   child: Stack(
                     children: [
                       Icon(
-                        FontAwesomeIcons.solidTruck,
+                        FontAwesomeIcons.check,
                         size: isSelected
                             ? CustomSizes.icon_size_8
                             : CustomSizes.icon_size_6,
@@ -237,28 +241,28 @@ class _ItemOrderState extends State<ItemOrder2> {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.end,
       children: [
-        // ListView.separated(
-        //   physics: const NeverScrollableScrollPhysics(),
-        //   shrinkWrap: true,
-        //   padding: EdgeInsets.only(
-        //       left: CustomSizes.mp_w_6, top: CustomSizes.mp_v_2),
-        //   itemBuilder: (context, index) {
-        //     return buildDetailsRow(
-        //         context, widget.shipModel!.itemsmodel[index]);
-        //   },
-        //   separatorBuilder: (context, index) {
-        //     return Padding(
-        //       padding: EdgeInsets.symmetric(
-        //         vertical: CustomSizes.mp_v_1,
-        //       ),
-        //       child: const Divider(
-        //         height: 1,
-        //         color: CustomColors.grey,
-        //       ),
-        //     );
-        //   },
-        //   itemCount: widget.shipModel!.itemsmodel.length,
-        // ),
+        ListView.separated(
+          physics: const NeverScrollableScrollPhysics(),
+          shrinkWrap: true,
+          padding: EdgeInsets.only(
+              left: CustomSizes.mp_w_6, top: CustomSizes.mp_v_2),
+          itemBuilder: (context, index) {
+            return buildDetailsRow(
+                context, widget.orderHistory!.itemsmodel[index]);
+          },
+          separatorBuilder: (context, index) {
+            return Padding(
+              padding: EdgeInsets.symmetric(
+                vertical: CustomSizes.mp_v_1,
+              ),
+              child: const Divider(
+                height: 1,
+                color: CustomColors.grey,
+              ),
+            );
+          },
+          itemCount: widget.orderHistory!.itemsmodel.length,
+        ),
         SizedBox(
           height: CustomSizes.mp_v_1,
         ),
@@ -266,7 +270,7 @@ class _ItemOrderState extends State<ItemOrder2> {
     );
   }
 
-  buildDetailsRow(BuildContext context, ItemsModel itemsmodel) {
+  buildDetailsRow(BuildContext context, ItemsModelOrder itemsmodel) {
     return Row(
       crossAxisAlignment: CrossAxisAlignment.center,
       children: [

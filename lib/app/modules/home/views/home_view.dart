@@ -178,7 +178,6 @@ class HomeView extends GetView<HomeController> {
                     ),
                   ),
                   Expanded(
-
                     child: Padding(
                       padding: const EdgeInsets.symmetric(horizontal: 10),
                       child: Column(
@@ -196,7 +195,6 @@ class HomeView extends GetView<HomeController> {
                                 color: Color.fromARGB(255, 68, 171, 255),
                               ),
                               Expanded(
-
                                 child: RichText(
                                   maxLines: 2,
                                   overflow: TextOverflow.ellipsis,
@@ -318,6 +316,7 @@ class HomeView extends GetView<HomeController> {
                             onPressed: () {
                               controller.rejectDropoffRequest();
                               FlutterRingtonePlayer.stop();
+                              FlutterRingtonePlayer.stop();
                             },
                             style: ElevatedButton.styleFrom(
                               backgroundColor: Colors.transparent,
@@ -345,6 +344,9 @@ class HomeView extends GetView<HomeController> {
                             onPressed: () {
                               controller.acceptDropoffRequest();
                               FlutterRingtonePlayer.stop();
+                              FlutterRingtonePlayer.stop();
+                              controller.updateDropoff();
+                              Get.to(() => ListOfDeleivery());
                             },
                             style: ElevatedButton.styleFrom(
                               backgroundColor: Colors.transparent,

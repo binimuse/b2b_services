@@ -118,7 +118,7 @@ class ScanQrCodeView extends GetView<ScanQrCodeController> {
                   ),
                 ),
                 SizedBox(
-                  height: 10.w,
+                  height: 5.w,
                 ),
                 finishandstartbutton(context)
               ],
@@ -138,7 +138,9 @@ class ScanQrCodeView extends GetView<ScanQrCodeController> {
         borderRadius: BorderRadius.circular(8.0),
       ),
       child: ElevatedButton(
-        onPressed: () {},
+        onPressed: () {
+          Get.back();
+        },
         style: ElevatedButton.styleFrom(
           backgroundColor: Colors.white,
           shadowColor: Colors.grey,
