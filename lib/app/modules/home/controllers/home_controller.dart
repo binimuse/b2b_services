@@ -185,7 +185,7 @@ class HomeController extends GetxController {
       } else {
         status.value = false;
       }
-      print("sendStatus ${result.data!["toggleDriverStatus"]["is_on"]}");
+      // print("sendStatus ${result.data!["toggleDriverStatus"]["is_on"]}");
     } else {
       print(result.exception);
     }
