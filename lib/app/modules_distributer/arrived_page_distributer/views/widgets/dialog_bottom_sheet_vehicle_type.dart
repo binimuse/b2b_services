@@ -68,8 +68,7 @@ class DialogBottomSheetVehicleType extends StatelessWidget {
 
                                   if (contoller.selectedCarIndex.value !=
                                       1000) {
-                                    contoller.vehicleID.value =
-                                        contoller.vehicleModel[index].id;
+                                    contoller.vehicleID.value = 4.toString();
                                   } else {
                                     contoller.vehicleID = ''.obs;
                                   }
@@ -113,8 +112,6 @@ class DialogBottomSheetVehicleType extends StatelessWidget {
                           vertical: CustomSizes.mp_w_4,
                         ),
                         onPressed: () {
-                        
-
                           if (contoller.selectedCarIndex.value != 1000 &&
                               contoller.orderId.isNotEmpty) {
                             contoller.createDropoff();

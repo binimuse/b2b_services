@@ -46,7 +46,7 @@ class DriversFoundDistributerView
                   height: CustomSizes.mp_v_2,
                 );
               },
-              itemCount: 12,
+              itemCount: 1,
             ),
           ),
         ],
