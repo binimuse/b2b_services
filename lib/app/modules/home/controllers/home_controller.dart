@@ -35,7 +35,7 @@ class HomeController extends GetxController {
 
   late GoogleMapController mapController;
 
-  late LatLng currentPosition = LatLng(9.0056682, 38.7634754);
+  LatLng currentPosition = LatLng(9.0073117, 38.7476045);
   RxList<Dropofforderdestinations> dropofforderdestinations =
       List<Dropofforderdestinations>.of([]).obs;
 
@@ -141,7 +141,7 @@ class HomeController extends GetxController {
       if (haspermission) {
         update();
 
-        getLocation();
+        // getLocation();
       }
     } else {
       status.value = false;
@@ -169,6 +169,8 @@ class HomeController extends GetxController {
     double long = position.longitude;
 
     LatLng location = LatLng(lat, long);
+
+    print(location);
 
     currentPosition = location;
   }

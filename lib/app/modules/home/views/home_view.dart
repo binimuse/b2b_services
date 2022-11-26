@@ -31,22 +31,27 @@ class HomeView extends GetView<HomeController> {
       body: SafeArea(
         child: Stack(
           children: [
-            Container(
-              height: MediaQuery.of(context).size.height,
-              width: MediaQuery.of(context).size.height,
-              child: GoogleMap(
-                  myLocationButtonEnabled: true,
-                  myLocationEnabled: false,
-                  zoomGesturesEnabled: true,
-                  zoomControlsEnabled: false,
-                  mapType: MapType.normal,
-                  initialCameraPosition: initialposition,
-                  onMapCreated: (GoogleMapController controller) {
-                    _controllerGoogleMap.complete(controller);
-                    googleMapController = controller;
-                    // locatePosition();
-                  }),
-            ),
+            Obx(() => controller.isLoading.value == true
+                ? Container(
+                    height: MediaQuery.of(context).size.height,
+                    width: MediaQuery.of(context).size.height,
+                    child: GoogleMap(
+                        myLocationButtonEnabled: true,
+                        myLocationEnabled: false,
+                        zoomGesturesEnabled: true,
+                        zoomControlsEnabled: false,
+                        mapType: MapType.normal,
+                        initialCameraPosition: CameraPosition(
+                          target: controller.currentPosition,
+                          zoom: 16.0,
+                        ),
+                        onMapCreated: (GoogleMapController controller) {
+                          _controllerGoogleMap.complete(controller);
+                          googleMapController = controller;
+                          // locatePosition();
+                        }),
+                  )
+                : Center(child: CircularProgressIndicator())),
             customappbar(),
             popupdialogue(context),
             Positioned(
@@ -65,6 +70,7 @@ class HomeView extends GetView<HomeController> {
                   padding: 8.0,
                   showOnOff: true,
                   onToggle: (val) async {
+                    controller.getLocation();
                     controller.status.value = val;
                     controller.sendStatus();
 
