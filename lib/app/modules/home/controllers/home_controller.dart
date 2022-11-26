@@ -159,6 +159,7 @@ class HomeController extends GetxController {
   }
 
   getLocation() async {
+    isLoading(true);
     LocationPermission permission;
     permission = await Geolocator.requestPermission();
 
@@ -170,7 +171,6 @@ class HomeController extends GetxController {
     LatLng location = LatLng(lat, long);
 
     currentPosition = location;
-    isLoading(true);
   }
 
   void _onMapCreated(GoogleMapController controller) {
@@ -190,9 +190,9 @@ class HomeController extends GetxController {
 
     if (!result.hasException) {
       if (result.data!["toggleDriverStatus"]["is_on"] == true) {
-        status.value = true;
+        // status.value = true;
       } else {
-        status.value = false;
+        // status.value = false;
       }
       // print("sendStatus ${result.data!["toggleDriverStatus"]["is_on"]}");
     } else {

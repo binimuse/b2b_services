@@ -31,27 +31,22 @@ class HomeView extends GetView<HomeController> {
       body: SafeArea(
         child: Stack(
           children: [
-            Obx(() => controller.isLoading.value == true
-                ? Container(
-                    height: MediaQuery.of(context).size.height,
-                    width: MediaQuery.of(context).size.height,
-                    child: GoogleMap(
-                        myLocationButtonEnabled: true,
-                        myLocationEnabled: false,
-                        zoomGesturesEnabled: true,
-                        zoomControlsEnabled: false,
-                        mapType: MapType.normal,
-                        initialCameraPosition: CameraPosition(
-                          target: controller.currentPosition,
-                          zoom: 16.0,
-                        ),
-                        onMapCreated: (GoogleMapController controller) {
-                          _controllerGoogleMap.complete(controller);
-                          googleMapController = controller;
-                          // locatePosition();
-                        }),
-                  )
-                : SizedBox()),
+            Container(
+              height: MediaQuery.of(context).size.height,
+              width: MediaQuery.of(context).size.height,
+              child: GoogleMap(
+                  myLocationButtonEnabled: true,
+                  myLocationEnabled: false,
+                  zoomGesturesEnabled: true,
+                  zoomControlsEnabled: false,
+                  mapType: MapType.normal,
+                  initialCameraPosition: initialposition,
+                  onMapCreated: (GoogleMapController controller) {
+                    _controllerGoogleMap.complete(controller);
+                    googleMapController = controller;
+                    // locatePosition();
+                  }),
+            ),
             customappbar(),
             popupdialogue(context),
             Positioned(
