@@ -35,7 +35,7 @@ class HomeController extends GetxController {
 
   late GoogleMapController mapController;
 
-  late LatLng currentPosition = LatLng(0, 0);
+  late LatLng currentPosition = LatLng(9.0056682, 38.7634754);
   RxList<Dropofforderdestinations> dropofforderdestinations =
       List<Dropofforderdestinations>.of([]).obs;
 
@@ -45,6 +45,8 @@ class HomeController extends GetxController {
   var isLoading = false.obs;
   @override
   void onInit() {
+    FlutterRingtonePlayer.stop();
+    FlutterRingtonePlayer.stop();
     checkGps();
 
     askforpermission();
@@ -52,7 +54,7 @@ class HomeController extends GetxController {
     getFakedata();
     getFakedata2();
     sendStatus();
-    FlutterRingtonePlayer.stop();
+
     super.onInit();
   }
 
@@ -200,6 +202,7 @@ class HomeController extends GetxController {
 
   void listenToDrivedRequest() {
     FlutterRingtonePlayer.stop();
+    FlutterRingtonePlayer.stop();
     print("TEST=> getDriver ${getDriver.length}");
     final snapShots = FirebaseFirestore.instance
         .collection("driver_requests")
@@ -220,13 +223,13 @@ class HomeController extends GetxController {
             fromName.value = event.data()!['from'];
             dropoff_id.value = event.data()!['dropoff_id'];
 
-            FlutterRingtonePlayer.play(
-              android: AndroidSounds.notification,
-              ios: IosSounds.glass,
-              looping: true, // Android only - API >= 28
-              volume: 0.1, // Android only - API >= 28
-              asAlarm: false, // Android only - all APIs
-            );
+            // FlutterRingtonePlayer.play(
+            //   android: AndroidSounds.notification,
+            //   ios: IosSounds.glass,
+            //   looping: true, // Android only - API >= 28
+            //   volume: 0.1, // Android only - API >= 28
+            //   asAlarm: false, // Android only - all APIs
+            // );
 
             print("dropoff_id.value => ${dropoff_id.value}");
           } else if (event.data()!['status'] == 'ACCEPTED') {
@@ -235,13 +238,13 @@ class HomeController extends GetxController {
             dropoff_id.value = event.data()!['dropoff_id'];
             print("dropoff_id.value => ${dropoff_id.value}");
 
-            FlutterRingtonePlayer.play(
-              android: AndroidSounds.notification,
-              ios: IosSounds.glass,
-              looping: true, // Android only - API >= 28
-              volume: 0.1, // Android only - API >= 28
-              asAlarm: false, // Android only - all APIs
-            );
+            // FlutterRingtonePlayer.play(
+            //   android: AndroidSounds.notification,
+            //   ios: IosSounds.glass,
+            //   looping: true, // Android only - API >= 28
+            //   volume: 0.1, // Android only - API >= 28
+            //   asAlarm: false, // Android only - all APIs
+            // );
 
             for (var i = 0;
                 i < event.data()!['dropoff_order_destinations'].length;
@@ -343,8 +346,10 @@ class HomeController extends GetxController {
           i < result.data!["dropoff"]["dropoff_order"].length;
           i++) {
         dropOffOrder.add(Dropofforder(
-            itemsmodel: [],
-            orderId: result.data!["dropoff"]["dropoff_order"][i]["id"]));
+            itemsmodel: itemModelorder,
+            orderId: result.data!["dropoff"]["dropoff_order"][i]["id"],
+            received: result.data!["dropoff"]["dropoff_order"][i]["received"]
+                .toString()));
 
         for (var k = 0;
             k <

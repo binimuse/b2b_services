@@ -23,10 +23,12 @@ class Dropofforderdestinations {
 
 class Dropofforder {
   late String orderId;
+  late String received;
   late List<ItemsModelOrder> itemsmodel;
 
   Dropofforder({
     required this.orderId,
+    required this.received,
     required this.itemsmodel,
   });
 }

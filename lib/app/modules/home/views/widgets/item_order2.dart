@@ -97,7 +97,7 @@ class _ItemOrderState extends State<ItemOrder2> {
             children: [
               Expanded(
                 child: Text(
-                  widget.orderHistory!.orderId,
+                  "order Id - ${widget.orderHistory!.orderId}",
                   maxLines: 1,
                   overflow: TextOverflow.ellipsis,
                   style: Theme.of(context).textTheme.bodyMedium?.copyWith(
@@ -137,7 +137,7 @@ class _ItemOrderState extends State<ItemOrder2> {
             mainAxisAlignment: MainAxisAlignment.start,
             children: [
               Icon(
-                FontAwesomeIcons.solidLocationPin,
+                FontAwesomeIcons.receipt,
                 color: CustomColors.blue,
                 size: CustomSizes.icon_size_4,
               ),
@@ -145,7 +145,7 @@ class _ItemOrderState extends State<ItemOrder2> {
                 width: CustomSizes.mp_w_1,
               ),
               Text(
-                "5 kilo",
+                "received - ${widget.orderHistory!.received.toString()}",
                 maxLines: 1,
                 overflow: TextOverflow.ellipsis,
                 style: Theme.of(context).textTheme.bodySmall?.copyWith(

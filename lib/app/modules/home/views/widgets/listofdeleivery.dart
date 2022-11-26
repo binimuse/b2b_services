@@ -7,6 +7,7 @@ import 'package:b2b_services/app/modules_distributer/arrived_page_distributer/vi
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
+import '../../../../routes/app_pages.dart';
 import '../../controllers/home_controller.dart';
 
 class ListOfDeleivery extends GetView<HomeController> {
@@ -34,7 +35,9 @@ class ListOfDeleivery extends GetView<HomeController> {
                         child: ItemOrder2(
                           orderHistory: controller.dropOffOrder[index],
                           index: index,
-                          onTap: () {},
+                          onTap: () {
+                            Get.toNamed(Routes.SCAN_QR_CODE);
+                          },
                         ),
                       );
                     },

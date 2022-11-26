@@ -2,8 +2,6 @@
 
 import 'dart:async';
 
-import 'package:b2b_services/app/modules/home/views/widgets/scan_qr_code.dart';
-import 'package:b2b_services/app/modules/scan_qr_code/views/scan_qr_code_view.dart';
 import 'package:b2b_services/app/routes/app_pages.dart';
 import 'package:dotted_line/dotted_line.dart';
 import 'package:flutter/material.dart';
@@ -125,20 +123,6 @@ class HomeView extends GetView<HomeController> {
           SizedBox(
             width: 2.w,
           ),
-          Container(
-            color: Colors.white,
-            child: IconButton(
-                onPressed: () {
-                  // Get.to(() => ScanQrCodeView());
-
-                  Get.to(() => ListOfDeleivery());
-                },
-                icon: Icon(
-                  Icons.qr_code_scanner_rounded,
-                  color: Colors.greenAccent,
-                  size: 9.w,
-                )),
-          )
         ],
       ),
     );
