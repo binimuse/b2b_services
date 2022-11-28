@@ -124,6 +124,20 @@ class HomeView extends GetView<HomeController> {
           SizedBox(
             width: 2.w,
           ),
+          Container(
+            color: Colors.white,
+            child: IconButton(
+                onPressed: () {
+                  //controller.keyforall.currentState!.openDrawer();
+
+                  Get.to(ListOfDeleivery());
+                },
+                icon: Icon(
+                  Icons.menu,
+                  color: Colors.greenAccent,
+                  size: 9.w,
+                )),
+          ),
         ],
       ),
     );

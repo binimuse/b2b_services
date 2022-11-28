@@ -336,6 +336,7 @@ class HomeController extends GetxController {
 
   RxList<ItemsModelOrder> itemModelorder = List<ItemsModelOrder>.of([]).obs;
   void getDropOffs() async {
+    print("dropoffid ${dropoff_id.value.toString()}");
     GetDropOff getDropOff = GetDropOff();
     GraphQLClient client = graphQLConfiguration.clientToQuery();
     QueryResult result = await client.query(
@@ -347,17 +348,12 @@ class HomeController extends GetxController {
       for (var i = 0;
           i < result.data!["dropoff"]["dropoff_order"].length;
           i++) {
-        dropOffOrder.add(Dropofforder(
-            itemsmodel: itemModelorder,
-            orderId: result.data!["dropoff"]["dropoff_order"][i]["id"],
-            received: result.data!["dropoff"]["dropoff_order"][i]["received"]
-                .toString()));
-
         for (var k = 0;
             k <
                 result.data!["dropoff"]["dropoff_order"][i]["order"]["items"]
                     .length;
             k++) {
+          itemModelorder.clear();
           itemModelorder.add(ItemsModelOrder(
             id: result.data!["dropoff"]["dropoff_order"][i]["order"]["items"][k]
                 ["id"],
@@ -374,6 +370,15 @@ class HomeController extends GetxController {
                 [k]["product_sku"]["sku"],
           ));
         }
+
+        dropOffOrder.add(Dropofforder(
+            itemsmodel: itemModelorder,
+            orderId: result.data!["dropoff"]["dropoff_order"][i]["id"],
+            received: result.data!["dropoff"]["dropoff_order"][i]["received"]
+                .toString(),
+            totalPrice: result.data!["dropoff"]["dropoff_order"][i]["order"]
+                    ["total_price"]
+                .toString()));
       }
 
       getDropOffss(true);

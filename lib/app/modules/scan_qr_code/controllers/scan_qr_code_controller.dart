@@ -1,17 +1,15 @@
+import 'package:b2b_services/app/modules/home/data/model/getdriver_model.dart';
 import 'package:get/get.dart';
 
 class ScanQrCodeController extends GetxController {
-  //TODO: Implement ScanQrCodeController
-
+  late final Dropofforder? dropofforder;
   final count = 0.obs;
   @override
   void onInit() {
-    super.onInit();
-  }
+    print("hahauuuu ${dropofforder!.orderId}");
+    dropofforder = Get.arguments['order'];
 
-  @override
-  void onReady() {
-    super.onReady();
+    super.onInit();
   }
 
   @override

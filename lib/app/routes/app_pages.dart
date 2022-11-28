@@ -52,7 +52,7 @@ class AppPages {
     ),
     GetPage(
       name: _Paths.SCAN_QR_CODE,
-      page: () => const ScanQrCodeView(),
+      page: () =>  ScanQrCodeView(),
       binding: ScanQrCodeBinding(),
     ),
     GetPage(

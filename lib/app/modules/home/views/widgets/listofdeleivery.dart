@@ -36,7 +36,7 @@ class ListOfDeleivery extends GetView<HomeController> {
                           orderHistory: controller.dropOffOrder[index],
                           index: index,
                           onTap: () {
-                            Get.toNamed(Routes.SCAN_QR_CODE);
+                     
                           },
                         ),
                       );

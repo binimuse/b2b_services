@@ -5,10 +5,11 @@ class SearchingDriversDistributerController extends GetxController {
   @override
   void onInit() {
 
-    print("FOUNDEDEDED => ");
     Future.delayed(
       Duration(seconds: 5),
         (){
+
+          
         Get.toNamed(Routes.DRIVERS_FOUND_DISTRIBUTER);
         },
     );

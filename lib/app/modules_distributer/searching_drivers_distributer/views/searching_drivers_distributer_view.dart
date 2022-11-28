@@ -91,7 +91,7 @@ class SearchingDriversDistributerView
               borderRadius: BorderRadius.circular(CustomSizes.radius_6),
               child: CustomButtonFeedBack(
                 onTap: () {
-                  Get.toNamed(Routes.NOTIFICATION);
+                   Get.toNamed(Routes.NOTIFICATION);
                 },
                 child: Padding(
                   padding: EdgeInsets.all(

@@ -63,7 +63,10 @@ class _ItemOrderState extends State<ItemOrder2> {
                 buildItemInfo(context),
               ],
             ),
-            isSelectedItems ? buildExpandableView() : SizedBox(),
+            isSelectedItems
+                ? Column(
+                    children: [buildExpandableView(), buildExpandableView2()])
+                : SizedBox(),
           ],
         ),
       ),
@@ -188,7 +191,9 @@ class _ItemOrderState extends State<ItemOrder2> {
                   });
 
                   if (isSelected) {
-                    Get.toNamed(Routes.SCAN_QR_CODE);
+                    print("hahauuuu ${isSelected}");
+                    Get.toNamed(Routes.SCAN_QR_CODE,
+                        arguments: {"order": widget.orderHistory});
                     //  contoller.orderId.add(widget.shipModel!.id);
                   } else {
                     //   contoller.orderId.remove(widget.shipModel!.id);
@@ -237,6 +242,39 @@ class _ItemOrderState extends State<ItemOrder2> {
     );
   }
 
+  Column buildExpandableView2() {
+    return Column(
+      crossAxisAlignment: CrossAxisAlignment.end,
+      children: [
+        ListView.separated(
+          physics: const NeverScrollableScrollPhysics(),
+          shrinkWrap: true,
+          padding: EdgeInsets.only(
+              left: CustomSizes.mp_w_6, top: CustomSizes.mp_v_2),
+          itemBuilder: (context, index) {
+            return buildDetailsRow2(
+                context, widget.orderHistory!.itemsmodel[index]);
+          },
+          separatorBuilder: (context, index) {
+            return Padding(
+              padding: EdgeInsets.symmetric(
+                vertical: CustomSizes.mp_v_1,
+              ),
+              child: const Divider(
+                height: 1,
+                color: CustomColors.grey,
+              ),
+            );
+          },
+          itemCount: widget.orderHistory!.itemsmodel.length,
+        ),
+        SizedBox(
+          height: CustomSizes.mp_v_1,
+        ),
+      ],
+    );
+  }
+
   Column buildExpandableView() {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.end,
@@ -265,6 +303,37 @@ class _ItemOrderState extends State<ItemOrder2> {
         ),
         SizedBox(
           height: CustomSizes.mp_v_1,
+        ),
+      ],
+    );
+  }
+
+  buildDetailsRow2(BuildContext context, ItemsModelOrder itemsmodel) {
+    return Row(
+      crossAxisAlignment: CrossAxisAlignment.center,
+      children: [
+        Expanded(
+          child: Text(
+            "total price",
+            maxLines: 1,
+            overflow: TextOverflow.ellipsis,
+            style: Theme.of(context).textTheme.bodyMedium?.copyWith(
+                  color: CustomColors.grey,
+                  fontWeight: FontWeight.w400,
+                  fontSize: CustomSizes.font_8,
+                ),
+          ),
+        ),
+        const Expanded(
+          child: SizedBox(),
+        ),
+        Text(
+          widget.orderHistory!.totalPrice.toString(),
+          style: Theme.of(context).textTheme.bodySmall?.copyWith(
+                fontWeight: FontWeight.w500,
+                color: CustomColors.grey,
+                fontSize: CustomSizes.font_10,
+              ),
         ),
       ],
     );
