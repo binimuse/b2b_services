@@ -4,6 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:sizer/sizer.dart';
 import '../controllers/scan_qr_code_controller.dart';
+import 'package:qr_flutter/qr_flutter.dart';
 
 class ScanQrCodeView extends GetView<ScanQrCodeController> {
   const ScanQrCodeView({Key? key}) : super(key: key);
@@ -13,7 +14,7 @@ class ScanQrCodeView extends GetView<ScanQrCodeController> {
       body: Center(
         child: Container(
             alignment: Alignment.center,
-            height: 65.h,
+            height: 50.h,
             width: 85.w,
             decoration: BoxDecoration(boxShadow: [
               BoxShadow(
@@ -35,17 +36,14 @@ class ScanQrCodeView extends GetView<ScanQrCodeController> {
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.center,
               children: [
-                Icon(
-                  Icons.qr_code_rounded,
-                  color: Colors.black,
-                  size: 30.h,
+                SizedBox(
+                  height: 4.w,
                 ),
-                Text(
-                  "Delivery Item",
-                  style: TextStyle(
-                      color: Colors.grey,
-                      fontWeight: FontWeight.w600,
-                      fontSize: 14.sp),
+                QrImage(
+                  data:
+                      "dropOffid = ${controller.dropofforder!.dropOffid}, orderId = ${controller.dropofforder!.orderId}",
+                  version: QrVersions.auto,
+                  size: 200.0,
                 ),
                 SizedBox(
                   height: 4.w,
@@ -55,7 +53,7 @@ class ScanQrCodeView extends GetView<ScanQrCodeController> {
                   child: Row(
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: [
-                      Text('Amount',
+                      Text('order id',
                           style: TextStyle(
                               fontWeight: FontWeight.w500,
                               color: Colors.grey,
@@ -63,7 +61,7 @@ class ScanQrCodeView extends GetView<ScanQrCodeController> {
                       SizedBox(
                         width: 15.w,
                       ),
-                      Text('12 PCS',
+                      Text(controller.dropofforder!.orderId,
                           style: TextStyle(
                               fontWeight: FontWeight.w500,
                               color: Colors.grey,
@@ -81,12 +79,15 @@ class ScanQrCodeView extends GetView<ScanQrCodeController> {
                   child: Row(
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: [
-                      Text('Total KM',
+                      Text('drop off id',
                           style: TextStyle(
                               fontWeight: FontWeight.w500,
                               color: Colors.grey,
                               fontSize: 14.sp)),
-                      Text('2.4 KM',
+                      SizedBox(
+                        width: 15.w,
+                      ),
+                      Text(controller.dropofforder!.dropOffid,
                           style: TextStyle(
                               fontWeight: FontWeight.w500,
                               color: Colors.grey,
@@ -104,12 +105,15 @@ class ScanQrCodeView extends GetView<ScanQrCodeController> {
                   child: Row(
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: [
-                      Text('Price',
+                      Text('total Price',
                           style: TextStyle(
                               fontWeight: FontWeight.w500,
                               color: Colors.grey,
                               fontSize: 14.sp)),
-                      Text('250 ETB',
+                      SizedBox(
+                        width: 15.w,
+                      ),
+                      Text(controller.dropofforder!.totalPrice,
                           style: TextStyle(
                               fontWeight: FontWeight.w500,
                               color: Colors.grey,

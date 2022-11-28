@@ -6,8 +6,8 @@ class ScanQrCodeController extends GetxController {
   final count = 0.obs;
   @override
   void onInit() {
-    print("hahauuuu ${dropofforder!.orderId}");
-    dropofforder = Get.arguments['order'];
+    print("amhere");
+    getOrder();
 
     super.onInit();
   }
@@ -18,4 +18,11 @@ class ScanQrCodeController extends GetxController {
   }
 
   void increment() => count.value++;
+
+  void getOrder() async {
+    print("hahauuuu ${"dropofforder!.orderId"}");
+    dropofforder = Get.arguments['order'];
+    print("hahauuuu ${dropofforder!.orderId}");
+    print("hahauuuu ${dropofforder!.dropOffid}");
+  }
 }

@@ -191,7 +191,6 @@ class _ItemOrderState extends State<ItemOrder2> {
                   });
 
                   if (isSelected) {
-                    print("hahauuuu ${isSelected}");
                     Get.toNamed(Routes.SCAN_QR_CODE,
                         arguments: {"order": widget.orderHistory});
                     //  contoller.orderId.add(widget.shipModel!.id);

@@ -345,6 +345,7 @@ class HomeController extends GetxController {
       ),
     );
     if (!result.hasException) {
+      dropOffOrder.clear();
       for (var i = 0;
           i < result.data!["dropoff"]["dropoff_order"].length;
           i++) {
@@ -378,7 +379,8 @@ class HomeController extends GetxController {
                 .toString(),
             totalPrice: result.data!["dropoff"]["dropoff_order"][i]["order"]
                     ["total_price"]
-                .toString()));
+                .toString(),
+            dropOffid: result.data!["dropoff"]["id"]));
       }
 
       getDropOffss(true);
