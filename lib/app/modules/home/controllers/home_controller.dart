@@ -374,7 +374,7 @@ class HomeController extends GetxController {
 
         dropOffOrder.add(Dropofforder(
             itemsmodel: itemModelorder,
-            orderId: result.data!["dropoff"]["dropoff_order"][i]["id"],
+            orderId: result.data!["dropoff"]["dropoff_order"][i]["order"]["id"],
             received: result.data!["dropoff"]["dropoff_order"][i]["received"]
                 .toString(),
             totalPrice: result.data!["dropoff"]["dropoff_order"][i]["order"]
