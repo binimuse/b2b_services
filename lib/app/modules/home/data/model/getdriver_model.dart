@@ -21,12 +21,11 @@ class Dropofforderdestinations {
   });
 }
 
-
 class Shipmentorderdestinations {
   late String orderId;
   late String retailer_name;
 
- Shipmentorderdestinations({
+  Shipmentorderdestinations({
     required this.orderId,
     required this.retailer_name,
   });
@@ -36,6 +35,7 @@ class Dropofforder {
   late String dropOffid;
   late String orderId;
   late String received;
+  late String status;
   late String totalPrice;
   late List<ItemsModelOrder> itemsmodel;
 
@@ -43,6 +43,7 @@ class Dropofforder {
     required this.dropOffid,
     required this.orderId,
     required this.received,
+    required this.status,
     required this.itemsmodel,
     required this.totalPrice,
   });

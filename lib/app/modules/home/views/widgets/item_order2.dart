@@ -156,6 +156,37 @@ class _ItemOrderState extends State<ItemOrder2> {
                       fontWeight: FontWeight.w400,
                     ),
               ),
+              SizedBox(
+                width: CustomSizes.mp_w_1,
+              ),
+            ],
+          ),
+          SizedBox(
+            height: CustomSizes.mp_v_1,
+          ),
+          Row(
+            mainAxisAlignment: MainAxisAlignment.start,
+            children: [
+              Icon(
+                FontAwesomeIcons.recordVinyl,
+                color: CustomColors.blue,
+                size: CustomSizes.icon_size_4,
+              ),
+              SizedBox(
+                width: CustomSizes.mp_w_1,
+              ),
+              Text(
+                "status - ${widget.orderHistory!.status.toString()}",
+                maxLines: 1,
+                overflow: TextOverflow.ellipsis,
+                style: Theme.of(context).textTheme.bodySmall?.copyWith(
+                      color: CustomColors.black,
+                      fontWeight: FontWeight.w400,
+                    ),
+              ),
+              SizedBox(
+                width: CustomSizes.mp_w_1,
+              ),
             ],
           ),
           SizedBox(

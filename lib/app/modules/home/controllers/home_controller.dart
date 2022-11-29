@@ -20,6 +20,7 @@ import '../../../modules_distributer/home_distributer/data/model/order_model.dar
 import '../../../modules_distributer/home_distributer/data/mutation/getdropoffquery.dart';
 import '../data/model/getdriver_model.dart';
 import '../data/mutation/getdriver_mutuation.dart';
+import '../data/mutation/starttrip.dart';
 import '../data/mutation/status_mutuation.dart';
 
 class HomeController extends GetxController {
@@ -331,6 +332,35 @@ class HomeController extends GetxController {
     );
   }
 
+  startTrip(int value) async {
+    print(dropoff_id.value.toString());
+    GraphQLClient client = graphQLConfiguration.clientToQuery();
+
+    QueryResult result = await client.mutate(
+      MutationOptions(
+        document: gql(UpdateDropoff.request),
+        variables: <String, dynamic>{
+          'id': dropoff_id.value.toString(),
+          'status': "STARTED",
+        },
+      ),
+    );
+
+    if (!result.hasException) {
+      Get.dialog(AlertDialog(
+        shape: RoundedRectangleBorder(
+          borderRadius: BorderRadius.circular(10),
+        ),
+        title: const Text(
+          'Trip, Started',
+          style: TextStyle(fontSize: 18, color: Colors.green),
+        ),
+      ));
+    } else {
+      print(result.exception);
+    }
+  }
+
   acceptDropoffRequest() async {
     // print(int.parse(txtAge.text));
     GraphQLClient client = graphQLConfiguration.clientToQuery();
@@ -447,7 +477,8 @@ class HomeController extends GetxController {
             totalPrice: result.data!["dropoff"]["dropoff_order"][i]["order"]
                     ["total_price"]
                 .toString(),
-            dropOffid: result.data!["dropoff"]["id"]));
+            dropOffid: result.data!["dropoff"]["id"],
+            status: result.data!["dropoff"]["status"]));
       }
 
       getDropOffss(true);
