@@ -68,7 +68,8 @@ class DialogBottomSheetVehicleType extends StatelessWidget {
 
                                   if (contoller.selectedCarIndex.value !=
                                       1000) {
-                                    contoller.vehicleID.value = 4.toString();
+                                    contoller.vehicleID.value =
+                                        contoller.vehicleModel[index].id;
                                   } else {
                                     contoller.vehicleID = ''.obs;
                                   }
@@ -95,48 +96,54 @@ class DialogBottomSheetVehicleType extends StatelessWidget {
                     width: double.infinity,
                     margin: EdgeInsets.only(bottom: CustomSizes.mp_v_2),
                     child: Material(
-                      elevation: 4,
-                      shadowColor: Colors.black.withOpacity(0.2),
-                      borderRadius: BorderRadius.circular(CustomSizes.radius_6),
-                      child: CustomNormalButtonBorder(
-                        text: "Select Vehicle",
-                        textStyle:
-                            Theme.of(context).textTheme.bodyMedium?.copyWith(
-                                  color: CustomColors.white,
-                                  fontSize: CustomSizes.font_12,
-                                  fontWeight: FontWeight.w500,
+                        elevation: 4,
+                        shadowColor: Colors.black.withOpacity(0.2),
+                        borderRadius:
+                            BorderRadius.circular(CustomSizes.radius_6),
+                        child: !contoller.loading
+                            ? CustomNormalButtonBorder(
+                                text: "Select Vehicle",
+                                textStyle: Theme.of(context)
+                                    .textTheme
+                                    .bodyMedium
+                                    ?.copyWith(
+                                      color: CustomColors.white,
+                                      fontSize: CustomSizes.font_12,
+                                      fontWeight: FontWeight.w500,
+                                    ),
+                                bgColor: CustomColors.blue,
+                                padding: EdgeInsets.symmetric(
+                                  horizontal: CustomSizes.mp_w_2,
+                                  vertical: CustomSizes.mp_w_4,
                                 ),
-                        bgColor: CustomColors.blue,
-                        padding: EdgeInsets.symmetric(
-                          horizontal: CustomSizes.mp_w_2,
-                          vertical: CustomSizes.mp_w_4,
-                        ),
-                        onPressed: () {
-                          if (contoller.selectedCarIndex.value != 1000 &&
-                              contoller.orderId.isNotEmpty) {
-                            contoller.createDropoff();
-                          } else {
-                            Get.dialog(AlertDialog(
-                              shape: RoundedRectangleBorder(
-                                borderRadius: BorderRadius.circular(10),
-                              ),
-                              title: const Text(
-                                'Warning',
-                                style:
-                                    TextStyle(fontSize: 18, color: Colors.red),
-                              ),
-                              content: const Text(
-                                  'Please Select Order or Vehicle',
-                                  style: TextStyle(
-                                      fontSize: 13, color: Colors.black)),
-                            ));
-                          }
+                                onPressed: () {
+                                  if (contoller.selectedCarIndex.value !=
+                                          1000 &&
+                                      contoller.orderId.isNotEmpty) {
+                                    contoller.createDropoff();
+                                  } else {
+                                    Get.dialog(AlertDialog(
+                                      shape: RoundedRectangleBorder(
+                                        borderRadius: BorderRadius.circular(10),
+                                      ),
+                                      title: const Text(
+                                        'Warning',
+                                        style: TextStyle(
+                                            fontSize: 18, color: Colors.red),
+                                      ),
+                                      content: const Text(
+                                          'Please Select Order or Vehicle',
+                                          style: TextStyle(
+                                              fontSize: 13,
+                                              color: Colors.black)),
+                                    ));
+                                  }
 
-                          //
-                        },
-                        borderColor: CustomColors.blue,
-                      ),
-                    ),
+                                  //
+                                },
+                                borderColor: CustomColors.blue,
+                              )
+                            : Center(child: CircularProgressIndicator())),
                   ),
                 ),
               ],

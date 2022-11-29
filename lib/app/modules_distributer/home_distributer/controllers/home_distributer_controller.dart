@@ -3,6 +3,7 @@ import 'dart:async';
 import 'package:b2b_services/app/modules_distributer/home_distributer/data/model/items_model.dart';
 import 'package:b2b_services/app/modules_distributer/home_distributer/data/model/vehicle_type_model.dart';
 import 'package:b2b_services/app/routes/app_pages.dart';
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:graphql_flutter/graphql_flutter.dart';
@@ -20,14 +21,16 @@ class HomeDistributerController extends GetxController {
   final selectedCarIndex = 1000.obs;
   var vehicleID = ''.obs;
   var userId = ''.obs;
+  var dropOffId = ''.obs;
 
   List<String> orderId = <String>[].obs;
   var loadingShipmentDeatil = false.obs;
   var loadingOrder = false.obs;
   var loadindvehicleType = false.obs;
+  var isdropofftrips = false.obs;
   final reusableWidget = ReusableWidget();
-  var loading = true.obs;
 
+  bool loading = false;
   Timer? timerDummy;
   late TabController tabController;
 
@@ -211,6 +214,7 @@ class HomeDistributerController extends GetxController {
   }
 
   void createDropoff() async {
+    loading = true;
     GraphQLClient client = graphQLConfiguration.clientToQuery();
     QueryResult result = await client.mutate(
       MutationOptions(
@@ -228,9 +232,14 @@ class HomeDistributerController extends GetxController {
       ),
     );
     if (!result.hasException) {
-      Get.toNamed(Routes.SEARCHING_DRIVERS_DISTRIBUTER);
+      loading = false;
+      loading = !loading;
+
+      dropOffId.value = result.data!["createDropoff"]["id"];
+
+      dropofftrips();
     } else {
-      print(result.exception);
+      loading = true;
       Get.dialog(AlertDialog(
         shape: RoundedRectangleBorder(
           borderRadius: BorderRadius.circular(10),
@@ -239,10 +248,42 @@ class HomeDistributerController extends GetxController {
           'Error',
           style: TextStyle(fontSize: 18, color: Colors.red),
         ),
-        content: const Text('Try again',
+        content: Text(result.exception!.graphqlErrors[0].message.toString(),
             style: TextStyle(fontSize: 13, color: Colors.black)),
       ));
+      loading = false;
+      loading = !loading;
     }
+  }
+
+  var driverid = ''.obs;
+  var status = ''.obs;
+  var driver_image = ''.obs;
+  var driver_name = ''.obs;
+  var vehicle_type = ''.obs;
+
+  void dropofftrips() {
+    Get.toNamed(Routes.SEARCHING_DRIVERS_DISTRIBUTER);
+
+    final snapShots = FirebaseFirestore.instance
+        .collection("dropoff_trips")
+        .doc(dropOffId.value)
+        .snapshots();
+    snapShots.listen(
+      (event) {
+        if (event.data() == null) {
+          isdropofftrips(false);
+        } else {
+          driverid.value = event.data()!['driver_id'].toString();
+          driver_image.value = event.data()!['driver_image'].toString();
+          driver_name.value = event.data()!['driver_name'].toString();
+          vehicle_type.value = event.data()!['vehicle_type'].toString();
+          status.value = event.data()!['status'].toString();
+
+          isdropofftrips(true);
+        }
+      },
+    );
   }
 
   void increment() => count.value++;

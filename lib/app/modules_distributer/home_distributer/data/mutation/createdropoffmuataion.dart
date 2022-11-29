@@ -7,6 +7,7 @@ mutation createDropoff($vehicle_type: CreateVehicleTypeBelongsTo!, $from: Create
         orders: $orders
     }) {
         id
+        
     }
 }
  ''';

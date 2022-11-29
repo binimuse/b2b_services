@@ -1,9 +1,22 @@
 import 'package:flutter/material.dart';
 import 'package:b2b_services/app/config/theme/custom_colors.dart';
 import 'package:b2b_services/app/config/theme/custom_sizes.dart';
+import 'package:get/get_rx/src/rx_types/rx_types.dart';
 
 class ItemFoundedDriver extends StatefulWidget {
-  const ItemFoundedDriver({Key? key}) : super(key: key);
+  ItemFoundedDriver({
+    this.driver_Image,
+    this.driver_name,
+    this.vehicle_type,
+    this.status,
+  });
+
+  ///ADDITIONAL  PARAMS
+
+  final String? driver_Image;
+  final String? driver_name;
+  final String? vehicle_type;
+  final String? status;
 
   @override
   State<ItemFoundedDriver> createState() => _ItemFoundedDriverState();
@@ -64,7 +77,7 @@ class _ItemFoundedDriverState extends State<ItemFoundedDriver> {
       child: ClipRRect(
         borderRadius: BorderRadius.circular(CustomSizes.radius_6),
         child: Image.network(
-          "https://image.shutterstock.com/image-photo/headshot-portrait-smiling-african-american-260nw-1667439898.jpg",
+          widget.driver_Image.toString(),
           width: CustomSizes.icon_size_14,
           height: CustomSizes.icon_size_14,
           fit: BoxFit.cover,
@@ -79,7 +92,7 @@ class _ItemFoundedDriverState extends State<ItemFoundedDriver> {
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
           Text(
-            "Henock Amre",
+            widget.driver_name.toString(),
             style: Theme.of(context).textTheme.bodyMedium?.copyWith(
                 fontWeight: FontWeight.w500,
                 color: CustomColors.lightBlack.withOpacity(0.7)),
@@ -87,7 +100,7 @@ class _ItemFoundedDriverState extends State<ItemFoundedDriver> {
           Row(
             children: [
               Text(
-                "#b1234",
+                widget.status.toString(),
                 style: Theme.of(context).textTheme.bodyMedium?.copyWith(
                       fontWeight: FontWeight.w500,
                       color: CustomColors.lightBlack.withOpacity(0.7),
@@ -98,7 +111,7 @@ class _ItemFoundedDriverState extends State<ItemFoundedDriver> {
               ),
               Expanded(
                 child: Text(
-                  "Suzuki desire, grey Color",
+                  widget.vehicle_type.toString(),
                   overflow: TextOverflow.ellipsis,
                   maxLines: 1,
                   style: Theme.of(context).textTheme.bodySmall?.copyWith(

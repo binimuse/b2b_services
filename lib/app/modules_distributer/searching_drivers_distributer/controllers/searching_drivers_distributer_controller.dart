@@ -1,15 +1,40 @@
 import 'package:b2b_services/app/routes/app_pages.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
+import '../../home_distributer/controllers/home_distributer_controller.dart';
+
 class SearchingDriversDistributerController extends GetxController {
+  HomeDistributerController homecontroller =
+      Get.find<HomeDistributerController>();
   @override
   void onInit() {
     // listenToDrivedRequest();
     Future.delayed(
-      Duration(seconds: 5),
+      Duration(seconds: 10),
       () {
-        Get.toNamed(Routes.DRIVERS_FOUND_DISTRIBUTER);
+        if (homecontroller.isdropofftrips.value == true) {
+          Get.toNamed(Routes.DRIVERS_FOUND_DISTRIBUTER, arguments: {
+            "driver_id": homecontroller.driverid.value,
+            "driver_image": homecontroller.driver_image.value,
+            "driver_name": homecontroller.driver_name.value,
+            "status": homecontroller.status.value,
+            "vehicle_type": homecontroller.vehicle_type.value,
+          });
+        } else {
+          Get.dialog(AlertDialog(
+            shape: RoundedRectangleBorder(
+              borderRadius: BorderRadius.circular(10),
+            ),
+            title: const Text(
+              'Warning',
+              style: TextStyle(fontSize: 18, color: Colors.red),
+            ),
+            content: const Text('Some Thing Happened Try Agin!!!!',
+                style: TextStyle(fontSize: 13, color: Colors.black)),
+          ));
+        }
       },
     );
     super.onInit();

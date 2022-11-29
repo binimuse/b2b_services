@@ -38,7 +38,12 @@ class DriversFoundDistributerView
                   padding: index == 0
                       ? EdgeInsets.only(top: CustomSizes.mp_v_2)
                       : EdgeInsets.zero,
-                  child: ItemFoundedDriver(),
+                  child: ItemFoundedDriver(
+                    driver_Image: controller.driver_image.toString(),
+                    driver_name: controller.driver_name.toString(),
+                    vehicle_type: controller.vehicle_type.toString(),
+                    status: controller.status.toString(),
+                  ),
                 );
               },
               separatorBuilder: (context, index) {
