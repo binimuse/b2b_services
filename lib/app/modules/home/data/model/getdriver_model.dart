@@ -21,6 +21,17 @@ class Dropofforderdestinations {
   });
 }
 
+
+class Shipmentorderdestinations {
+  late String orderId;
+  late String retailer_name;
+
+ Shipmentorderdestinations({
+    required this.orderId,
+    required this.retailer_name,
+  });
+}
+
 class Dropofforder {
   late String dropOffid;
   late String orderId;

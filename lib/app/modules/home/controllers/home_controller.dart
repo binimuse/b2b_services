@@ -5,6 +5,7 @@ import 'dart:async';
 import 'package:b2b_services/app/Services/graphql_conf.dart';
 import 'package:b2b_services/app/common/firebase/firestore.dart';
 import 'package:b2b_services/app/modules/home/data/mutation/acceptorrejectrequest.dart';
+import 'package:b2b_services/app/modules/home/views/widgets/listofdeleivery.dart';
 import 'package:b2b_services/app/modules_distributer/home_distributer/data/model/items_model.dart';
 import 'package:b2b_services/app/modules_distributer/home_distributer/data/mutation/updatedropoffmuataion.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
@@ -26,12 +27,16 @@ class HomeController extends GetxController {
   final count = 0.obs;
   var status = false.obs;
   var getDropOffss = false.obs;
-  var isDriverRequestActive = false.obs;
+  var isDriverRequestActiveForDropOff = false.obs;
+  var isDriverRequestActiveForShipMent = false.obs;
   final GlobalKey<ScaffoldState> keyforall = GlobalKey<ScaffoldState>();
   var getDriver = <GestDriverModel>[].obs;
   var loadingDriver = false.obs;
   var fromName = "".obs;
+  var toName = "".obs;
+  var cost = "".obs;
   var dropoff_id = 0.obs;
+  var shipment_id = 0.obs;
 
   late GoogleMapController mapController;
 
@@ -80,7 +85,8 @@ class HomeController extends GetxController {
         city: result.data!["auth"]["driver"]["city"],
       ));
 
-      listenToDrivedRequest();
+      listenToDrivedRequestForDropOff();
+      listenToDrivedRequestForShipMent();
 
       print("d ${getDriver[0].name}");
     } else {
@@ -202,28 +208,24 @@ class HomeController extends GetxController {
     }
   }
 
-  void listenToDrivedRequest() {
+  void listenToDrivedRequestForShipMent() {
     FlutterRingtonePlayer.stop();
     FlutterRingtonePlayer.stop();
-    print("TEST=> getDriver ${getDriver.length}");
+
     final snapShots = FirebaseFirestore.instance
-        .collection("driver_requests")
+        .collection("shipment_driver_requests")
         .doc(getDriver.single.id)
         .snapshots();
     snapShots.listen(
       (event) {
-        bool isRequestIdSameDriver = false;
-        print("am here ${event.data()}");
-
-        print("current data: ${event.data()}");
-
         if (event.data() == null) {
-          isDriverRequestActive(false);
+          isDriverRequestActiveForShipMent(false);
         } else {
           if (event.data()!['status'] == 'PENDING') {
-            isDriverRequestActive(true);
+            isDriverRequestActiveForShipMent(true);
+            cost.value = event.data()!['cost'].toString();
             fromName.value = event.data()!['from'];
-            dropoff_id.value = event.data()!['dropoff_id'];
+            shipment_id.value = event.data()!['shipment_id'];
 
             // FlutterRingtonePlayer.play(
             //   android: AndroidSounds.notification,
@@ -233,12 +235,12 @@ class HomeController extends GetxController {
             //   asAlarm: false, // Android only - all APIs
             // );
 
-            print("dropoff_id.value => ${dropoff_id.value}");
-          } else if (event.data()!['status'] == 'ACCEPTED') {
-            isDriverRequestActive(false);
+          } else if (event.data()!['status'] == 'DRIVER_ACCEPTED') {
+            isDriverRequestActiveForShipMent(false);
+            cost.value = event.data()!['cost'].toString();
             fromName.value = event.data()!['from'];
-            dropoff_id.value = event.data()!['dropoff_id'];
-            print("dropoff_id.value => ${dropoff_id.value}");
+            toName.value = event.data()!['to'];
+            shipment_id.value = event.data()!['shipment_id'];
 
             // FlutterRingtonePlayer.play(
             //   android: AndroidSounds.notification,
@@ -259,9 +261,70 @@ class HomeController extends GetxController {
               ));
             }
 
-            getDropOffs();
+            getDropOffsss();
           } else {
-            isDriverRequestActive(false);
+            isDriverRequestActiveForShipMent(false);
+          }
+        }
+      },
+    );
+  }
+
+  void listenToDrivedRequestForDropOff() {
+    FlutterRingtonePlayer.stop();
+    FlutterRingtonePlayer.stop();
+    print("TEST=> getDriver ${getDriver.length}");
+    final snapShots = FirebaseFirestore.instance
+        .collection("dropoff_driver_requests")
+        .doc(getDriver.single.id)
+        .snapshots();
+    snapShots.listen(
+      (event) {
+        if (event.data() == null) {
+          isDriverRequestActiveForDropOff(false);
+        } else {
+          if (event.data()!['status'] == 'PENDING') {
+            isDriverRequestActiveForDropOff(true);
+            cost.value = event.data()!['cost'].toString();
+            fromName.value = event.data()!['from'];
+            dropoff_id.value = event.data()!['dropoff_id'];
+
+            // FlutterRingtonePlayer.play(
+            //   android: AndroidSounds.notification,
+            //   ios: IosSounds.glass,
+            //   looping: true, // Android only - API >= 28
+            //   volume: 0.1, // Android only - API >= 28
+            //   asAlarm: false, // Android only - all APIs
+            // );
+
+          } else if (event.data()!['status'] == 'DRIVER_ACCEPTED') {
+            isDriverRequestActiveForDropOff(false);
+            cost.value = event.data()!['cost'].toString();
+            fromName.value = event.data()!['from'];
+            dropoff_id.value = event.data()!['dropoff_id'];
+
+            // FlutterRingtonePlayer.play(
+            //   android: AndroidSounds.notification,
+            //   ios: IosSounds.glass,
+            //   looping: true, // Android only - API >= 28
+            //   volume: 0.1, // Android only - API >= 28
+            //   asAlarm: false, // Android only - all APIs
+            // );
+
+            for (var i = 0;
+                i < event.data()!['dropoff_order_destinations'].length;
+                i++) {
+              dropofforderdestinations.add(Dropofforderdestinations(
+                orderId: event.data()!['dropoff_order_destinations'][i]
+                    ["order_id"],
+                retailer_name: event.data()!['dropoff_order_destinations'][i]
+                    ["retailer_name"],
+              ));
+            }
+
+            getDropOffsss();
+          } else {
+            isDriverRequestActiveForDropOff(false);
           }
         }
       },
@@ -275,12 +338,16 @@ class HomeController extends GetxController {
     QueryResult result = await client.mutate(
       MutationOptions(
         document: gql(AcceptDropoffRequest.request),
+        variables: <String, dynamic>{
+          'dropoff_id': dropoff_id.value.toString(),
+        },
       ),
     );
 
     if (!result.hasException) {
-      //print("sendStatus ${result.data!["toggleDriverStatus"]["is_on"]}");
+      Get.to(() => ListOfDeleivery());
     } else {
+      Get.back();
       print(result.exception);
     }
   }
@@ -316,26 +383,26 @@ class HomeController extends GetxController {
     orderHistory.add(OrderHistoryModel(id: "1", itemsmodel: itemModel));
   }
 
-  void updateDropoff() async {
-    GraphQLClient client = graphQLConfiguration.clientToQuery();
-    QueryResult result = await client.mutate(
-      MutationOptions(
-        document: gql(UpdatedropoffMutation.updateDropoff),
-        variables: <String, dynamic>{
-          'id': '',
-          'orders': {'received': "true", 'id': dropoff_id},
-        },
-      ),
-    );
-    if (!result.hasException) {
-      // Get.toNamed(Routes.SEARCHING_DRIVERS_DISTRIBUTER);
-    } else {
-      print(result.exception);
-    }
-  }
+  // void updateDropoff() async {
+  //   GraphQLClient client = graphQLConfiguration.clientToQuery();
+  //   QueryResult result = await client.mutate(
+  //     MutationOptions(
+  //       document: gql(UpdatedropoffMutation.updateDropoff),
+  //       variables: <String, dynamic>{
+  //         'id': '',
+  //         'orders': {'received': "true", 'id': dropoff_id},
+  //       },
+  //     ),
+  //   );
+  //   if (!result.hasException) {
+  //     // Get.toNamed(Routes.SEARCHING_DRIVERS_DISTRIBUTER);
+  //   } else {
+  //     print(result.exception);
+  //   }
+  // }
 
   RxList<ItemsModelOrder> itemModelorder = List<ItemsModelOrder>.of([]).obs;
-  void getDropOffs() async {
+  void getDropOffsss() async {
     print("dropoffid ${dropoff_id.value.toString()}");
     GetDropOff getDropOff = GetDropOff();
     GraphQLClient client = graphQLConfiguration.clientToQuery();

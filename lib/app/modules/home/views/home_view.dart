@@ -145,7 +145,7 @@ class HomeView extends GetView<HomeController> {
 
   Widget popupdialogue(BuildContext context) {
     return Obx(() {
-      if (controller.isDriverRequestActive.value) {
+      if (controller.isDriverRequestActiveForDropOff.value) {
         return Container(
           width: Get.width,
           height: 28.h,
@@ -238,18 +238,26 @@ class HomeView extends GetView<HomeController> {
                                 color: Color.fromARGB(255, 68, 171, 255),
                               ),
                               RichText(
+                                maxLines: 1,
                                 text: TextSpan(
-                                  children: const <TextSpan>[
+                                  children: <TextSpan>[
                                     TextSpan(
                                         text: 'To :',
                                         style: TextStyle(
                                             fontWeight: FontWeight.bold,
                                             color: Colors.grey)),
-                                    TextSpan(
-                                        text: ' Stadium',
-                                        style: TextStyle(
-                                            fontWeight: FontWeight.bold,
-                                            color: Colors.black)),
+                                    controller.toName.isNotEmpty
+                                        ? TextSpan(
+                                            text: "Sheger",
+                                            style: TextStyle(
+                                                fontWeight: FontWeight.bold,
+                                                color: Colors.black))
+                                        : TextSpan(
+                                            text: "",
+                                            style: TextStyle(
+                                                fontWeight: FontWeight.bold,
+                                                fontSize: 5,
+                                                color: Colors.black)),
                                   ],
                                 ),
                               )
@@ -275,7 +283,7 @@ class HomeView extends GetView<HomeController> {
                                   bottomRight: Radius.circular(6))),
                           child: Center(
                               child: Text(
-                            "200 ETB",
+                            "${controller.cost.value} ETB",
                             style: TextStyle(
                                 color: Colors.white,
                                 fontWeight: FontWeight.w600),
@@ -344,8 +352,7 @@ class HomeView extends GetView<HomeController> {
                               controller.acceptDropoffRequest();
                               FlutterRingtonePlayer.stop();
                               FlutterRingtonePlayer.stop();
-                              controller.updateDropoff();
-                              Get.to(() => ListOfDeleivery());
+                              //S controller.updateDropoff();
                             },
                             style: ElevatedButton.styleFrom(
                               backgroundColor: Colors.transparent,
