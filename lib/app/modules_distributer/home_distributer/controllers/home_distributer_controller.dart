@@ -30,7 +30,7 @@ class HomeDistributerController extends GetxController {
   var isdropofftrips = false.obs;
   final reusableWidget = ReusableWidget();
 
-  bool loading = false;
+  var isLoading = false.obs;
   Timer? timerDummy;
   late TabController tabController;
 
@@ -214,7 +214,7 @@ class HomeDistributerController extends GetxController {
   }
 
   void createDropoff() async {
-    loading = true;
+    isLoading(true);
     GraphQLClient client = graphQLConfiguration.clientToQuery();
     QueryResult result = await client.mutate(
       MutationOptions(
@@ -232,14 +232,14 @@ class HomeDistributerController extends GetxController {
       ),
     );
     if (!result.hasException) {
-      loading = false;
-      loading = !loading;
+      isLoading(true);
 
       dropOffId.value = result.data!["createDropoff"]["id"];
 
       dropofftrips();
+      isLoading(false);
     } else {
-      loading = true;
+      isLoading(false);
       Get.dialog(AlertDialog(
         shape: RoundedRectangleBorder(
           borderRadius: BorderRadius.circular(10),
@@ -251,8 +251,6 @@ class HomeDistributerController extends GetxController {
         content: Text(result.exception!.graphqlErrors[0].message.toString(),
             style: TextStyle(fontSize: 13, color: Colors.black)),
       ));
-      loading = false;
-      loading = !loading;
     }
   }
 
@@ -273,6 +271,24 @@ class HomeDistributerController extends GetxController {
       (event) {
         if (event.data() == null) {
           isdropofftrips(false);
+
+          final snapShots = FirebaseFirestore.instance
+              .collection("shipment_trips")
+              .doc(dropOffId.value)
+              .snapshots();
+          snapShots.listen(
+            (event) {
+              if (event.data() != null) {
+                driverid.value = event.data()!['driver_id'].toString();
+                driver_image.value = event.data()!['driver_image'].toString();
+                driver_name.value = event.data()!['driver_name'].toString();
+                vehicle_type.value = event.data()!['vehicle_type'].toString();
+                status.value = event.data()!['status'].toString();
+
+                isdropofftrips(true);
+              }
+            },
+          );
         } else {
           driverid.value = event.data()!['driver_id'].toString();
           driver_image.value = event.data()!['driver_image'].toString();

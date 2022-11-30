@@ -31,7 +31,10 @@ class SearchingDriversDistributerController extends GetxController {
               'Warning',
               style: TextStyle(fontSize: 18, color: Colors.red),
             ),
-            content: const Text('Some Thing Happened Try Agin!!!!',
+            actions: [
+              continueButton,
+            ],
+            content: const Text('No Driver Found Try Agin!!!!',
                 style: TextStyle(fontSize: 13, color: Colors.black)),
           ));
         }
@@ -40,6 +43,14 @@ class SearchingDriversDistributerController extends GetxController {
     super.onInit();
   }
 
+  Widget continueButton = TextButton(
+    child: Text("Ok"),
+    onPressed: () {
+      Get.back();
+      Get.back();
+      Get.back();
+    },
+  );
   // void listenToDrivedRequest() {
 
   //   final snapShots = FirebaseFirestore.instance

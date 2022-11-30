@@ -100,7 +100,7 @@ class DialogBottomSheetVehicleType extends StatelessWidget {
                         shadowColor: Colors.black.withOpacity(0.2),
                         borderRadius:
                             BorderRadius.circular(CustomSizes.radius_6),
-                        child: !contoller.loading
+                        child: Obx(() => contoller.isLoading.value != true
                             ? CustomNormalButtonBorder(
                                 text: "Select Vehicle",
                                 textStyle: Theme.of(context)
@@ -143,7 +143,7 @@ class DialogBottomSheetVehicleType extends StatelessWidget {
                                 },
                                 borderColor: CustomColors.blue,
                               )
-                            : Center(child: CircularProgressIndicator())),
+                            : Center(child: CircularProgressIndicator()))),
                   ),
                 ),
               ],

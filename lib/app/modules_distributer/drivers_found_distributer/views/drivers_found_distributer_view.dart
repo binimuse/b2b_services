@@ -1,3 +1,5 @@
+// ignore_for_file: unrelated_type_equality_checks
+
 import 'package:b2b_services/app/common/widgets/custom_button_feedback.dart';
 import 'package:b2b_services/app/config/theme/custom_colors.dart';
 import 'package:b2b_services/app/config/theme/custom_sizes.dart';
@@ -24,38 +26,50 @@ class DriversFoundDistributerView
         systemOverlayStyle: PagesUtil.getAppBarLightStyle(),
         toolbarHeight: 0.0,
       ),
-      body: Column(
-        mainAxisAlignment: MainAxisAlignment.spaceBetween,
-        children: [
-          ///BUILD APP BAR
-          buildAppBar(context),
+      body: controller.driver_image != ""
+          ? Column(
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              children: [
+                ///BUILD APP BAR
+                buildAppBar(context),
 
-          Expanded(
-            child: ListView.separated(
-              padding: EdgeInsets.symmetric(horizontal: CustomSizes.mp_w_4),
-              itemBuilder: (context, index) {
-                return Padding(
-                  padding: index == 0
-                      ? EdgeInsets.only(top: CustomSizes.mp_v_2)
-                      : EdgeInsets.zero,
-                  child: ItemFoundedDriver(
-                    driver_Image: controller.driver_image.toString(),
-                    driver_name: controller.driver_name.toString(),
-                    vehicle_type: controller.vehicle_type.toString(),
-                    status: controller.status.toString(),
+                Expanded(
+                  child: ListView.separated(
+                    padding:
+                        EdgeInsets.symmetric(horizontal: CustomSizes.mp_w_4),
+                    itemBuilder: (context, index) {
+                      return Padding(
+                        padding: index == 0
+                            ? EdgeInsets.only(top: CustomSizes.mp_v_2)
+                            : EdgeInsets.zero,
+                        child: ItemFoundedDriver(
+                          driver_Image: controller.driver_image.toString(),
+                          driver_name: controller.driver_name.toString(),
+                          vehicle_type: controller.vehicle_type.toString(),
+                          status: controller.status.toString(),
+                        ),
+                      );
+                    },
+                    separatorBuilder: (context, index) {
+                      return SizedBox(
+                        height: CustomSizes.mp_v_2,
+                      );
+                    },
+                    itemCount: 1,
                   ),
-                );
-              },
-              separatorBuilder: (context, index) {
-                return SizedBox(
-                  height: CustomSizes.mp_v_2,
-                );
-              },
-              itemCount: 1,
+                )
+              ],
+            )
+          : Center(
+              child: Text(
+                "No Driver Found",
+                style: Theme.of(context).textTheme.bodyLarge?.copyWith(
+                      color: CustomColors.blue,
+                      fontWeight: FontWeight.w500,
+                      fontSize: CustomSizes.font_12,
+                    ),
+              ),
             ),
-          ),
-        ],
-      ),
     );
   }
 

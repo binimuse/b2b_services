@@ -1,15 +1,12 @@
-// ignore_for_file: unrelated_type_equality_checks
+// ignore_for_file: unrelated_type_equality_checks, non_constant_identifier_names
 
 import 'dart:async';
 
 import 'package:b2b_services/app/Services/graphql_conf.dart';
-import 'package:b2b_services/app/common/firebase/firestore.dart';
 import 'package:b2b_services/app/modules/home/data/mutation/acceptorrejectrequest.dart';
 import 'package:b2b_services/app/modules/home/views/widgets/listofdeleivery.dart';
 import 'package:b2b_services/app/modules_distributer/home_distributer/data/model/items_model.dart';
-import 'package:b2b_services/app/modules_distributer/home_distributer/data/mutation/updatedropoffmuataion.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
-import 'package:elegant_notification/elegant_notification.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_ringtone_player/flutter_ringtone_player.dart';
 import 'package:geolocator/geolocator.dart';
@@ -27,6 +24,7 @@ class HomeController extends GetxController {
   GraphQLConfiguration graphQLConfiguration = GraphQLConfiguration();
   final count = 0.obs;
   var status = false.obs;
+  var isStatusOn = false.obs;
   var getDropOffss = false.obs;
   var isDriverRequestActiveForDropOff = false.obs;
   var isDriverRequestActiveForShipMent = false.obs;
@@ -38,7 +36,7 @@ class HomeController extends GetxController {
   var cost = "".obs;
   var dropoff_id = 0.obs;
   var shipment_id = 0.obs;
-
+  Timer? timer;
   late GoogleMapController mapController;
 
   LatLng currentPosition = LatLng(9.0073117, 38.7476045);
@@ -57,8 +55,7 @@ class HomeController extends GetxController {
 
     askforpermission();
     getUserId();
-    getFakedata();
-    getFakedata2();
+
     sendStatus();
 
     super.onInit();
@@ -66,19 +63,18 @@ class HomeController extends GetxController {
 
   void getUserId() async {
     DriverMutation driverMutation = DriverMutation();
-    GraphQLClient _client = graphQLConfiguration.clientToQuery();
+    GraphQLClient client = graphQLConfiguration.clientToQuery();
 
-    QueryResult result = await _client.query(
+    QueryResult result = await client.query(
       QueryOptions(
         document: gql(driverMutation.getMyUserId()),
       ),
     );
 
     if (!result.hasException) {
-      print(result.data);
-      loadingDriver(true);
+      getDriver.clear();
 
-      print("result.data => ${result.data!["auth"]["driver"]}");
+      loadingDriver(true);
 
       getDriver.add(GestDriverModel(
         id: result.data!["auth"]["driver"]["id"],
@@ -86,10 +82,10 @@ class HomeController extends GetxController {
         city: result.data!["auth"]["driver"]["city"],
       ));
 
-      listenToDrivedRequestForDropOff();
-      listenToDrivedRequestForShipMent();
-
-      print("d ${getDriver[0].name}");
+      if (isStatusOn.isTrue) {
+        listenToDrivedRequestForDropOff();
+           listenToDrivedRequestForShipMent();
+      }
     } else {
       print(result.exception);
       loadingDriver(false);
@@ -167,8 +163,6 @@ class HomeController extends GetxController {
 
   getLocation() async {
     isLoading(true);
-    LocationPermission permission;
-    permission = await Geolocator.requestPermission();
 
     Position position = await Geolocator.getCurrentPosition(
         desiredAccuracy: LocationAccuracy.high);
@@ -180,10 +174,6 @@ class HomeController extends GetxController {
     print(location);
 
     currentPosition = location;
-  }
-
-  void _onMapCreated(GoogleMapController controller) {
-    mapController = controller;
   }
 
   sendStatus() async {
@@ -281,6 +271,7 @@ class HomeController extends GetxController {
         .snapshots();
     snapShots.listen(
       (event) {
+        print("abiy  ${event.data()}");
         if (event.data() == null) {
           isDriverRequestActiveForDropOff(false);
         } else {
@@ -290,14 +281,13 @@ class HomeController extends GetxController {
             fromName.value = event.data()!['from'];
             dropoff_id.value = event.data()!['dropoff_id'];
 
-            // FlutterRingtonePlayer.play(
-            //   android: AndroidSounds.notification,
-            //   ios: IosSounds.glass,
-            //   looping: true, // Android only - API >= 28
-            //   volume: 0.1, // Android only - API >= 28
-            //   asAlarm: false, // Android only - all APIs
-            // );
-
+            FlutterRingtonePlayer.play(
+              android: AndroidSounds.ringtone,
+              ios: IosSounds.glass,
+              looping: true, // Android only - API >= 28
+              volume: 0.1, // Android only - API >= 28
+              asAlarm: false, // Android only - all APIs
+            );
           } else if (event.data()!['status'] == 'DRIVER_ACCEPTED') {
             isDriverRequestActiveForDropOff(false);
             cost.value = event.data()!['cost'].toString();
@@ -305,7 +295,7 @@ class HomeController extends GetxController {
             dropoff_id.value = event.data()!['dropoff_id'];
 
             // FlutterRingtonePlayer.play(
-            //   android: AndroidSounds.notification,
+            //   android: AndroidSounds.ringtone,
             //   ios: IosSounds.glass,
             //   looping: true, // Android only - API >= 28
             //   volume: 0.1, // Android only - API >= 28
@@ -377,7 +367,17 @@ class HomeController extends GetxController {
     if (!result.hasException) {
       Get.to(() => ListOfDeleivery());
     } else {
-      Get.back();
+      //Get.back();
+      isDriverRequestActiveForDropOff(false);
+      Get.dialog(AlertDialog(
+        shape: RoundedRectangleBorder(
+          borderRadius: BorderRadius.circular(10),
+        ),
+        title: Text(
+          result.exception!.graphqlErrors.first.extensions.toString(),
+          style: TextStyle(fontSize: 18, color: Colors.green),
+        ),
+      ));
       print(result.exception);
     }
   }
@@ -398,20 +398,20 @@ class HomeController extends GetxController {
     }
   }
 
-  void getFakedata2() {
-    itemModel.add(ItemsModel(
-      id: '1',
-      name: 'fdg',
-      price: '343',
-      quantity: '2',
-      sku: '45',
-      images: '',
-    ));
-  }
+  // void getFakedata2() {
+  //   itemModel.add(ItemsModel(
+  //     id: '1',
+  //     name: 'fdg',
+  //     price: '343',
+  //     quantity: '2',
+  //     sku: '45',
+  //     images: '',
+  //   ));
+  // }
 
-  void getFakedata() {
-    orderHistory.add(OrderHistoryModel(id: "1", itemsmodel: itemModel));
-  }
+  // void getFakedata() {
+  //   orderHistory.add(OrderHistoryModel(id: "1", itemsmodel: itemModel));
+  // }
 
   // void updateDropoff() async {
   //   GraphQLClient client = graphQLConfiguration.clientToQuery();
@@ -486,5 +486,11 @@ class HomeController extends GetxController {
       getDropOffss(false);
       print(result.exception);
     }
+  }
+
+  @override
+  void dispose() {
+    timer?.cancel();
+    super.dispose();
   }
 }
