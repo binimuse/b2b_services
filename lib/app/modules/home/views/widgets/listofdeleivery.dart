@@ -5,7 +5,7 @@ import 'package:b2b_services/app/config/theme/custom_sizes.dart';
 import 'package:b2b_services/app/config/utils/pages_util.dart';
 import 'package:b2b_services/app/modules/home/views/widgets/item_order2.dart';
 import 'package:b2b_services/app/modules/home/views/widgets/scan_qr_code.dart';
-import 'package:b2b_services/app/modules/scan_qr_code/views/scan_qr_code_for_driver.dart';
+
 import 'package:b2b_services/app/modules_distributer/arrived_page_distributer/views/widgets/item_order.dart';
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
@@ -117,7 +117,7 @@ class ListOfDeleivery extends GetView<HomeController> {
                                 ? EdgeInsets.only(top: CustomSizes.mp_v_2)
                                 : EdgeInsets.zero,
                             child: ItemOrder2(
-                              orderHistory: controller.dropOffOrder[index],
+                              dropofforder: controller.dropOffOrder[index],
                               index: index,
                               onTap: () {},
                             ),
@@ -139,12 +139,7 @@ class ListOfDeleivery extends GetView<HomeController> {
                               action: () {
                                 // controller.startTrip();
 
-                                Navigator.push(
-                                  context,
-                                  MaterialPageRoute(
-                                      builder: (context) =>
-                                          ScanQRCodepageForDriver()),
-                                );
+                                Get.toNamed(Routes.SCAN_QR_FOR_DRIVER);
                               },
 
                               ///Put label over here

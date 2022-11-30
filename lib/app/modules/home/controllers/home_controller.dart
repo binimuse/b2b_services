@@ -84,7 +84,7 @@ class HomeController extends GetxController {
 
       if (isStatusOn.isTrue) {
         listenToDrivedRequestForDropOff();
-        listenToDrivedRequestForShipMent();
+        //  listenToDrivedRequestForShipMent();
       }
     } else {
       print(result.exception);

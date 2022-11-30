@@ -1,17 +1,10 @@
-// ignore_for_file: must_be_immutable
-
-import 'dart:io';
-import 'package:get/get.dart';
-import 'package:sizer/sizer.dart';
 import 'package:flutter/material.dart';
-import 'package:qr_code_scanner/qr_code_scanner.dart';
 
-import '../controllers/scan_qr_code_controller.dart';
+import 'package:get/get.dart';
 
-class ScanQRCodepageForDriver extends GetView<ScanQrCodeController> {
-  @override
-  ScanQrCodeController controller = Get.put(ScanQrCodeController());
+import '../controllers/scan_qr_for_driver_controller.dart';
 
+class ScanQrForDriverView extends GetView<ScanQrForDriverController> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(

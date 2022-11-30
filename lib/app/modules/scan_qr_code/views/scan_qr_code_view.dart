@@ -1,4 +1,5 @@
 import 'package:b2b_services/app/config/theme/custom_colors.dart';
+import 'package:b2b_services/app/modules/home/data/model/getdriver_model.dart';
 import 'package:flutter/material.dart';
 
 import 'package:get/get.dart';
@@ -7,7 +8,12 @@ import '../controllers/scan_qr_code_controller.dart';
 import 'package:qr_flutter/qr_flutter.dart';
 
 class ScanQrCodeView extends GetView<ScanQrCodeController> {
-  const ScanQrCodeView({Key? key}) : super(key: key);
+  const ScanQrCodeView({
+    Key? key,
+    this.dropofforder,
+  }) : super(key: key);
+
+  final Dropofforder? dropofforder;
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -61,11 +67,13 @@ class ScanQrCodeView extends GetView<ScanQrCodeController> {
                       SizedBox(
                         width: 15.w,
                       ),
-                      Text(controller.dropofforder!.orderId,
-                          style: TextStyle(
-                              fontWeight: FontWeight.w500,
-                              color: Colors.grey,
-                              fontSize: 14.sp)),
+                      controller.dropofforder.orderId.isNotEmpty
+                          ? Text(controller.dropofforder.orderId,
+                              style: TextStyle(
+                                  fontWeight: FontWeight.w500,
+                                  color: Colors.grey,
+                                  fontSize: 14.sp))
+                          : SizedBox()
                     ],
                   ),
                 ),
@@ -87,11 +95,13 @@ class ScanQrCodeView extends GetView<ScanQrCodeController> {
                       SizedBox(
                         width: 15.w,
                       ),
-                      Text(controller.dropofforder!.dropOffid,
-                          style: TextStyle(
-                              fontWeight: FontWeight.w500,
-                              color: Colors.grey,
-                              fontSize: 14.sp)),
+                      controller.dropofforder.dropOffid.isNotEmpty
+                          ? Text(controller.dropofforder.dropOffid,
+                              style: TextStyle(
+                                  fontWeight: FontWeight.w500,
+                                  color: Colors.grey,
+                                  fontSize: 14.sp))
+                          : SizedBox()
                     ],
                   ),
                 ),
@@ -113,11 +123,13 @@ class ScanQrCodeView extends GetView<ScanQrCodeController> {
                       SizedBox(
                         width: 15.w,
                       ),
-                      Text(controller.dropofforder!.totalPrice,
-                          style: TextStyle(
-                              fontWeight: FontWeight.w500,
-                              color: Colors.grey,
-                              fontSize: 14.sp)),
+                      controller.dropofforder.totalPrice.isNotEmpty
+                          ? Text(controller.dropofforder.totalPrice,
+                              style: TextStyle(
+                                  fontWeight: FontWeight.w500,
+                                  color: Colors.grey,
+                                  fontSize: 14.sp))
+                          : SizedBox()
                     ],
                   ),
                 ),

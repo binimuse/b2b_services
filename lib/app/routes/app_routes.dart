@@ -22,6 +22,7 @@ abstract class Routes {
   static const DRIVERS_FOUND_DISTRIBUTER = _Paths.DRIVERS_FOUND_DISTRIBUTER;
   static const ASSIGNED_ORDERS_DISTRIBUTER = _Paths.ASSIGNED_ORDERS_DISTRIBUTER;
   static const NOTIFICATION = _Paths.NOTIFICATION;
+  static const SCAN_QR_FOR_DRIVER = _Paths.SCAN_QR_FOR_DRIVER;
 }
 
 abstract class _Paths {
@@ -44,4 +45,5 @@ abstract class _Paths {
   static const DRIVERS_FOUND_DISTRIBUTER = '/drivers-found-distributer';
   static const ASSIGNED_ORDERS_DISTRIBUTER = '/assigned-orders-distributer';
   static const NOTIFICATION = '/notification';
+  static const SCAN_QR_FOR_DRIVER = '/scan-qr-for-driver';
 }

@@ -17,13 +17,13 @@ class ItemOrder2 extends StatefulWidget {
   ItemOrder2({
     Key? key,
     required this.onTap,
-    this.orderHistory,
+    this.dropofforder,
     this.index,
   }) : super(key: key);
 
   final VoidCallback onTap;
 
-  final Dropofforder? orderHistory;
+  final Dropofforder? dropofforder;
   final int? index;
 
   @override
@@ -98,18 +98,20 @@ class _ItemOrderState extends State<ItemOrder2> {
         children: [
           Row(
             children: [
-              Expanded(
-                child: Text(
-                  "order Id - ${widget.orderHistory!.orderId}",
-                  maxLines: 1,
-                  overflow: TextOverflow.ellipsis,
-                  style: Theme.of(context).textTheme.bodyMedium?.copyWith(
-                        color: CustomColors.black,
-                        fontSize: CustomSizes.font_10,
-                        fontWeight: FontWeight.w600,
+              widget.dropofforder!.orderId.isNotEmpty
+                  ? Expanded(
+                      child: Text(
+                        "order Id - ${widget.dropofforder!.orderId}",
+                        maxLines: 1,
+                        overflow: TextOverflow.ellipsis,
+                        style: Theme.of(context).textTheme.bodyMedium?.copyWith(
+                              color: CustomColors.black,
+                              fontSize: CustomSizes.font_10,
+                              fontWeight: FontWeight.w600,
+                            ),
                       ),
-                ),
-              ),
+                    )
+                  : SizedBox(),
               Material(
                 color: CustomColors.blue.withOpacity(0.2),
                 borderRadius: BorderRadius.circular(CustomSizes.radius_6 * 6),
@@ -120,7 +122,7 @@ class _ItemOrderState extends State<ItemOrder2> {
                     vertical: CustomSizes.mp_v_1 / 2,
                   ),
                   child: Text(
-                    widget.orderHistory!.itemsmodel.length.toString(),
+                    widget.dropofforder!.itemsmodel.length.toString(),
                     maxLines: 1,
                     overflow: TextOverflow.ellipsis,
                     style: Theme.of(context).textTheme.bodySmall?.copyWith(
@@ -147,15 +149,17 @@ class _ItemOrderState extends State<ItemOrder2> {
               SizedBox(
                 width: CustomSizes.mp_w_1,
               ),
-              Text(
-                "received - ${widget.orderHistory!.received.toString()}",
-                maxLines: 1,
-                overflow: TextOverflow.ellipsis,
-                style: Theme.of(context).textTheme.bodySmall?.copyWith(
-                      color: CustomColors.black,
-                      fontWeight: FontWeight.w400,
-                    ),
-              ),
+              widget.dropofforder!.received.isNotEmpty
+                  ? Text(
+                      "received - ${widget.dropofforder!.received.toString()}",
+                      maxLines: 1,
+                      overflow: TextOverflow.ellipsis,
+                      style: Theme.of(context).textTheme.bodySmall?.copyWith(
+                            color: CustomColors.black,
+                            fontWeight: FontWeight.w400,
+                          ),
+                    )
+                  : SizedBox(),
               SizedBox(
                 width: CustomSizes.mp_w_1,
               ),
@@ -176,7 +180,7 @@ class _ItemOrderState extends State<ItemOrder2> {
                 width: CustomSizes.mp_w_1,
               ),
               Text(
-                "status - ${widget.orderHistory!.status.toString()}",
+                "status - ${widget.dropofforder!.status.toString()}",
                 maxLines: 1,
                 overflow: TextOverflow.ellipsis,
                 style: Theme.of(context).textTheme.bodySmall?.copyWith(
@@ -222,12 +226,10 @@ class _ItemOrderState extends State<ItemOrder2> {
                   });
 
                   if (isSelected) {
+                    //  print(widget.dropofforder!.dropOffid);
                     Get.toNamed(Routes.SCAN_QR_CODE,
-                        arguments: {"order": widget.orderHistory});
-                    //  contoller.orderId.add(widget.shipModel!.id);
-                  } else {
-                    //   contoller.orderId.remove(widget.shipModel!.id);
-                  }
+                        arguments: {"order": widget.dropofforder});
+                  } else {}
                 },
                 child: Container(
                   width: CustomSizes.icon_size_8,
@@ -283,7 +285,7 @@ class _ItemOrderState extends State<ItemOrder2> {
               left: CustomSizes.mp_w_6, top: CustomSizes.mp_v_2),
           itemBuilder: (context, index) {
             return buildDetailsRow2(
-                context, widget.orderHistory!.itemsmodel[index]);
+                context, widget.dropofforder!.itemsmodel[index]);
           },
           separatorBuilder: (context, index) {
             return Padding(
@@ -296,7 +298,7 @@ class _ItemOrderState extends State<ItemOrder2> {
               ),
             );
           },
-          itemCount: widget.orderHistory!.itemsmodel.length,
+          itemCount: widget.dropofforder!.itemsmodel.length,
         ),
         SizedBox(
           height: CustomSizes.mp_v_1,
@@ -316,7 +318,7 @@ class _ItemOrderState extends State<ItemOrder2> {
               left: CustomSizes.mp_w_6, top: CustomSizes.mp_v_2),
           itemBuilder: (context, index) {
             return buildDetailsRow(
-                context, widget.orderHistory!.itemsmodel[index]);
+                context, widget.dropofforder!.itemsmodel[index]);
           },
           separatorBuilder: (context, index) {
             return Padding(
@@ -329,7 +331,7 @@ class _ItemOrderState extends State<ItemOrder2> {
               ),
             );
           },
-          itemCount: widget.orderHistory!.itemsmodel.length,
+          itemCount: widget.dropofforder!.itemsmodel.length,
         ),
         SizedBox(
           height: CustomSizes.mp_v_1,
@@ -358,7 +360,7 @@ class _ItemOrderState extends State<ItemOrder2> {
           child: SizedBox(),
         ),
         Text(
-          widget.orderHistory!.totalPrice.toString(),
+          widget.dropofforder!.totalPrice.toString(),
           style: Theme.of(context).textTheme.bodySmall?.copyWith(
                 fontWeight: FontWeight.w500,
                 color: CustomColors.grey,

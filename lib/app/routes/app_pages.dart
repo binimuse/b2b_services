@@ -14,6 +14,8 @@ import '../modules/notification/bindings/notification_binding.dart';
 import '../modules/notification/views/notification_view.dart';
 import '../modules/scan_qr_code/bindings/scan_qr_code_binding.dart';
 import '../modules/scan_qr_code/views/scan_qr_code_view.dart';
+import '../modules/scan_qr_for_driver/bindings/scan_qr_for_driver_binding.dart';
+import '../modules/scan_qr_for_driver/views/scan_qr_for_driver_view.dart';
 import '../modules/sign_in/bindings/sign_in_binding.dart';
 import '../modules/sign_in/views/sign_in_view.dart';
 import '../modules/sign_up/bindings/sign_up_binding.dart';
@@ -52,7 +54,7 @@ class AppPages {
     ),
     GetPage(
       name: _Paths.SCAN_QR_CODE,
-      page: () =>  ScanQrCodeView(),
+      page: () => ScanQrCodeView(),
       binding: ScanQrCodeBinding(),
     ),
     GetPage(
@@ -134,6 +136,11 @@ class AppPages {
       name: _Paths.NOTIFICATION,
       page: () => NotificationView(),
       binding: NotificationBinding(),
+    ),
+    GetPage(
+      name: _Paths.SCAN_QR_FOR_DRIVER,
+      page: () => ScanQrForDriverView(),
+      binding: ScanQrForDriverBinding(),
     ),
   ];
 }
