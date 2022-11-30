@@ -84,7 +84,7 @@ class HomeController extends GetxController {
 
       if (isStatusOn.isTrue) {
         listenToDrivedRequestForDropOff();
-           listenToDrivedRequestForShipMent();
+        listenToDrivedRequestForShipMent();
       }
     } else {
       print(result.exception);
@@ -322,35 +322,6 @@ class HomeController extends GetxController {
     );
   }
 
-  startTrip(int value) async {
-    print(dropoff_id.value.toString());
-    GraphQLClient client = graphQLConfiguration.clientToQuery();
-
-    QueryResult result = await client.mutate(
-      MutationOptions(
-        document: gql(UpdateDropoff.request),
-        variables: <String, dynamic>{
-          'id': dropoff_id.value.toString(),
-          'status': "STARTED",
-        },
-      ),
-    );
-
-    if (!result.hasException) {
-      Get.dialog(AlertDialog(
-        shape: RoundedRectangleBorder(
-          borderRadius: BorderRadius.circular(10),
-        ),
-        title: const Text(
-          'Trip, Started',
-          style: TextStyle(fontSize: 18, color: Colors.green),
-        ),
-      ));
-    } else {
-      print(result.exception);
-    }
-  }
-
   acceptDropoffRequest() async {
     // print(int.parse(txtAge.text));
     GraphQLClient client = graphQLConfiguration.clientToQuery();
@@ -478,7 +449,9 @@ class HomeController extends GetxController {
                     ["total_price"]
                 .toString(),
             dropOffid: result.data!["dropoff"]["id"],
-            status: result.data!["dropoff"]["status"]));
+            status: result.data!["dropoff"]["status"],
+            fromPhone: result.data!["dropoff"]["from"]["contact_phone"],
+            fromname: result.data!["dropoff"]["from"]["name"]));
       }
 
       getDropOffss(true);

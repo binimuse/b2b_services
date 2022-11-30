@@ -7,7 +7,13 @@ query {
     dropoff(id: $id) {
        id
     status
- 
+     from {
+      ...on Distributor {
+        id
+        name
+        contact_phone
+      }
+    }
     dropoff_order {
       id
       received

@@ -40,6 +40,7 @@ dependencies:
   fcm_config: ^3.5.0
   qr_flutter: ^4.0.0
   slider_button: ^2.0.0
+  url_launcher: ^6.1.7
 
 dev_dependencies: 
   flutter_lints: ^2.0.0

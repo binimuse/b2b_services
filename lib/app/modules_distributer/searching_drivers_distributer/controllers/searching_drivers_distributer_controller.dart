@@ -21,6 +21,7 @@ class SearchingDriversDistributerController extends GetxController {
             "driver_name": homecontroller.driver_name.value,
             "status": homecontroller.status.value,
             "vehicle_type": homecontroller.vehicle_type.value,
+            "dropoff_id": homecontroller.dropOffId.value,
           });
         } else {
           Get.dialog(AlertDialog(

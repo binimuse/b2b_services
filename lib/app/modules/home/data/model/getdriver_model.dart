@@ -37,6 +37,8 @@ class Dropofforder {
   late String received;
   late String status;
   late String totalPrice;
+  late String fromname;
+  late String fromPhone;
   late List<ItemsModelOrder> itemsmodel;
 
   Dropofforder({
@@ -46,6 +48,8 @@ class Dropofforder {
     required this.status,
     required this.itemsmodel,
     required this.totalPrice,
+    required this.fromname,
+    required this.fromPhone,
   });
 }
 

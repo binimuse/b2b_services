@@ -6,6 +6,7 @@ class DriversFoundDistributerController extends GetxController {
   var driver_image = ''.obs;
   var driver_name = ''.obs;
   var vehicle_type = ''.obs;
+  var dropOFFId = ''.obs;
 
   final count = 0.obs;
   @override
@@ -15,6 +16,7 @@ class DriversFoundDistributerController extends GetxController {
     driver_image.value = Get.arguments["driver_image"];
     driver_name.value = Get.arguments["driver_name"];
     vehicle_type.value = Get.arguments["vehicle_type"];
+    dropOFFId.value = Get.arguments["dropoff_id"];
     super.onInit();
   }
 
