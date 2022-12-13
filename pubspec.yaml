@@ -8,7 +8,10 @@ environment:
 dependencies: 
   cupertino_icons: ^1.0.2
   get: 4.6.5
-  google_maps_flutter: ^2.2.1
+  google_maps_flutter: 
+  location: ^4.4.0
+  flutter_polyline_points: ^1.0.0
+
   dotted_line: ^3.1.0
   geolocator: ^9.0.2
   qr_code_scanner: ^1.0.1

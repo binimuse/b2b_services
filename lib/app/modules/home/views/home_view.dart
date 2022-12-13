@@ -4,6 +4,7 @@ import 'dart:async';
 
 import 'package:b2b_services/app/config/theme/app_assets.dart';
 import 'package:b2b_services/app/modules/home/views/widgets/nav_drawer.dart';
+import 'package:b2b_services/app/modules/home/views/widgets/navigation_screen.dart';
 import 'package:b2b_services/app/routes/app_pages.dart';
 import 'package:dotted_line/dotted_line.dart';
 import 'package:flutter/material.dart';
@@ -63,7 +64,7 @@ class HomeView extends GetView<HomeController> {
                           .copyWith(fontWeight: FontWeight.w600, fontSize: 12),
                     ),
                   )),
-            customappbar(),
+            customappbar(context),
             popupdialogue(context),
             Positioned(
               bottom: 10.h,
@@ -115,7 +116,7 @@ class HomeView extends GetView<HomeController> {
     );
   }
 
-  Container customappbar() {
+  Container customappbar(BuildContext context) {
     return Container(
       height: 8.h,
       width: Get.width,
@@ -146,9 +147,12 @@ class HomeView extends GetView<HomeController> {
             color: Colors.white,
             child: IconButton(
                 onPressed: () {
-                  //controller.keyforall.currentState!.openDrawer();
+                  // Get.to(ListOfDeleivery());
 
-                  Get.to(ListOfDeleivery());
+                  Navigator.of(context).push(MaterialPageRoute(
+                      builder: (context) => NavigationScreen(
+                          double.parse("9.0143403"),
+                          double.parse("38.5575517"))));
                 },
                 icon: Icon(
                   Icons.menu,
