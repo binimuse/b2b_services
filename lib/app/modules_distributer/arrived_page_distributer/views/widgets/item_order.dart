@@ -116,7 +116,7 @@ class _ItemOrderState extends State<ItemOrder> {
                     vertical: CustomSizes.mp_v_1 / 2,
                   ),
                   child: Text(
-                    widget.shipModel!.itemsmodel.length.toString() + " items",
+                    "${widget.shipModel!.itemsmodel.length} items",
                     maxLines: 1,
                     overflow: TextOverflow.ellipsis,
                     style: Theme.of(context).textTheme.bodySmall?.copyWith(

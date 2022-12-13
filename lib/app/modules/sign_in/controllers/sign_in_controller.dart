@@ -75,9 +75,9 @@ class SignInController extends GetxController {
     if (email!.isNotEmpty && password!.isNotEmpty) {
       signingIn(true);
       // print(int.parse(txtAge.text));
-      GraphQLClient _client = graphQLConfiguration.clientToQuery();
+      GraphQLClient client = graphQLConfiguration.clientToQuery();
 
-      QueryResult result = await _client.mutate(
+      QueryResult result = await client.mutate(
         MutationOptions(
           document: gql(SigninQueryMutation.signin),
           variables: <String, dynamic>{'email': email, 'password': password},
@@ -121,10 +121,6 @@ class SignInController extends GetxController {
     );
   }
 
-  @override
-  void onReady() {
-    super.onReady();
-  }
 
   @override
   void onClose() {}

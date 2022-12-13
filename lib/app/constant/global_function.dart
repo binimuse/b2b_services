@@ -1,3 +1,5 @@
+// ignore_for_file: depend_on_referenced_packages
+
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
 
@@ -33,7 +35,7 @@ class GlobalFunction {
   }
 
   String formatTime(int timeNum) {
-    return timeNum < 10 ? "0" + timeNum.toString() : timeNum.toString();
+    return timeNum < 10 ? "0$timeNum" : timeNum.toString();
   }
 
   Future showProgressDialog(BuildContext context) {

@@ -1,11 +1,9 @@
-// ignore_for_file: must_be_immutable
+// ignore_for_file: must_be_immutable, deprecated_member_use
 
 import 'package:b2b_services/app/constant/constants.dart';
-import 'package:b2b_services/app/constant/enums.dart';
 import 'package:b2b_services/app/constant/global_style.dart';
 import 'package:b2b_services/app/modules/my_profile/views/widgets/editprofile.dart';
 import 'package:b2b_services/app/modules/my_profile/views/widgets/profile_menu.dart';
-import 'package:b2b_services/app/modules/my_profile/views/widgets/profile_pic.dart';
 import 'package:b2b_services/app/modules/my_profile/views/widgets/setting.dart';
 import 'package:b2b_services/app/routes/app_pages.dart';
 import 'package:flutter/material.dart';

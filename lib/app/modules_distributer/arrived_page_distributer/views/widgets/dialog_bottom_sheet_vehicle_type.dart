@@ -1,15 +1,12 @@
-import 'package:b2b_services/app/common/widgets/custom_normal_button.dart';
+// ignore_for_file: must_be_immutable
+
 import 'package:b2b_services/app/common/widgets/custom_normal_button_border.dart';
 import 'package:b2b_services/app/config/theme/custom_colors.dart';
 import 'package:b2b_services/app/config/theme/custom_sizes.dart';
-import 'package:b2b_services/app/config/utils/color_util.dart';
 import 'package:b2b_services/app/modules_distributer/arrived_page_distributer/views/widgets/item_vehicle_yype.dart';
 import 'package:b2b_services/app/modules_distributer/home_distributer/controllers/home_distributer_controller.dart';
-import 'package:b2b_services/app/routes/app_pages.dart';
 import 'package:flutter/material.dart';
-import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:get/get.dart';
-import 'package:get/get_core/src/get_main.dart';
 import 'package:sizer/sizer.dart';
 
 class DialogBottomSheetVehicleType extends StatelessWidget {

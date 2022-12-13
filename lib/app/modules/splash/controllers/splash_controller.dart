@@ -33,7 +33,6 @@ class SplashController extends GetxController {
   }
 
   Future<void> syncFcmToken() async {
-    final prefs = await SharedPreferences.getInstance();
 
     String? fcmToken = await FirebaseMessaging.instance.getToken();
 

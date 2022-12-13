@@ -15,10 +15,6 @@ class ScanQrForDriverController extends GetxController {
   var data = "".obs;
   var isLoading = false.obs;
   final count = 0.obs;
-  @override
-  void onInit() {
-    super.onInit();
-  }
 
   @override
   void dispose() {
@@ -33,10 +29,6 @@ class ScanQrForDriverController extends GetxController {
     controllers!.resumeCamera();
   }
 
-  @override
-  void onReady() {
-    super.onReady();
-  }
 
   buildQrView(BuildContext context) {
     // For this example we check how width or tall the device is and change the scanArea and overlay accordingly.

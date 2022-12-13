@@ -73,10 +73,9 @@ class Firestore {
 
     final snapShots = FirebaseFirestore.instance.collection("driver_requests").snapshots();
     snapShots.listen((event) {
-      event.docs.forEach((element) {
+      for (var element in event.docs) {
         print("current data: ${element.data().toString()}");
-      })
-     ;
+      }
     });
 
     // docRef.snapshots().listen(

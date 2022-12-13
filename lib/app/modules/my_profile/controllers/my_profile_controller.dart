@@ -80,9 +80,9 @@ class MyProfileController extends GetxController {
 
   void getUserId() async {
     UserIdMutation userIdMutation = UserIdMutation();
-    GraphQLClient _client = graphQLConfiguration.clientToQuery();
+    GraphQLClient client = graphQLConfiguration.clientToQuery();
 
-    QueryResult result = await _client.query(
+    QueryResult result = await client.query(
       QueryOptions(
         document: gql(userIdMutation.getMyUserId()),
       ),
@@ -124,9 +124,9 @@ class MyProfileController extends GetxController {
     print(name.text);
     print(address.text);
     print(phone.text);
-    GraphQLClient _client = graphQLConfiguration.clientToQuery();
+    GraphQLClient client = graphQLConfiguration.clientToQuery();
 
-    QueryResult result = await _client.mutate(
+    QueryResult result = await client.mutate(
       MutationOptions(
         document: gql(UpdateProfileQueryMutation.updateProfile),
         variables: <String, dynamic>{
@@ -163,10 +163,6 @@ class MyProfileController extends GetxController {
     }
   }
 
-  @override
-  void onReady() {
-    super.onReady();
-  }
 
   @override
   void onClose() {}

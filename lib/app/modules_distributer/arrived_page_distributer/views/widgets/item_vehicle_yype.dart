@@ -1,7 +1,6 @@
 import 'package:b2b_services/app/common/widgets/custom_button_feedback.dart';
 import 'package:b2b_services/app/config/theme/custom_colors.dart';
 import 'package:b2b_services/app/config/theme/custom_sizes.dart';
-import 'package:b2b_services/app/config/utils/color_util.dart';
 import 'package:flutter/material.dart';
 
 class ItemVehicleType extends StatefulWidget {

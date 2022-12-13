@@ -1,3 +1,5 @@
+// ignore_for_file: must_be_immutable
+
 import 'package:b2b_services/app/config/theme/custom_sizes.dart';
 import 'package:b2b_services/app/config/utils/pages_util.dart';
 import 'package:b2b_services/app/modules_distributer/delivred_page_distributer/views/widgets/item_delivered_item.dart';

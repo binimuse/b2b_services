@@ -30,7 +30,7 @@ class _NavigationScreenState extends State<NavigationScreen> {
 
   @override
   void initState() {
-    // TODO: implement initState
+   
     super.initState();
     getNavigation();
     addMarker();
@@ -101,27 +101,27 @@ class _NavigationScreenState extends State<NavigationScreen> {
   }
 
   getNavigation() async {
-    bool _serviceEnabled;
-    PermissionStatus _permissionGranted;
+    bool serviceEnabled;
+    PermissionStatus permissionGranted;
     final GoogleMapController? controller = await _controller.future;
     location.changeSettings(accuracy: loc.LocationAccuracy.high);
-    _serviceEnabled = await location.serviceEnabled();
+    serviceEnabled = await location.serviceEnabled();
 
-    if (!_serviceEnabled) {
-      _serviceEnabled = await location.requestService();
-      if (!_serviceEnabled) {
+    if (!serviceEnabled) {
+      serviceEnabled = await location.requestService();
+      if (!serviceEnabled) {
         return;
       }
     }
 
-    _permissionGranted = await location.hasPermission();
-    if (_permissionGranted == PermissionStatus.denied) {
-      _permissionGranted = await location.requestPermission();
-      if (_permissionGranted != PermissionStatus.granted) {
+    permissionGranted = await location.hasPermission();
+    if (permissionGranted == PermissionStatus.denied) {
+      permissionGranted = await location.requestPermission();
+      if (permissionGranted != PermissionStatus.granted) {
         return;
       }
     }
-    if (_permissionGranted == loc.PermissionStatus.granted) {
+    if (permissionGranted == loc.PermissionStatus.granted) {
       _currentPosition = await location.getLocation();
       curLocation =
           LatLng(_currentPosition!.latitude!, _currentPosition!.longitude!);
@@ -166,10 +166,10 @@ class _NavigationScreenState extends State<NavigationScreen> {
         PointLatLng(dst.latitude, dst.longitude),
         travelMode: TravelMode.driving);
     if (result.points.isNotEmpty) {
-      result.points.forEach((PointLatLng point) {
+      for (var point in result.points) {
         polylineCoordinates.add(LatLng(point.latitude, point.longitude));
         points.add({'lat': point.latitude, 'lng': point.longitude});
-      });
+      }
     } else {
       print(result.errorMessage);
     }

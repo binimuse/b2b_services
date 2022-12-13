@@ -1,9 +1,7 @@
 import 'package:b2b_services/app/common/widgets/custom_normal_button.dart';
-import 'package:b2b_services/app/common/widgets/form_error.dart';
 import 'package:b2b_services/app/config/theme/custom_sizes.dart';
 import 'package:b2b_services/app/config/utils/pages_util.dart';
 import 'package:flutter/material.dart';
-import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 
 import 'package:get/get.dart';
 import 'package:sizer/sizer.dart';

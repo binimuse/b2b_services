@@ -17,7 +17,6 @@ import '../../../modules_distributer/home_distributer/data/model/order_model.dar
 import '../../../modules_distributer/home_distributer/data/mutation/getdropoffquery.dart';
 import '../data/model/getdriver_model.dart';
 import '../data/mutation/getdriver_mutuation.dart';
-import '../data/mutation/starttrip.dart';
 import '../data/mutation/status_mutuation.dart';
 
 class HomeController extends GetxController {

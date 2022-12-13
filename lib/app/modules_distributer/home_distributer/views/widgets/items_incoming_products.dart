@@ -1,9 +1,7 @@
 import 'package:b2b_services/app/config/theme/custom_colors.dart';
 import 'package:b2b_services/app/config/theme/custom_sizes.dart';
 import 'package:b2b_services/app/modules_distributer/home_distributer/data/model/items_model.dart';
-import 'package:b2b_services/app/modules_distributer/home_distributer/data/model/shipment_model.dart';
 import 'package:flutter/material.dart';
-import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 
 class ItemIncomingProducts extends StatelessWidget {
   ItemIncomingProducts({
@@ -75,7 +73,7 @@ class ItemIncomingProducts extends StatelessWidget {
                     ),
                   ),
                   Text(
-                    itemsModel!.price.toString() + " ETB",
+                    "${itemsModel!.price} ETB",
                     style: Theme.of(context).textTheme.bodySmall?.copyWith(
                           fontWeight: FontWeight.bold,
                           color: CustomColors.blue,

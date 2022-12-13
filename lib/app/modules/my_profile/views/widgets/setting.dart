@@ -1,4 +1,4 @@
-// ignore_for_file: unnecessary_statements
+// ignore_for_file: unnecessary_statements, library_private_types_in_public_api
 
 import 'package:b2b_services/app/config/theme/custom_colors.dart';
 import 'package:b2b_services/app/constant/global_style.dart';

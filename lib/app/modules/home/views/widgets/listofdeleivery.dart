@@ -1,12 +1,10 @@
-// ignore_for_file: invalid_use_of_protected_member
+// ignore_for_file: invalid_use_of_protected_member, deprecated_member_use, library_prefixes
 
 import 'package:b2b_services/app/config/theme/custom_colors.dart';
 import 'package:b2b_services/app/config/theme/custom_sizes.dart';
 import 'package:b2b_services/app/config/utils/pages_util.dart';
 import 'package:b2b_services/app/modules/home/views/widgets/item_order2.dart';
-import 'package:b2b_services/app/modules/home/views/widgets/scan_qr_code.dart';
 
-import 'package:b2b_services/app/modules_distributer/arrived_page_distributer/views/widgets/item_order.dart';
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:get/get.dart';

@@ -23,9 +23,9 @@ class NotificationController extends GetxController {
 
   void getNotifications() async {
     NotificationMutation notificationMutation = NotificationMutation();
-    GraphQLClient _client = graphQLConfiguration.clientToQuery();
+    GraphQLClient client = graphQLConfiguration.clientToQuery();
 
-    QueryResult result = await _client.query(
+    QueryResult result = await client.query(
       QueryOptions(
         document: gql(notificationMutation.getNotification()),
       ),
@@ -49,10 +49,6 @@ class NotificationController extends GetxController {
     }
   }
 
-  @override
-  void onReady() {
-    super.onReady();
-  }
 
   @override
   void onClose() {}

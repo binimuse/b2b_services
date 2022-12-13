@@ -7,7 +7,6 @@ import 'package:b2b_services/app/modules_distributer/shipped_page_distributer/vi
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:get/get.dart';
-import 'package:get_cli/common/utils/json_serialize/json_ast/json_ast.dart';
 
 class ItemShipedItem extends StatefulWidget {
   const ItemShipedItem({
@@ -169,7 +168,7 @@ class _ItemShipedItemState extends State<ItemShipedItem> {
           Row(
             children: [
               Text(
-                widget.shipModel!.itemModel.length.toString() + " items",
+                "${widget.shipModel!.itemModel.length} items",
                 style: Theme.of(context).textTheme.bodyMedium?.copyWith(
                       fontWeight: FontWeight.w500,
                       color: CustomColors.lightBlack.withOpacity(0.7),

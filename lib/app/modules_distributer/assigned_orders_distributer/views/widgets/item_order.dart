@@ -4,7 +4,6 @@ import 'package:b2b_services/app/config/theme/custom_sizes.dart';
 import 'package:b2b_services/app/config/utils/color_util.dart';
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
-import 'package:get_cli/common/utils/json_serialize/json_ast/json_ast.dart';
 
 class ItemOrder extends StatefulWidget {
   const ItemOrder({Key? key, required this.onTap}) : super(key: key);

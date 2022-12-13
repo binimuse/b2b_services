@@ -5,7 +5,6 @@ import 'package:b2b_services/app/config/utils/color_util.dart';
 import 'package:b2b_services/app/modules_distributer/home_distributer/data/model/shipment_model.dart';
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
-import 'package:get_cli/common/utils/json_serialize/json_ast/json_ast.dart';
 
 class ItemDelivredItem extends StatefulWidget {
   const ItemDelivredItem({
@@ -176,7 +175,7 @@ class _ItemDelivredItemState extends State<ItemDelivredItem> {
                 width: CustomSizes.mp_w_1,
               ),
               Text(
-                "from " + "5 kilo",
+                "from " "5 kilo",
                 maxLines: 1,
                 overflow: TextOverflow.ellipsis,
                 style: Theme.of(context).textTheme.bodySmall?.copyWith(
@@ -188,7 +187,7 @@ class _ItemDelivredItemState extends State<ItemDelivredItem> {
                 width: CustomSizes.mp_v_1,
               ),
               Text(
-                "to " + "5 kilo",
+                "to " "5 kilo",
                 maxLines: 1,
                 overflow: TextOverflow.ellipsis,
                 style: Theme.of(context).textTheme.bodySmall?.copyWith(

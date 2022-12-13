@@ -4,8 +4,6 @@ import 'package:b2b_services/app/common/widgets/custom_button_feedback.dart';
 import 'package:b2b_services/app/config/theme/custom_colors.dart';
 import 'package:b2b_services/app/config/theme/custom_sizes.dart';
 import 'package:b2b_services/app/config/utils/color_util.dart';
-import 'package:b2b_services/app/modules_distributer/home_distributer/data/model/items_model.dart';
-import 'package:b2b_services/app/modules_distributer/home_distributer/data/model/order_model.dart';
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:get/get.dart';

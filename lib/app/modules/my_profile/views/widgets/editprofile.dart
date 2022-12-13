@@ -1,4 +1,4 @@
-// ignore_for_file: deprecated_member_use
+// ignore_for_file: deprecated_member_use, unnecessary_null_comparison, must_be_immutable
 
 import 'dart:io';
 
@@ -16,6 +16,7 @@ import '../../../../constant/constants.dart';
 
 class EditProfilePage extends GetView<MyProfileController> {
   EditProfilePage({Key? key}) : super(key: key);
+  @override
   MyProfileController controller = Get.put(MyProfileController());
 
   @override
@@ -96,8 +97,7 @@ class EditProfilePage extends GetView<MyProfileController> {
                                                 backgroundColor: Colors.white,
                                                 radius: Get.width / 6.5,
                                                 child: buildCacheNetworkImage(
-                                                    url: GLOBAL_URL +
-                                                        '/assets/images/user/avatar.png',
+                                                    url: '$GLOBAL_URL/assets/images/user/avatar.png',
                                                     width: 300),
                                               )
                                             : CircleAvatar(

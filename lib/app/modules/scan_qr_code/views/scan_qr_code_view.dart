@@ -47,7 +47,7 @@ class ScanQrCodeView extends GetView<ScanQrCodeController> {
                 ),
                 QrImage(
                   data:
-                      "dropOffid = ${controller.dropofforder!.dropOffid}, orderId = ${controller.dropofforder!.orderId}",
+                      "dropOffid = ${controller.dropofforder.dropOffid}, orderId = ${controller.dropofforder.orderId}",
                   version: QrVersions.auto,
                   size: 200.0,
                 ),

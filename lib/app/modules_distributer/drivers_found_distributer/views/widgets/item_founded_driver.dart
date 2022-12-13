@@ -1,10 +1,9 @@
+// ignore_for_file: non_constant_identifier_names
+
 import 'package:b2b_services/app/modules/scan_qr_code/views/generate_qr_code_view.dart';
-import 'package:b2b_services/app/routes/app_pages.dart';
 import 'package:flutter/material.dart';
 import 'package:b2b_services/app/config/theme/custom_colors.dart';
 import 'package:b2b_services/app/config/theme/custom_sizes.dart';
-import 'package:get/get.dart';
-import 'package:get/get_rx/src/rx_types/rx_types.dart';
 
 class ItemFoundedDriver extends StatefulWidget {
   ItemFoundedDriver({

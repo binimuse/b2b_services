@@ -2,10 +2,8 @@
 
 import 'dart:async';
 
-import 'package:b2b_services/app/config/theme/app_assets.dart';
 import 'package:b2b_services/app/modules/home/views/widgets/nav_drawer.dart';
 import 'package:b2b_services/app/modules/home/views/widgets/navigation_screen.dart';
-import 'package:b2b_services/app/routes/app_pages.dart';
 import 'package:dotted_line/dotted_line.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_ringtone_player/flutter_ringtone_player.dart';
@@ -14,10 +12,8 @@ import 'package:geolocator/geolocator.dart';
 import 'package:get/get.dart';
 import 'package:flutter_switch/flutter_switch.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
-import 'package:lottie/lottie.dart';
 import 'package:sizer/sizer.dart';
 import '../controllers/home_controller.dart';
-import 'widgets/listofdeleivery.dart';
 
 class HomeView extends GetView<HomeController> {
   static final CameraPosition initialposition = CameraPosition(

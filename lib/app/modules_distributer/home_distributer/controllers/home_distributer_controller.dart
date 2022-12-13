@@ -1,3 +1,5 @@
+// ignore_for_file: non_constant_identifier_names
+
 import 'dart:async';
 
 import 'package:b2b_services/app/modules_distributer/home_distributer/data/model/items_model.dart';
@@ -58,9 +60,9 @@ class HomeDistributerController extends GetxController {
 
   void getData() async {
     GetdistributorMutation getdistributorMutation = GetdistributorMutation();
-    GraphQLClient _client = graphQLConfiguration.clientToQuery();
+    GraphQLClient client = graphQLConfiguration.clientToQuery();
 
-    QueryResult result = await _client.query(
+    QueryResult result = await client.query(
       QueryOptions(
         document: gql(getdistributorMutation.getMydistributor()),
       ),
@@ -186,9 +188,9 @@ class HomeDistributerController extends GetxController {
 
   void getvehicleTypes() async {
     VehicleTypesMutation vehicleTypesMutation = VehicleTypesMutation();
-    GraphQLClient _client = graphQLConfiguration.clientToQuery();
+    GraphQLClient client = graphQLConfiguration.clientToQuery();
 
-    QueryResult result = await _client.query(
+    QueryResult result = await client.query(
       QueryOptions(
         document: gql(vehicleTypesMutation.getMyCvehicleTypes(10, 1)),
       ),

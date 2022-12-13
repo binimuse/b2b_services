@@ -4,12 +4,10 @@ import 'package:b2b_services/app/config/theme/custom_sizes.dart';
 import 'package:b2b_services/app/config/utils/pages_util.dart';
 import 'package:b2b_services/app/modules_distributer/home_distributer/controllers/home_distributer_controller.dart';
 import 'package:b2b_services/app/modules_distributer/shipped_page_distributer/views/widgets/item_shiped_item.dart';
-import 'package:b2b_services/app/routes/app_pages.dart';
 import 'package:flutter/material.dart';
 
 import 'package:get/get.dart';
 
-import '../controllers/shipped_page_distributer_controller.dart';
 
 class ShippedPageDistributerView extends StatelessWidget {
   ShippedPageDistributerView({Key? key}) : super(key: key);

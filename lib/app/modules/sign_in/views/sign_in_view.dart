@@ -1,3 +1,5 @@
+// ignore_for_file: invalid_use_of_protected_member
+
 import 'package:b2b_services/app/common/widgets/custom_button_feedback.dart';
 import 'package:b2b_services/app/common/widgets/form_error.dart';
 import 'package:b2b_services/app/config/theme/app_assets.dart';

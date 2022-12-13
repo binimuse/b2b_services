@@ -8,7 +8,7 @@ import 'app/routes/app_pages.dart';
 import 'package:sizer/sizer.dart';
 
 Future<void> _firebaseMessagingBackgroundHandler(RemoteMessage message) async {
-  print("FCM TEST => message ${message}");
+  print("FCM TEST => message $message");
 }
 
 void main() async {
@@ -28,7 +28,7 @@ void main() async {
   );
 
   FCMConfig.instance.messaging.getToken().then((token) {
-    print("FCM TEST => TOKEN ${token}");
+    print("FCM TEST => TOKEN $token");
   });
 
   runApp(

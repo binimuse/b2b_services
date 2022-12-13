@@ -1,7 +1,6 @@
 import 'package:b2b_services/app/config/theme/custom_colors.dart';
 import 'package:b2b_services/app/config/theme/custom_sizes.dart';
 import 'package:flutter/material.dart';
-import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 
 class ItemIventoryProducts extends StatelessWidget {
   const ItemIventoryProducts({Key? key}) : super(key: key);
