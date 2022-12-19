@@ -23,6 +23,16 @@ class Dropofforderdestinations {
   });
 }
 
+class LatLngs {
+  late String lat;
+  late String lng;
+
+  LatLngs({
+    required this.lat,
+    required this.lng,
+  });
+}
+
 class Shipmentorderdestinations {
   late String orderId;
   late String retailer_name;

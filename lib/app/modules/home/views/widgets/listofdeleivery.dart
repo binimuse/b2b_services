@@ -116,6 +116,7 @@ class ListOfDeleivery extends GetView<HomeController> {
                                 : EdgeInsets.zero,
                             child: ItemOrder2(
                               dropofforder: controller.dropOffOrder[index],
+                              latlngs: controller.latlngs.value,
                               index: index,
                               onTap: () {},
                             ),

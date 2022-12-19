@@ -216,6 +216,12 @@ class HomeDistributerController extends GetxController {
   }
 
   void createDropoff() async {
+
+    print("{orderId}");
+    print(vehicleID.value);
+    print(userId.value);
+
+
     isLoading(true);
     GraphQLClient client = graphQLConfiguration.clientToQuery();
     QueryResult result = await client.mutate(
@@ -241,6 +247,7 @@ class HomeDistributerController extends GetxController {
       dropofftrips();
       isLoading(false);
     } else {
+      print(result.exception);
       isLoading(false);
       Get.dialog(AlertDialog(
         shape: RoundedRectangleBorder(

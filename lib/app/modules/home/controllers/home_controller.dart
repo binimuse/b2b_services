@@ -35,12 +35,16 @@ class HomeController extends GetxController {
   var cost = "".obs;
   var dropoff_id = 0.obs;
   var shipment_id = 0.obs;
+  var lat = 0.obs;
+  var lng = 0.obs;
   Timer? timer;
   late GoogleMapController mapController;
 
   LatLng currentPosition = LatLng(9.0073117, 38.7476045);
   RxList<Dropofforderdestinations> dropofforderdestinations =
       List<Dropofforderdestinations>.of([]).obs;
+
+  RxList<LatLngs> latlngs = List<LatLngs>.of([]).obs;
 
   RxList<Dropofforder> dropOffOrder = List<Dropofforder>.of([]).obs;
   var itemModel = <ItemsModel>[].obs;
@@ -83,7 +87,7 @@ class HomeController extends GetxController {
 
       if (isStatusOn.isTrue) {
         listenToDrivedRequestForDropOff();
-        //  listenToDrivedRequestForShipMent();
+        listenToDrivedRequestForShipMent();
       }
     } else {
       print(result.exception);
@@ -250,6 +254,19 @@ class HomeController extends GetxController {
                     ["retailer_name"],
               ));
             }
+
+            for (var i = 0;
+                i < event.data()!['dropoff_order_destinations']['geo'].length;
+                i++) {
+              latlngs.add(LatLngs(
+                lat: event.data()!['dropoff_order_destinations']['geo'][i]
+                    ["lat"],
+                lng: event.data()!['dropoff_order_destinations']['geo'][i]
+                    ["lng"],
+              ));
+            }
+
+            print("lat----- {latlngs.length)}");
 
             getDropOffsss();
           } else {
