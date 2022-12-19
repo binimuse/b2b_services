@@ -120,7 +120,7 @@ class SignInView extends GetView<SignInController> {
                         if (value.isNotEmpty) {
                           controller.removeError(error: kEmailNullError);
                         }
-                        return null;
+                        return;
                       },
                       validator: (value) {
                         if (value!.isEmpty) {
@@ -159,7 +159,7 @@ class SignInView extends GetView<SignInController> {
                         if (value.isNotEmpty) {
                           controller.removeError(error: kPassNullError);
                         }
-                        return null;
+                        return;
                       },
                       validator: (value) {
                         if (value!.isEmpty) {

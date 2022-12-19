@@ -139,23 +139,23 @@ class HomeView extends GetView<HomeController> {
           SizedBox(
             width: 2.w,
           ),
-          Container(
-            color: Colors.white,
-            child: IconButton(
-                onPressed: () {
-                  // Get.to(ListOfDeleivery());
+          // Container(
+          //   color: Colors.white,
+          //   child: IconButton(
+          //       onPressed: () {
+          //         // Get.to(ListOfDeleivery());
 
-                  Navigator.of(context).push(MaterialPageRoute(
-                      builder: (context) => NavigationScreen(
-                          double.parse("9.0143403"),
-                          double.parse("38.5575517"))));
-                },
-                icon: Icon(
-                  Icons.menu,
-                  color: Colors.greenAccent,
-                  size: 9.w,
-                )),
-          ),
+          //         Navigator.of(context).push(MaterialPageRoute(
+          //             builder: (context) => NavigationScreen(
+          //                 double.parse("9.0143403"),
+          //                 double.parse("38.5575517"))));
+          //       },
+          //       icon: Icon(
+          //         Icons.menu,
+          //         color: Colors.greenAccent,
+          //         size: 9.w,
+          //       )),
+          // ),
         ],
       ),
     );

@@ -70,7 +70,6 @@ class SignInController extends GetxController {
   }
 
   void signIn() async {
-    print("haha ");
     openAndCloseLoadingDialog();
     if (email!.isNotEmpty && password!.isNotEmpty) {
       signingIn(true);
@@ -85,6 +84,7 @@ class SignInController extends GetxController {
       );
 
       if (!result.hasException) {
+      
         final prefs = await SharedPreferences.getInstance();
 
         // print(result.data!["AccessToken"]);
@@ -121,7 +121,6 @@ class SignInController extends GetxController {
     );
   }
 
-
   @override
   void onClose() {}
   void increment() => count.value++;
@@ -129,9 +128,9 @@ class SignInController extends GetxController {
   void getUser() async {
     final prefs = await SharedPreferences.getInstance();
     GetUserQueryMutation getUserQueryMutation = GetUserQueryMutation();
-    GraphQLClient _client = graphQLConfiguration.clientToQuery();
+    GraphQLClient client = graphQLConfiguration.clientToQuery();
 
-    QueryResult result = await _client.query(
+    QueryResult result = await client.query(
       QueryOptions(
         document: gql(getUserQueryMutation.getUser()),
       ),
