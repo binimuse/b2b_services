@@ -24,8 +24,8 @@ class Dropofforderdestinations {
 }
 
 class LatLngs {
-  late String lat;
-  late String lng;
+  late double lat;
+  late double lng;
 
   LatLngs({
     required this.lat,

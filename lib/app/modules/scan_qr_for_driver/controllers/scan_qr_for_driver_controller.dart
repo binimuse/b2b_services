@@ -1,11 +1,14 @@
 import 'dart:io';
 
 import 'package:b2b_services/app/Services/graphql_conf.dart';
+import 'package:b2b_services/app/modules/home/controllers/home_controller.dart';
 import 'package:b2b_services/app/modules/home/data/mutation/starttrip.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:graphql_flutter/graphql_flutter.dart';
 import 'package:qr_code_scanner/qr_code_scanner.dart';
+
+import '../../home/views/widgets/navigation_screen.dart';
 
 class ScanQrForDriverController extends GetxController {
   GraphQLConfiguration graphQLConfiguration = GraphQLConfiguration();
@@ -29,6 +32,12 @@ class ScanQrForDriverController extends GetxController {
     controllers!.resumeCamera();
   }
 
+  late HomeController controller;
+  @override
+  void onInit() {
+    controller = Get.arguments['controller'];
+    super.onInit();
+  }
 
   buildQrView(BuildContext context) {
     // For this example we check how width or tall the device is and change the scanArea and overlay accordingly.
@@ -100,7 +109,9 @@ class ScanQrForDriverController extends GetxController {
         ),
       ));
 
-      justWait(numberOfSeconds: 2);
+      justWait(
+        numberOfSeconds: 2,
+      );
     } else {
       data.value = "";
       Get.dialog(AlertDialog(
@@ -119,6 +130,9 @@ class ScanQrForDriverController extends GetxController {
     await Future.delayed(Duration(seconds: numberOfSeconds));
     Get.back();
     Get.back();
+    await Future.delayed(Duration(seconds: numberOfSeconds));
+    Get.to(NavigationScreen(
+        controller.latlngs.first.lat, controller.latlngs.first.lng));
   }
 
   @override

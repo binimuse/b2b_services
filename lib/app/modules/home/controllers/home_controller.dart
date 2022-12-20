@@ -215,6 +215,24 @@ class HomeController extends GetxController {
         if (event.data() == null) {
           isDriverRequestActiveForShipMent(false);
         } else {
+          // for (var drop = 0;
+          //     drop < event.data()!['dropoff_order_destinations'].length;
+          //     drop++) {
+          //   for (var array = 0;
+          //       array <
+          //           event
+          //               .data()!['dropoff_order_destinations'][drop]['geo']
+          //               .length;
+          //       array++) {
+          //     latlngs.add(LatLngs(
+          //       lat: event.data()!['dropoff_order_destinations'][drop]['geo']
+          //           [array]["lat"],
+          //       lng: event.data()!['dropoff_order_destinations'][drop]['geo']
+          //           [array]["lng"],
+          //     ));
+          //   }
+          // }
+
           if (event.data()!['status'] == 'PENDING') {
             isDriverRequestActiveForShipMent(true);
             cost.value = event.data()!['cost'].toString();
@@ -255,18 +273,9 @@ class HomeController extends GetxController {
               ));
             }
 
-            for (var i = 0;
-                i < event.data()!['dropoff_order_destinations']['geo'].length;
-                i++) {
-              latlngs.add(LatLngs(
-                lat: event.data()!['dropoff_order_destinations']['geo'][i]
-                    ["lat"],
-                lng: event.data()!['dropoff_order_destinations']['geo'][i]
-                    ["lng"],
-              ));
-            }
+            print("lat----- am hereeeeeeeeee");
 
-            print("lat----- {latlngs.length)}");
+            print("lat----- ${latlngs.length}");
 
             getDropOffsss();
           } else {
@@ -280,7 +289,7 @@ class HomeController extends GetxController {
   void listenToDrivedRequestForDropOff() {
     FlutterRingtonePlayer.stop();
     FlutterRingtonePlayer.stop();
-    print("TEST=> getDriver ${getDriver.length}");
+
     final snapShots = FirebaseFirestore.instance
         .collection("dropoff_driver_requests")
         .doc(getDriver.single.id)
@@ -291,6 +300,18 @@ class HomeController extends GetxController {
         if (event.data() == null) {
           isDriverRequestActiveForDropOff(false);
         } else {
+          for (var drop = 0;
+              drop < event.data()!['dropoff_order_destinations'].length;
+              drop++) {
+                
+            latlngs.add(LatLngs(
+              lat: event.data()!['dropoff_order_destinations'][drop]["geo"]
+                  ["lat"],
+              lng: event.data()!['dropoff_order_destinations'][drop]["geo"]
+                  ["lng"],
+            ));
+          }
+
           if (event.data()!['status'] == 'PENDING') {
             isDriverRequestActiveForDropOff(true);
             cost.value = event.data()!['cost'].toString();
@@ -328,6 +349,19 @@ class HomeController extends GetxController {
                     ["retailer_name"],
               ));
             }
+
+            print(
+                "lat---------------------------------------------------------");
+            // for (var i = 0;
+            //     i < event.data()!['dropoff_order_destinations']['geo'].length;
+            //     i++) {
+            //   latlngs.add(LatLngs(
+            //     lat: event.data()!['dropoff_order_destinations']['geo'][i]
+            //         ["lat"],
+            //     lng: event.data()!['dropoff_order_destinations']['geo'][i]
+            //         ["lng"],
+            //   ));
+            // }
 
             getDropOffsss();
           } else {

@@ -138,7 +138,10 @@ class ListOfDeleivery extends GetView<HomeController> {
                               action: () {
                                 // controller.startTrip();
 
-                                Get.toNamed(Routes.SCAN_QR_FOR_DRIVER);
+                                Get.toNamed(Routes.SCAN_QR_FOR_DRIVER,
+                                    arguments: {
+                                      "controller": controller,
+                                    });
                               },
 
                               ///Put label over here

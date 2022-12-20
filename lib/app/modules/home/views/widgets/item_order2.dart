@@ -112,18 +112,20 @@ class _ItemOrderState extends State<ItemOrder2> {
                       ),
                     )
                   : SizedBox(),
-              // Expanded(
-              //   child: Text(
-              //     "order Id - ${widget.latlngs!.first.lat}",
-              //     maxLines: 1,
-              //     overflow: TextOverflow.ellipsis,
-              //     style: Theme.of(context).textTheme.bodyMedium?.copyWith(
-              //           color: CustomColors.black,
-              //           fontSize: CustomSizes.font_10,
-              //           fontWeight: FontWeight.w600,
+              // widget.latlngs!.isNotEmpty
+              //     ? Expanded(
+              //         child: Text(
+              //           "order Id - ${widget.latlngs!.first.lat}",
+              //           maxLines: 1,
+              //           overflow: TextOverflow.ellipsis,
+              //           style: Theme.of(context).textTheme.bodyMedium?.copyWith(
+              //                 color: CustomColors.black,
+              //                 fontSize: CustomSizes.font_10,
+              //                 fontWeight: FontWeight.w600,
+              //               ),
               //         ),
-              //   ),
-              // ),
+              //       )
+              //     : SizedBox(),
               Material(
                 color: CustomColors.blue.withOpacity(0.2),
                 borderRadius: BorderRadius.circular(CustomSizes.radius_6 * 6),

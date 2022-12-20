@@ -144,10 +144,7 @@ class HomeView extends GetView<HomeController> {
           //       onPressed: () {
           //         // Get.to(ListOfDeleivery());
 
-          //         Navigator.of(context).push(MaterialPageRoute(
-          //             builder: (context) => NavigationScreen(
-          //                 double.parse("9.0143403"),
-          //                 double.parse("38.5575517"))));
+      
           //       },
           //       icon: Icon(
           //         Icons.menu,
