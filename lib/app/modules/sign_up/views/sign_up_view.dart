@@ -75,7 +75,7 @@ class SignUpView extends GetView<SignUpController> {
 
   Text buildActHeader(BuildContext context) {
     return Text(
-      "ACT",
+      "ANT B2B",
       textAlign: TextAlign.center,
       style: Theme.of(context)
           .textTheme

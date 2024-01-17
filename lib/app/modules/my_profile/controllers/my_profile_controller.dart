@@ -88,7 +88,7 @@ class MyProfileController extends GetxController {
       ),
     );
 
-    if (!result.hasException) {
+    if (!result.hasException && result.data!["auth"]["distributor"] != null) {
       loadingUserID(true);
 
       getUser.add(GestUserModel(
@@ -162,7 +162,6 @@ class MyProfileController extends GetxController {
           radius: 30);
     }
   }
-
 
   @override
   void onClose() {}

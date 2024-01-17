@@ -70,7 +70,7 @@ class SignInView extends GetView<SignInController> {
 
   Text buildActHeader(BuildContext context) {
     return Text(
-      "ACT",
+      "ANT B2B",
       textAlign: TextAlign.center,
       style: Theme.of(context)
           .textTheme

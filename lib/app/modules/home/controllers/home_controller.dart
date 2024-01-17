@@ -74,7 +74,7 @@ class HomeController extends GetxController {
       ),
     );
 
-    if (!result.hasException) {
+    if (!result.hasException && result.data!["auth"]["driver"] != null) {
       getDriver.clear();
 
       loadingDriver(true);
@@ -303,7 +303,6 @@ class HomeController extends GetxController {
           for (var drop = 0;
               drop < event.data()!['dropoff_order_destinations'].length;
               drop++) {
-                
             latlngs.add(LatLngs(
               lat: event.data()!['dropoff_order_destinations'][drop]["geo"]
                   ["lat"],

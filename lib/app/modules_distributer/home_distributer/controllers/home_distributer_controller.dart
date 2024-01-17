@@ -68,7 +68,7 @@ class HomeDistributerController extends GetxController {
       ),
     );
 
-    if (!result.hasException) {
+    if (!result.hasException && result.data!["auth"]["distributor"] != null) {
       userId.value = result.data!["auth"]["distributor"]["id"];
       shipModel.clear();
       itemModel.clear();
@@ -144,7 +144,7 @@ class HomeDistributerController extends GetxController {
       ),
     );
 
-    if (!result.hasException) {
+    if (!result.hasException && result.data!["auth"]["distributor"] != null) {
       orderData.clear();
 
       for (var i = 0;

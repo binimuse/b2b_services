@@ -129,7 +129,7 @@ class _NavDrawerState extends State<NavDrawer> {
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
                 Text(
-                  "ACT IT",
+                  "ANT B2B",
                   style: TextStyle(
                       color: Colors.blue,
                       fontSize: 14.sp,
